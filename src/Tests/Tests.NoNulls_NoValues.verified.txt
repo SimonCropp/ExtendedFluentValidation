@@ -1,0 +1,25 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: ReadWrite,
+      ErrorMessage: 'Read Write' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Read Write,
+        PropertyValue: null
+      }
+    },
+    {
+      PropertyName: Read,
+      ErrorMessage: 'Read' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Read,
+        PropertyValue: null
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}

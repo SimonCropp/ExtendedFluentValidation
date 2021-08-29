@@ -1,0 +1,16 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: Read,
+      ErrorMessage: 'Read' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Read,
+        PropertyValue: null
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}

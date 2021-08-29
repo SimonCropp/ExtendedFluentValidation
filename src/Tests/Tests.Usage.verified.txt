@@ -1,0 +1,40 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: FamilyName,
+      ErrorMessage: 'Family Name' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Family Name,
+        PropertyValue: null
+      }
+    },
+    {
+      PropertyName: Id,
+      ErrorMessage: 'Id' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      AttemptedValue: Guid_1,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_1,
+        PropertyName: Id,
+        PropertyValue: Guid_1
+      }
+    },
+    {
+      PropertyName: Dob,
+      ErrorMessage: 'Dob' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      AttemptedValue: DateTimeOffset_1,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: DateTimeOffset_1,
+        PropertyName: Dob,
+        PropertyValue: DateTimeOffset_1
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net48;net5;net6</TargetFrameworks>
+    <NoWarn>$(NoWarn);CS0649;CS8618;CS0105</NoWarn>
+    <langVersion>preview</langVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
+    <PackageReference Include="Verify.Xunit" Version="11.24.0" />
+    <PackageReference Include="Xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.0.0" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.56" PrivateAssets="All" />
+    <ProjectReference Include="..\Extensions.FluentValidation\Extensions.FluentValidation.csproj" />
+  </ItemGroup>
+</Project>
