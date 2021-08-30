@@ -1,4 +1,4 @@
-﻿{
+{
   Errors: [
     {
       PropertyName: FamilyName,
@@ -23,7 +23,7 @@
     },
     {
       PropertyName: Dob,
-      ErrorMessage: 'Dob' must not be equal to '1/1/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: 'Dob' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
       AttemptedValue: DateTimeOffset_1,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
