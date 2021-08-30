@@ -231,7 +231,8 @@ public class Tests
             FirstName = "Joe"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verifier.Verify(result)
+            .AddScrubber(builder => builder.Replace("1/01/0001", "1/1/0001"));
     }
 
     #region Person
