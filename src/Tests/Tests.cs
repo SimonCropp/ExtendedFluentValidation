@@ -196,6 +196,36 @@ public class Tests
     }
 
     [Fact]
+    public Task Compounded()
+    {
+        var validator = new TargetCompoundedValidator();
+
+        var target = new TargetCompounded
+        {
+            Property1 = null!,
+            Property2 = "123"
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    class TargetCompoundedValidator :
+        ExtendedValidator<TargetCompounded>
+    {
+        public TargetCompoundedValidator()
+        {
+            RuleFor(x => x.Property1).MaximumLength(2);
+            RuleFor(x => x.Property2).MaximumLength(2);
+        }
+    }
+
+    class TargetCompounded
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+
+    [Fact]
     public Task ValueTypes_WithValues()
     {
         var validator = new TargetValueTypesValidator();
@@ -236,7 +266,7 @@ public class Tests
     }
 
     #region Person
-    
+
     public class Person
     {
         public Guid Id { get; set; }

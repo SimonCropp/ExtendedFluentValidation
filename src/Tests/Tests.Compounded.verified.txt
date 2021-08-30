@@ -1,0 +1,29 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: Property1,
+      ErrorMessage: 'Property1' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Property1,
+        PropertyValue: null
+      }
+    },
+    {
+      PropertyName: Property2,
+      ErrorMessage: The length of 'Property2' must be 2 characters or fewer. You entered 3 characters.,
+      AttemptedValue: 123,
+      ErrorCode: MaximumLengthValidator,
+      FormattedMessagePlaceholderValues: {
+        MaxLength: 2,
+        MinLength: 0,
+        PropertyName: Property2,
+        PropertyValue: 123,
+        TotalLength: 3
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}
