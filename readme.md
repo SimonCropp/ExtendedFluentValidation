@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> Extensions.FluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/636i70gvxfuwdq38?svg=true)](https://ci.appveyor.com/project/SimonCropp/Extensions.FluentValidation)
+[![Build status](https://ci.appveyor.com/api/projects/status/5nmc1c9p0br8b58s?svg=true)](https://ci.appveyor.com/project/SimonCropp/Extensions.FluentValidation)
 [![NuGet Status](https://img.shields.io/nuget/v/Extensions.FluentValidation.svg)](https://www.nuget.org/packages/Extensions.FluentValidation/)
 
 Extends [FluentValidation](https://fluentvalidation.net/) with some more opinionated rules. 
@@ -51,9 +51,13 @@ Using a base class `ExtendedValidator`:
 class PersonValidatorFromBase :
     ExtendedValidator<Person>
 {
+    public PersonValidatorFromBase()
+    {
+        //TODO: add any extra rules
+    }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L250-L257' title='Snippet source file'>snippet source</a> | <a href='#snippet-extendedvalidatorusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L251-L262' title='Snippet source file'>snippet source</a> | <a href='#snippet-extendedvalidatorusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -70,10 +74,11 @@ class PersonValidatorNonBase :
     public PersonValidatorNonBase()
     {
         this.AddExtendedRules();
+        //TODO: add any extra rules
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L259-L270' title='Snippet source file'>snippet source</a> | <a href='#snippet-addextendedrulesusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L264-L276' title='Snippet source file'>snippet source</a> | <a href='#snippet-addextendedrulesusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -93,7 +98,7 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L237-L248' title='Snippet source file'>snippet source</a> | <a href='#snippet-person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L238-L249' title='Snippet source file'>snippet source</a> | <a href='#snippet-person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
@@ -104,6 +109,8 @@ class PersonValidatorEquivalent :
 {
     public PersonValidatorEquivalent()
     {
+        RuleFor(x => x.Id)
+            .NotEqual(Guid.Empty);
         RuleFor(x => x.FirstName)
             .NotEmpty();
         RuleFor(x => x.MiddleName)
@@ -115,7 +122,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L272-L290' title='Snippet source file'>snippet source</a> | <a href='#snippet-equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L278-L298' title='Snippet source file'>snippet source</a> | <a href='#snippet-equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
