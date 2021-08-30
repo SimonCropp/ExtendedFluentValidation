@@ -1,14 +1,14 @@
-# <img src="/src/icon.png" height="30px"> Extensions.FluentValidation
+# <img src="/src/icon.png" height="30px"> ExtendedFluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/5nmc1c9p0br8b58s?svg=true)](https://ci.appveyor.com/project/SimonCropp/Extensions.FluentValidation)
-[![NuGet Status](https://img.shields.io/nuget/v/Extensions.FluentValidation.svg)](https://www.nuget.org/packages/Extensions.FluentValidation/)
+[![Build status](https://ci.appveyor.com/api/projects/status/5nmc1c9p0br8b58s?svg=true)](https://ci.appveyor.com/project/SimonCropp/ExtendedFluentValidation)
+[![NuGet Status](https://img.shields.io/nuget/v/ExtendedFluentValidation.svg)](https://www.nuget.org/packages/ExtendedFluentValidation/)
 
 Extends [FluentValidation](https://fluentvalidation.net/) with some more opinionated rules. 
 
 
 ## Nuget
 
-https://nuget.org/packages/Extensions.FluentValidation/
+https://nuget.org/packages/ExtendedFluentValidation/
 
 
 ## Extra Rules
