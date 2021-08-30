@@ -128,4 +128,4 @@ class PersonValidatorEquivalent :
 
 ## Icon
 
-[Reflection](https://thenounproject.com/term/reflection/4087162/) designed by [Yogi Aprelliyanto](https://thenounproject.com/yogiaprelliyanto/) from [The Noun Project](https://thenounproject.com).
+[Pointed Star](https://thenounproject.com/term/pointed+star/802333/) designed by [Eliricon](https://thenounproject.com/mordarius/) from [The Noun Project](https://thenounproject.com).
