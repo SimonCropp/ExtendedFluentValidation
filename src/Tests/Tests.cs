@@ -252,6 +252,10 @@ public class Tests
     class PersonValidatorFromBase :
         ExtendedValidator<Person>
     {
+        public PersonValidatorFromBase()
+        {
+            //TODO: add any extra rules
+        }
     }
 
     #endregion
@@ -264,6 +268,7 @@ public class Tests
         public PersonValidatorNonBase()
         {
             this.AddExtendedRules();
+            //TODO: add any extra rules
         }
     }
 
@@ -276,6 +281,8 @@ public class Tests
     {
         public PersonValidatorEquivalent()
         {
+            RuleFor(x => x.Id)
+                .NotEqual(Guid.Empty);
             RuleFor(x => x.FirstName)
                 .NotEmpty();
             RuleFor(x => x.MiddleName)
