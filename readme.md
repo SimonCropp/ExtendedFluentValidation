@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> ExtendedFluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/5nmc1c9p0br8b58s?svg=true)](https://ci.appveyor.com/project/SimonCropp/ExtendedFluentValidation)
+[![Build status](https://ci.appveyor.com/api/projects/status/3lr9er83fo8mij5i?svg=true)](https://ci.appveyor.com/project/SimonCropp/ExtendedFluentValidation)
 [![NuGet Status](https://img.shields.io/nuget/v/ExtendedFluentValidation.svg)](https://www.nuget.org/packages/ExtendedFluentValidation/)
 
 Extends [FluentValidation](https://fluentvalidation.net/) with some more opinionated rules. 
@@ -13,7 +13,7 @@ https://nuget.org/packages/ExtendedFluentValidation/
 
 ## Extra Rules
 
-Note: These are a first iteration. Toggling these defaults will be avaliable in a future version.
+Note: These are a first iteration. Toggling these defaults will be available in a future version.
 
 
 ### Nullability
