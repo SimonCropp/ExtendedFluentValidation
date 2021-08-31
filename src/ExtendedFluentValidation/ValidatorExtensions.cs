@@ -71,15 +71,18 @@ namespace FluentValidation
 
         static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
         {
-            return validator.RuleFor<TTarget, object>(property);
+            var param = Expression.Parameter(typeof(TTarget));
+            var body = Expression.Property(param, property);
+            var converted = Expression.Convert(body, typeof(object));
+            var expression = Expression.Lambda<Func<TTarget, object>>(converted, param);
+            return validator.RuleFor(expression);
         }
 
         public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(this AbstractValidator<TTarget> validator, PropertyInfo property)
         {
             var param = Expression.Parameter(typeof(TTarget));
             var body = Expression.Property(param, property);
-            var converted = Expression.Convert(body, typeof(TProperty));
-            var expression = Expression.Lambda<Func<TTarget, TProperty>>(converted, param);
+            var expression = Expression.Lambda<Func<TTarget, TProperty>>(body, param);
             return validator.RuleFor(expression);
         }
     }
