@@ -2,10 +2,10 @@
 
 namespace FluentValidation
 {
-    public abstract class ExtendedValidator<T> :
+    public class ExtendedValidator<T> :
         AbstractValidator<T>
     {
-        protected ExtendedValidator()
+        public ExtendedValidator()
         {
             this.AddExtendedRules();
         }
