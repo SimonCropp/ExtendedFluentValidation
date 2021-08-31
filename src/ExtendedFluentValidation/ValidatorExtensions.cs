@@ -69,7 +69,7 @@ namespace FluentValidation
             }
         }
 
-        public static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+        static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
         {
             return validator.RuleFor<TTarget, object>(property);
         }
