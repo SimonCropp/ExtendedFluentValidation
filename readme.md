@@ -28,7 +28,7 @@ It leverages nullability information to make all non-nullable reference properti
 
 ### Strings
 
-String cannot be `String.Empty`.
+String cannot be `String.Empty` or only white-space.
 
 
 ### Guids
