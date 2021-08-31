@@ -61,7 +61,7 @@ class PersonValidatorFromBase :
 <!-- endSnippet -->
 
 
-### AddNullableRules
+### AddExtendedRules
 
 Using an extension method `AddExtendedRules`:
 
