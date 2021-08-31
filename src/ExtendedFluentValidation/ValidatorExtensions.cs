@@ -9,14 +9,9 @@ namespace FluentValidation
 {
     public static class ValidatorExtensions
     {
-        const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-
         public static void AddExtendedRules<T>(this AbstractValidator<T> validator)
         {
-            var type = typeof(T);
-            var properties = type.GetProperties(flags)
-                .Where(x => x.GetMethod != null)
-                .ToList();
+            var properties = Extensions.GettableProperties<T>();
 
             var notNullProperties = properties
                 .Where(x => x.PropertyType.IsClass &&
@@ -48,6 +43,7 @@ namespace FluentValidation
             AddNotEquals<T, DateTime>(validator, otherProperties);
             AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
         }
+
 
         static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
             where TProperty : struct
