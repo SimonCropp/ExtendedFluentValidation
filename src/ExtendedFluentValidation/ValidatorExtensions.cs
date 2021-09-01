@@ -9,6 +9,34 @@ namespace FluentValidation
 {
     public static class ValidatorExtensions
     {
+        static Dictionary<Type, IValidator> conventions = new();
+
+        public static AbstractValidator<T> SharedValidatorFor<T>()
+        {
+            var type = typeof(T);
+            ConstructableValidator<T> extendedValidator;
+
+            if (conventions.TryGetValue(type, out var validator))
+            {
+                extendedValidator = (ConstructableValidator<T>)validator;
+            }
+            else
+            {
+                conventions[type] = extendedValidator = new();
+            }
+
+            return extendedValidator;
+        }
+
+        public static IEnumerable<IValidator> GetSharedValidatorsFor<TTarget>()
+        {
+            var type = typeof(TTarget);
+
+            return conventions
+                .Where(convention => convention.Key.IsAssignableFrom(type))
+                .Select(x => x.Value);
+        }
+
         public static void AddExtendedRules<T>(this AbstractValidator<T> validator)
         {
             var properties = Extensions.GettableProperties<T>();
@@ -44,6 +72,16 @@ namespace FluentValidation
             AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
         }
 
+        public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
+        {
+            var innerContext = new ValidationContext<T>(context.InstanceToValidate);
+            foreach (var contextItem in context.RootContextData)
+            {
+                innerContext.RootContextData.Add(contextItem);
+            }
+
+            return innerContext;
+        }
 
         static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
             where TProperty : struct

@@ -1,0 +1,25 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: RowVersion,
+      ErrorMessage: 'Row Version' must not be empty.,
+      ErrorCode: NotNullValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Row Version,
+        PropertyValue: null
+      }
+    },
+    {
+      PropertyName: Id,
+      ErrorMessage: 'Id' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      AttemptedValue: Guid_1,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_1,
+        PropertyName: Id,
+        PropertyValue: Guid_1
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48;net5;net6</TargetFrameworks>
+    <TargetFrameworks>net5;net6</TargetFrameworks>
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105</NoWarn>
     <langVersion>preview</langVersion>
   </PropertyGroup>
