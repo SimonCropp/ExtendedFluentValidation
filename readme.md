@@ -109,15 +109,15 @@ class PersonValidatorEquivalent :
 {
     public PersonValidatorEquivalent()
     {
-        RuleFor(x => x.Id)
+        RuleFor(_ => _.Id)
             .NotEqual(Guid.Empty);
-        RuleFor(x => x.FirstName)
+        RuleFor(_ => _.FirstName)
             .NotEmpty();
-        RuleFor(x => x.MiddleName)
+        RuleFor(_ => _.MiddleName)
             .SetValidator(new NotWhiteSpaceValidator<Person>());
-        RuleFor(x => x.FamilyName)
+        RuleFor(_ => _.FamilyName)
             .NotEmpty();
-        RuleFor(x => x.Dob)
+        RuleFor(_ => _.Dob)
             .NotEqual(DateTimeOffset.MinValue);
     }
 }
@@ -192,18 +192,18 @@ class PersonValidatorEquivalent :
 {
     public PersonValidatorEquivalent()
     {
-        RuleFor(x => x.Id)
+        RuleFor(_ => _.Id)
             .NotEqual(Guid.Empty);
-        RuleFor(x => x.Name)
+        RuleFor(_ => _.Name)
             .NotEmpty();
-        RuleFor(x => x.RowVersion)
+        RuleFor(_ => _.RowVersion)
             .NotNull()
             .Must(rowVersion => rowVersion?.Length == 8)
             .WithMessage("RowVersion must be 8 bytes");
     }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L64-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L64-L82' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

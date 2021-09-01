@@ -35,7 +35,7 @@ namespace FluentValidation
                 return result;
             }
 
-            var inner = sharedValidators.SelectMany(x => x.Validate(context.Clone()).Errors);
+            var inner = sharedValidators.SelectMany(_ => _.Validate(context.Clone()).Errors);
             return MergeErrors(inner, result.Errors);
         }
 
@@ -61,7 +61,7 @@ namespace FluentValidation
         {
             foreach (var innerError in innerErrors)
             {
-                if (errors.Any(x => x.ErrorMessage == innerError.ErrorMessage))
+                if (errors.Any(_ => _.ErrorMessage == innerError.ErrorMessage))
                 {
                     continue;
                 }

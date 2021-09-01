@@ -60,22 +60,24 @@ public class SharedRuleTests
     }
 
     #endregion
-    
+
     #region SharedRulesEquivalent
+
     class PersonValidatorEquivalent :
         AbstractValidator<Person>
     {
         public PersonValidatorEquivalent()
         {
-            RuleFor(x => x.Id)
+            RuleFor(_ => _.Id)
                 .NotEqual(Guid.Empty);
-            RuleFor(x => x.Name)
+            RuleFor(_ => _.Name)
                 .NotEmpty();
-            RuleFor(x => x.RowVersion)
+            RuleFor(_ => _.RowVersion)
                 .NotNull()
                 .Must(rowVersion => rowVersion?.Length == 8)
                 .WithMessage("RowVersion must be 8 bytes");
         }
     }
+
     #endregion
 }

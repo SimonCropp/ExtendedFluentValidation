@@ -34,16 +34,21 @@ namespace FluentValidation
 
             return conventions
                 .Where(convention => convention.Key.IsAssignableFrom(type))
-                .Select(x => x.Value);
+                .Select(_ => _.Value);
         }
 
-        public static void AddExtendedRules<T>(this AbstractValidator<T> validator)
+        public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null)
         {
             var properties = Extensions.GettableProperties<T>();
 
+            if (exclusions != null)
+            {
+                properties = properties.Where(x => !exclusions.Contains(x.Name)).ToList();
+            }
+
             var notNullProperties = properties
-                .Where(x => x.PropertyType.IsClass &&
-                            x.GetNullabilityInfo().ReadState == NullabilityState.NotNull)
+                .Where(_ => _.PropertyType.IsClass &&
+                            _.GetNullabilityInfo().ReadState == NullabilityState.NotNull)
                 .ToList();
             foreach (var property in notNullProperties)
             {
@@ -60,7 +65,7 @@ namespace FluentValidation
             var otherProperties = properties.Except(notNullProperties).ToList();
 
             var stringProperties = otherProperties
-                .Where(x => x.PropertyType == typeof(string));
+                .Where(_ => _.PropertyType == typeof(string));
             foreach (var property in stringProperties)
             {
                 var ruleFor = validator.RuleFor<T, string?>(property);
@@ -87,7 +92,7 @@ namespace FluentValidation
             where TProperty : struct
         {
             var typedProperties = properties
-                .Where(x => x.PropertyType == typeof(TProperty));
+                .Where(_ => _.PropertyType == typeof(TProperty));
             foreach (var property in typedProperties)
             {
                 var ruleFor = validator.RuleFor<TTarget, TProperty>(property);
@@ -95,7 +100,7 @@ namespace FluentValidation
             }
 
             var typedNullableProperties = properties
-                .Where(x => x.PropertyType == typeof(TProperty?));
+                .Where(_ => _.PropertyType == typeof(TProperty?));
             foreach (var property in typedNullableProperties)
             {
                 var ruleFor = validator.RuleFor<TTarget, TProperty?>(property);

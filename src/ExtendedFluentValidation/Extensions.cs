@@ -10,7 +10,7 @@ static class Extensions
     {
         var type = typeof(T);
         return type.GetProperties(flags)
-            .Where(x => x.GetMethod != null)
+            .Where(_ => _.GetMethod != null)
             .ToList();
     }
 }

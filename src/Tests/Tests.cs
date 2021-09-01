@@ -214,8 +214,8 @@ public class Tests
     {
         public TargetCompoundedValidator()
         {
-            RuleFor(x => x.Property1).MaximumLength(2);
-            RuleFor(x => x.Property2).MaximumLength(2);
+            RuleFor(_ => _.Property1).MaximumLength(2);
+            RuleFor(_ => _.Property2).MaximumLength(2);
         }
     }
 
@@ -312,15 +312,15 @@ public class Tests
     {
         public PersonValidatorEquivalent()
         {
-            RuleFor(x => x.Id)
+            RuleFor(_ => _.Id)
                 .NotEqual(Guid.Empty);
-            RuleFor(x => x.FirstName)
+            RuleFor(_ => _.FirstName)
                 .NotEmpty();
-            RuleFor(x => x.MiddleName)
+            RuleFor(_ => _.MiddleName)
                 .SetValidator(new NotWhiteSpaceValidator<Person>());
-            RuleFor(x => x.FamilyName)
+            RuleFor(_ => _.FamilyName)
                 .NotEmpty();
-            RuleFor(x => x.Dob)
+            RuleFor(_ => _.Dob)
                 .NotEqual(DateTimeOffset.MinValue);
         }
     }
