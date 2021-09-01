@@ -20,6 +20,15 @@
         PropertyName: Id,
         PropertyValue: Guid_1
       }
+    },
+    {
+      PropertyName: RowVersion,
+      ErrorMessage: RowVersion must be 8 bytes,
+      ErrorCode: PredicateValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Row Version,
+        PropertyValue: null
+      }
     }
   ]
 }

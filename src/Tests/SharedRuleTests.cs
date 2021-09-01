@@ -8,14 +8,18 @@ using Xunit;
 [UsesVerify]
 public class SharedRuleTests
 {
-    #region SharedRules
+    #region SharedRulesInit
+
     [ModuleInitializer]
     public static void Init()
     {
         ValidatorExtensions.SharedValidatorFor<IDbRecord>()
             .RuleFor(record => record.RowVersion)
-            .NotEmpty();
+            .Must(rowVersion => rowVersion?.Length == 8)
+            .WithMessage("RowVersion must be 8 bytes");
     }
+
+    #endregion
 
     [Fact]
     public Task Usage()
@@ -29,10 +33,9 @@ public class SharedRuleTests
         var result = validator.Validate(target);
         return Verifier.Verify(result);
     }
-    #endregion
 
-    #region PersonSharedRules
-    
+    #region SharedRulesModels
+
     public interface IDbRecord
     {
         public byte[] RowVersion { get; }
@@ -51,10 +54,28 @@ public class SharedRuleTests
 
     #region SharedRulesUsage
 
-    class PersonValidator:
+    class PersonValidator :
         ExtendedValidator<Person>
     {
     }
 
+    #endregion
+    
+    #region SharedRulesEquivalent
+    class PersonValidatorEquivalent :
+        AbstractValidator<Person>
+    {
+        public PersonValidatorEquivalent()
+        {
+            RuleFor(x => x.Id)
+                .NotEqual(Guid.Empty);
+            RuleFor(x => x.Name)
+                .NotEmpty();
+            RuleFor(x => x.RowVersion)
+                .NotNull()
+                .Must(rowVersion => rowVersion?.Length == 8)
+                .WithMessage("RowVersion must be 8 bytes");
+        }
+    }
     #endregion
 }

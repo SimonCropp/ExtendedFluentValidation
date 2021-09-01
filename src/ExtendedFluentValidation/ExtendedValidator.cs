@@ -35,8 +35,8 @@ namespace FluentValidation
                 return result;
             }
 
-            var innerErrors = sharedValidators.SelectMany(x => x.Validate(context.Clone()).Errors);
-            return MergeErrors(innerErrors, result.Errors);
+            var inner = sharedValidators.SelectMany(x => x.Validate(context.Clone()).Errors);
+            return MergeErrors(inner, result.Errors);
         }
 
         public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, CancellationToken cancellation = default)
@@ -46,14 +46,15 @@ namespace FluentValidation
             {
                 return result;
             }
-            
-            var innerErrors = new List<ValidationFailure>();
+
+            var inner = new List<ValidationFailure>();
             foreach (var innerValidator in sharedValidators)
             {
                 var validationResult = await innerValidator.ValidateAsync(context.Clone(), cancellation);
-                innerErrors.AddRange(validationResult.Errors);
+                inner.AddRange(validationResult.Errors);
             }
-            return MergeErrors(innerErrors, result.Errors);
+
+            return MergeErrors(inner, result.Errors);
         }
 
         static ValidationResult MergeErrors(IEnumerable<ValidationFailure> innerErrors, List<ValidationFailure> errors)

@@ -126,6 +126,87 @@ class PersonValidatorEquivalent :
 <!-- endSnippet -->
 
 
+## Shared Rules
+
+Given the following models:
+
+<!-- snippet: SharedRulesModels -->
+<a id='snippet-sharedrulesmodels'></a>
+```cs
+public interface IDbRecord
+{
+    public byte[] RowVersion { get; }
+    public Guid Id { get; }
+}
+
+public class Person :
+    IDbRecord
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public byte[] RowVersion { get; set; }
+}
+```
+<sup><a href='/src/Tests/SharedRuleTests.cs#L37-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesmodels' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+It is desirabel to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using Share Rule.
+
+Configure any shared rules at startup:
+
+<!-- snippet: SharedRulesInit -->
+<a id='snippet-sharedrulesinit'></a>
+```cs
+[ModuleInitializer]
+public static void Init()
+{
+    ValidatorExtensions.SharedValidatorFor<IDbRecord>()
+        .RuleFor(record => record.RowVersion)
+        .Must(rowVersion => rowVersion?.Length == 8)
+        .WithMessage("RowVersion must be 8 bytes");
+}
+```
+<sup><a href='/src/Tests/SharedRuleTests.cs#L11-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesinit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The `PersonValidator` used only the standard rules, so need no constructor.
+
+<!-- snippet: SharedRulesUsage -->
+<a id='snippet-sharedrulesusage'></a>
+```cs
+class PersonValidator :
+    ExtendedValidator<Person>
+{
+}
+```
+<sup><a href='/src/Tests/SharedRuleTests.cs#L55-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesusage' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The above is equivalent to:
+
+<!-- snippet: SharedRulesEquivalent -->
+<a id='snippet-sharedrulesequivalent'></a>
+```cs
+class PersonValidatorEquivalent :
+    AbstractValidator<Person>
+{
+    public PersonValidatorEquivalent()
+    {
+        RuleFor(x => x.Id)
+            .NotEqual(Guid.Empty);
+        RuleFor(x => x.Name)
+            .NotEmpty();
+        RuleFor(x => x.RowVersion)
+            .NotNull()
+            .Must(rowVersion => rowVersion?.Length == 8)
+            .WithMessage("RowVersion must be 8 bytes");
+    }
+}
+```
+<sup><a href='/src/Tests/SharedRuleTests.cs#L64-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Icon
 
 [Pointed Star](https://thenounproject.com/term/pointed+star/802333/) designed by [Eliricon](https://thenounproject.com/mordarius/) from [The Noun Project](https://thenounproject.com).
