@@ -169,7 +169,7 @@ public static void Init()
 <sup><a href='/src/Tests/SharedRuleTests.cs#L11-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesinit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The `PersonValidator` used only the standard rules, so need no constructor.
+The `PersonValidator` used only the standard rules, so needs no constructor.
 
 <!-- snippet: SharedRulesUsage -->
 <a id='snippet-sharedrulesusage'></a>
