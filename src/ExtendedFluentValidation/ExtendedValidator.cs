@@ -17,6 +17,11 @@ namespace FluentValidation
             sharedValidators = ValidatorExtensions.GetSharedValidatorsFor<T>().ToList();
         }
 
+        public ExtendedValidator()
+        {
+            this.AddExtendedRules();
+        }
+
         public ExtendedValidator(IReadOnlyList<string>? exclusions = null)
         {
             this.AddExtendedRules(exclusions);
