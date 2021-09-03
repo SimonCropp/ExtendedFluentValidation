@@ -150,7 +150,7 @@ public class Person :
 <sup><a href='/src/Tests/SharedRuleTests.cs#L37-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesmodels' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-It is desirable to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using Share Rules.
+It is desirable to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using shares rules.
 
 Configure any shared rules at startup:
 
