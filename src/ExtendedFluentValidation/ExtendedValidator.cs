@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -7,6 +8,15 @@ using FluentValidation.Results;
 
 namespace FluentValidation
 {
+    public static class ExtendedValidator
+    {
+        public static IValidator GetInstance(Type type)
+        {
+            var genericType = typeof(ExtendedValidator<>).MakeGenericType(type);
+            return (IValidator)Activator.CreateInstance(genericType)!;
+        }
+    }
+
     public class ExtendedValidator<T> :
         AbstractValidator<T>
     {
