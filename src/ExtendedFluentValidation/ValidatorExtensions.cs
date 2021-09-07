@@ -71,6 +71,15 @@ namespace FluentValidation
 
             var otherProperties = properties.Except(notNullProperties).ToList();
 
+            NotWhiteSpace(validator, otherProperties);
+            NotEmptyCollections(validator, otherProperties);
+            AddNotEquals<T, Guid>(validator, otherProperties);
+            AddNotEquals<T, DateTime>(validator, otherProperties);
+            AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
+        }
+
+        static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+        {
             var stringProperties = otherProperties
                 .Where(_ => _.IsString());
             foreach (var property in stringProperties)
@@ -78,6 +87,10 @@ namespace FluentValidation
                 var ruleFor = validator.RuleFor<T, string?>(property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
             }
+        }
+
+        static void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+        {
             var collectionProperties = otherProperties
                 .Where(_ => !_.IsString() &&
                             _.IsCollection());
@@ -86,10 +99,6 @@ namespace FluentValidation
                 var ruleFor = validator.RuleFor<T, IEnumerable>(property);
                 ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
             }
-
-            AddNotEquals<T, Guid>(validator, otherProperties);
-            AddNotEquals<T, DateTime>(validator, otherProperties);
-            AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
         }
 
         public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
