@@ -14,6 +14,11 @@ namespace FluentValidation.Validators
                 return true;
             }
 
+            if (value is ICollection collection)
+            {
+                return collection.Count > 0;
+            }
+
             return value.Cast<object>().Any();
         }
 
