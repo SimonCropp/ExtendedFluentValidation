@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,8 +15,15 @@ static class Extensions
             .ToList();
     }
 
-    public static bool IsCollection(this Type type)
+    public static bool IsString(this PropertyInfo property)
     {
+        return property.PropertyType == typeof(string);
+    }
+
+    public static bool IsCollection(this PropertyInfo property)
+    {
+        var type = property.PropertyType;
+
         if (typeof(ICollection).IsAssignableFrom(type))
         {
             return true;

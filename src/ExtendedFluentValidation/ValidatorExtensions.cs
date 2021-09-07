@@ -49,15 +49,15 @@ namespace FluentValidation
 
             var notNullProperties = properties
                 .Where(_ => _.PropertyType.IsClass &&
-                            _.GetNullabilityInfo().ReadState == NullabilityState.NotNull)
+                            !_.IsNullable())
                 .ToList();
             foreach (var property in notNullProperties)
             {
-                if (property.PropertyType == typeof(string))
+                if (property.IsString())
                 {
                     validator.RuleFor<T, string>(property).NotEmpty();
                 }
-                else if (property.PropertyType.IsCollection())
+                else if (property.IsCollection())
                 {
                     validator.RuleFor(property).NotNull();
                     var ruleFor = validator.RuleFor<T, IEnumerable>(property);
@@ -72,15 +72,15 @@ namespace FluentValidation
             var otherProperties = properties.Except(notNullProperties).ToList();
 
             var stringProperties = otherProperties
-                .Where(_ => _.PropertyType == typeof(string));
+                .Where(_ => _.IsString());
             foreach (var property in stringProperties)
             {
                 var ruleFor = validator.RuleFor<T, string?>(property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
             }
             var collectionProperties = otherProperties
-                .Where(_ => _.PropertyType != typeof(string) &&
-                            _.PropertyType.IsCollection());
+                .Where(_ => !_.IsString() &&
+                            _.IsCollection());
             foreach (var property in collectionProperties)
             {
                 var ruleFor = validator.RuleFor<T, IEnumerable>(property);
