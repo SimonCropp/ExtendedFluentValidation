@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -56,6 +57,12 @@ namespace FluentValidation
                 {
                     validator.RuleFor<T, string>(property).NotEmpty();
                 }
+                else if (property.PropertyType.IsCollection())
+                {
+                    validator.RuleFor(property).NotNull();
+                    var ruleFor = validator.RuleFor<T, IEnumerable>(property);
+                    ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
+                }
                 else
                 {
                     validator.RuleFor(property).NotNull();
@@ -70,6 +77,14 @@ namespace FluentValidation
             {
                 var ruleFor = validator.RuleFor<T, string?>(property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+            }
+            var collectionProperties = otherProperties
+                .Where(_ => _.PropertyType != typeof(string) &&
+                            _.PropertyType.IsCollection());
+            foreach (var property in collectionProperties)
+            {
+                var ruleFor = validator.RuleFor<T, IEnumerable>(property);
+                ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
             }
 
             AddNotEquals<T, Guid>(validator, otherProperties);

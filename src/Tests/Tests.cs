@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Validators;
@@ -146,6 +147,55 @@ public class Tests
         public Guid NotNullable { get; set; }
     }
 
+    [Fact]
+    public Task List_NonEmpty()
+    {
+        var validator = new TargetWithListsValidator();
+
+        var target = new TargetWithLists
+        {
+            NotNullable = new() {"a"},
+            Nullable = new() {"a"}
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    public Task List_Defaults()
+    {
+        var validator = new TargetWithListsValidator();
+
+        var target = new TargetWithLists();
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    public Task List_Empty()
+    {
+        var validator = new TargetWithListsValidator();
+
+        var target = new TargetWithLists
+        {
+            NotNullable = new(),
+            Nullable = new()
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    class TargetWithListsValidator :
+        ExtendedValidator<TargetWithLists>
+    {
+    }
+
+    class TargetWithLists
+    {
+        public List<string>? Nullable { get; set; }
+        public List<string> NotNullable { get; set; }
+    }
+    
     [Fact]
     public Task Strings_NonEmpty()
     {
