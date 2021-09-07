@@ -1,9 +1,10 @@
 ﻿using System.Collections;
-using System.Linq;
 
 namespace FluentValidation.Validators
 {
-    public class NotEmptyCollectionValidator<T> : PropertyValidator<T, IEnumerable?>, INotEmptyValidator
+    public class NotEmptyCollectionValidator<T> :
+        PropertyValidator<T, IEnumerable?>,
+        INotEmptyValidator
     {
         public override string Name => "NotEmptyValidator";
 
@@ -19,7 +20,7 @@ namespace FluentValidation.Validators
                 return collection.Count > 0;
             }
 
-            return value.Cast<object>().Any();
+            return value.GetEnumerator().MoveNext();
         }
 
         protected override string GetDefaultMessageTemplate(string errorCode)
