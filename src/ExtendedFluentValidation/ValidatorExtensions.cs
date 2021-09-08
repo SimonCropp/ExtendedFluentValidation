@@ -38,7 +38,7 @@ namespace FluentValidation
                 .Select(_ => _.Value);
         }
 
-        public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null)
+        public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false)
         {
             var properties = Extensions.GettableProperties<T>();
 
@@ -57,7 +57,7 @@ namespace FluentValidation
                 {
                     validator.RuleFor<T, string>(property).NotEmpty();
                 }
-                else if (property.IsCollection())
+                else if (validateEmptyLists && property.IsCollection())
                 {
                     validator.RuleFor(property).NotNull();
                     var ruleFor = validator.RuleFor<T, IEnumerable>(property);
@@ -72,7 +72,10 @@ namespace FluentValidation
             var otherProperties = properties.Except(notNullProperties).ToList();
 
             NotWhiteSpace(validator, otherProperties);
-            NotEmptyCollections(validator, otherProperties);
+            if (validateEmptyLists)
+            {
+                NotEmptyCollections(validator, otherProperties);
+            }
             AddNotEquals<T, Guid>(validator, otherProperties);
             AddNotEquals<T, DateTime>(validator, otherProperties);
             AddNotEquals<T, DateTimeOffset>(validator, otherProperties);

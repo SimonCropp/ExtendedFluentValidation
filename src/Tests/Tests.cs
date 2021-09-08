@@ -188,6 +188,11 @@ public class Tests
     class TargetWithListsValidator :
         ExtendedValidator<TargetWithLists>
     {
+        public TargetWithListsValidator() :
+            base(validateEmptyLists: true)
+        {
+
+        }
     }
 
     class TargetWithLists
