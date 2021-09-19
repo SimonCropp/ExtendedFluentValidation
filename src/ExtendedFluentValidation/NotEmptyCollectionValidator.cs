@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace FluentValidation.Validators
+﻿namespace FluentValidation.Validators
 {
     public class NotEmptyCollectionValidator<T> :
         PropertyValidator<T, IEnumerable?>,

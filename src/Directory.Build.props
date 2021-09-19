@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>0.6.2</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <PackageTags></PackageTags>
+    <LanVersion>10.0</LanVersion>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Description>Extends FluentValidation with some more opinionated rules and extensions.</Description>
     <NoWarn>CS8600;CS8602;CS8604;IDE0049;IDE0007;CS1591</NoWarn>
