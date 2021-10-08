@@ -3,13 +3,13 @@
     {
       PropertyName: NotNullable,
       ErrorMessage: 'Not Nullable' must not be equal to '00000000-0000-0000-0000-000000000000'.,
-      AttemptedValue: Guid_1,
+      AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
-        ComparisonValue: Guid_1,
+        ComparisonValue: Guid_Empty,
         PropertyName: Not Nullable,
-        PropertyValue: Guid_1
+        PropertyValue: Guid_Empty
       }
     }
   ],

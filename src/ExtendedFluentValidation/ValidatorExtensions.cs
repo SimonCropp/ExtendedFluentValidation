@@ -1,152 +1,149 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Linq.Expressions;
 using FluentValidation.Validators;
 
-namespace FluentValidation
+namespace FluentValidation;
+
+public static class ValidatorExtensions
 {
-    public static class ValidatorExtensions
+    static Dictionary<Type, IValidator> conventions = new();
+
+    public static AbstractValidator<T> SharedValidatorFor<T>()
     {
-        static Dictionary<Type, IValidator> conventions = new();
+        var type = typeof(T);
+        ConstructableValidator<T> extendedValidator;
 
-        public static AbstractValidator<T> SharedValidatorFor<T>()
+        if (conventions.TryGetValue(type, out var validator))
         {
-            var type = typeof(T);
-            ConstructableValidator<T> extendedValidator;
-
-            if (conventions.TryGetValue(type, out var validator))
-            {
-                extendedValidator = (ConstructableValidator<T>)validator;
-            }
-            else
-            {
-                conventions[type] = extendedValidator = new();
-            }
-
-            return extendedValidator;
+            extendedValidator = (ConstructableValidator<T>)validator;
+        }
+        else
+        {
+            conventions[type] = extendedValidator = new();
         }
 
-        public static IEnumerable<IValidator> GetSharedValidatorsFor<TTarget>()
-        {
-            var type = typeof(TTarget);
+        return extendedValidator;
+    }
 
-            return conventions
-                .Where(convention => convention.Key.IsAssignableFrom(type))
-                .Select(_ => _.Value);
+    public static IEnumerable<IValidator> GetSharedValidatorsFor<TTarget>()
+    {
+        var type = typeof(TTarget);
+
+        return conventions
+            .Where(convention => convention.Key.IsAssignableFrom(type))
+            .Select(_ => _.Value);
+    }
+
+    public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false)
+    {
+        var properties = Extensions.GettableProperties<T>();
+
+        if (exclusions != null)
+        {
+            properties = properties.Where(x => !exclusions.Contains(x.Name)).ToList();
         }
 
-        public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false)
+        var notNullProperties = properties
+            .Where(_ => _.PropertyType.IsClass &&
+                        !_.IsNullable())
+            .ToList();
+        foreach (var property in notNullProperties)
         {
-            var properties = Extensions.GettableProperties<T>();
-
-            if (exclusions != null)
+            if (property.IsString())
             {
-                properties = properties.Where(x => !exclusions.Contains(x.Name)).ToList();
+                validator.RuleFor<T, string>(property).NotEmpty();
             }
-
-            var notNullProperties = properties
-                .Where(_ => _.PropertyType.IsClass &&
-                            !_.IsNullable())
-                .ToList();
-            foreach (var property in notNullProperties)
+            else if (validateEmptyLists && property.IsCollection())
             {
-                if (property.IsString())
-                {
-                    validator.RuleFor<T, string>(property).NotEmpty();
-                }
-                else if (validateEmptyLists && property.IsCollection())
-                {
-                    validator.RuleFor(property).NotNull();
-                    var ruleFor = validator.RuleFor<T, IEnumerable>(property);
-                    ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
-                }
-                else
-                {
-                    validator.RuleFor(property).NotNull();
-                }
-            }
-
-            var otherProperties = properties.Except(notNullProperties).ToList();
-
-            NotWhiteSpace(validator, otherProperties);
-            if (validateEmptyLists)
-            {
-                NotEmptyCollections(validator, otherProperties);
-            }
-            AddNotEquals<T, Guid>(validator, otherProperties);
-            AddNotEquals<T, DateTime>(validator, otherProperties);
-            AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
-        }
-
-        static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
-        {
-            var stringProperties = otherProperties
-                .Where(_ => _.IsString());
-            foreach (var property in stringProperties)
-            {
-                var ruleFor = validator.RuleFor<T, string?>(property);
-                ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
-            }
-        }
-
-        static void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
-        {
-            var collectionProperties = otherProperties
-                .Where(_ => !_.IsString() &&
-                            _.IsCollection());
-            foreach (var property in collectionProperties)
-            {
+                validator.RuleFor(property).NotNull();
                 var ruleFor = validator.RuleFor<T, IEnumerable>(property);
                 ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
             }
-        }
-
-        public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
-        {
-            var innerContext = new ValidationContext<T>(context.InstanceToValidate);
-            foreach (var contextItem in context.RootContextData)
+            else
             {
-                innerContext.RootContextData.Add(contextItem);
-            }
-
-            return innerContext;
-        }
-
-        static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
-            where TProperty : struct
-        {
-            var typedProperties = properties
-                .Where(_ => _.PropertyType == typeof(TProperty));
-            foreach (var property in typedProperties)
-            {
-                var ruleFor = validator.RuleFor<TTarget, TProperty>(property);
-                ruleFor.NotEqual(default(TProperty));
-            }
-
-            var typedNullableProperties = properties
-                .Where(_ => _.PropertyType == typeof(TProperty?));
-            foreach (var property in typedNullableProperties)
-            {
-                var ruleFor = validator.RuleFor<TTarget, TProperty?>(property);
-                ruleFor.NotEqual(default(TProperty));
+                validator.RuleFor(property).NotNull();
             }
         }
 
-        static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+        var otherProperties = properties.Except(notNullProperties).ToList();
+
+        NotWhiteSpace(validator, otherProperties);
+        if (validateEmptyLists)
         {
-            var param = Expression.Parameter(typeof(TTarget));
-            var body = Expression.Property(param, property);
-            var converted = Expression.Convert(body, typeof(object));
-            var expression = Expression.Lambda<Func<TTarget, object>>(converted, param);
-            return validator.RuleFor(expression);
+            NotEmptyCollections(validator, otherProperties);
+        }
+        AddNotEquals<T, Guid>(validator, otherProperties);
+        AddNotEquals<T, DateTime>(validator, otherProperties);
+        AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
+    }
+
+    static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    {
+        var stringProperties = otherProperties
+            .Where(_ => _.IsString());
+        foreach (var property in stringProperties)
+        {
+            var ruleFor = validator.RuleFor<T, string?>(property);
+            ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+        }
+    }
+
+    static void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    {
+        var collectionProperties = otherProperties
+            .Where(_ => !_.IsString() &&
+                        _.IsCollection());
+        foreach (var property in collectionProperties)
+        {
+            var ruleFor = validator.RuleFor<T, IEnumerable>(property);
+            ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
+        }
+    }
+
+    public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
+    {
+        var innerContext = new ValidationContext<T>(context.InstanceToValidate);
+        foreach (var contextItem in context.RootContextData)
+        {
+            innerContext.RootContextData.Add(contextItem);
         }
 
-        public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+        return innerContext;
+    }
+
+    static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+        where TProperty : struct
+    {
+        var typedProperties = properties
+            .Where(_ => _.PropertyType == typeof(TProperty));
+        foreach (var property in typedProperties)
         {
-            var param = Expression.Parameter(typeof(TTarget));
-            var body = Expression.Property(param, property);
-            var expression = Expression.Lambda<Func<TTarget, TProperty>>(body, param);
-            return validator.RuleFor(expression);
+            var ruleFor = validator.RuleFor<TTarget, TProperty>(property);
+            ruleFor.NotEqual(default(TProperty));
         }
+
+        var typedNullableProperties = properties
+            .Where(_ => _.PropertyType == typeof(TProperty?));
+        foreach (var property in typedNullableProperties)
+        {
+            var ruleFor = validator.RuleFor<TTarget, TProperty?>(property);
+            ruleFor.NotEqual(default(TProperty));
+        }
+    }
+
+    static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+    {
+        var param = Expression.Parameter(typeof(TTarget));
+        var body = Expression.Property(param, property);
+        var converted = Expression.Convert(body, typeof(object));
+        var expression = Expression.Lambda<Func<TTarget, object>>(converted, param);
+        return validator.RuleFor(expression);
+    }
+
+    public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+    {
+        var param = Expression.Parameter(typeof(TTarget));
+        var body = Expression.Property(param, property);
+        var expression = Expression.Lambda<Func<TTarget, TProperty>>(body, param);
+        return validator.RuleFor(expression);
     }
 }

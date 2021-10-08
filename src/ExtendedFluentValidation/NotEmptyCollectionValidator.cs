@@ -1,29 +1,28 @@
-﻿namespace FluentValidation.Validators
+﻿namespace FluentValidation.Validators;
+
+public class NotEmptyCollectionValidator<T> :
+    PropertyValidator<T, IEnumerable?>,
+    INotEmptyValidator
 {
-    public class NotEmptyCollectionValidator<T> :
-        PropertyValidator<T, IEnumerable?>,
-        INotEmptyValidator
+    public override string Name => "NotEmptyValidator";
+
+    public override bool IsValid(ValidationContext<T> context, IEnumerable? value)
     {
-        public override string Name => "NotEmptyValidator";
-
-        public override bool IsValid(ValidationContext<T> context, IEnumerable? value)
+        if (value == null)
         {
-            if (value == null)
-            {
-                return true;
-            }
-
-            if (value is ICollection collection)
-            {
-                return collection.Count > 0;
-            }
-
-            return value.GetEnumerator().MoveNext();
+            return true;
         }
 
-        protected override string GetDefaultMessageTemplate(string errorCode)
+        if (value is ICollection collection)
         {
-            return Localized(errorCode, Name);
+            return collection.Count > 0;
         }
+
+        return value.GetEnumerator().MoveNext();
+    }
+
+    protected override string GetDefaultMessageTemplate(string errorCode)
+    {
+        return Localized(errorCode, Name);
     }
 }

@@ -1,4 +1,4 @@
-{
+﻿{
   Errors: [
     {
       PropertyName: FamilyName,
@@ -12,25 +12,25 @@
     {
       PropertyName: Id,
       ErrorMessage: 'Id' must not be equal to '00000000-0000-0000-0000-000000000000'.,
-      AttemptedValue: Guid_1,
+      AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
-        ComparisonValue: Guid_1,
+        ComparisonValue: Guid_Empty,
         PropertyName: Id,
-        PropertyValue: Guid_1
+        PropertyValue: Guid_Empty
       }
     },
     {
       PropertyName: Dob,
       ErrorMessage: 'Dob' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
-      AttemptedValue: DateTimeOffset_1,
+      AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
-        ComparisonValue: DateTimeOffset_1,
+        ComparisonValue: Date_MinValue,
         PropertyName: Dob,
-        PropertyValue: DateTimeOffset_1
+        PropertyValue: Date_MinValue
       }
     }
   ],

@@ -5,8 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.3" />
-    <PackageReference Include="NullabilityInfo" Version="0.2.6" PrivateAssets="All" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <PackageReference Include="NullabilityInfo" Version="0.2.7" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.59" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
   </ItemGroup>
 </Project>

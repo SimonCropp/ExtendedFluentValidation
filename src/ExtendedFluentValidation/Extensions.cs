@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-static class Extensions
+﻿static class Extensions
 {
     const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
