@@ -43,8 +43,16 @@ public static class ValidatorExtensions
         }
 
         var notNullProperties = properties
-            .Where(_ => _.PropertyType.IsClass &&
-                        !_.IsNullable())
+            .Where(_ =>
+            {
+                if (!_.PropertyType.IsClass)
+                {
+                    return false;
+                }
+
+                var nullability = _.GetNullability();
+                return nullability == NullabilityState.NotNull;
+            })
             .ToList();
         foreach (var property in notNullProperties)
         {
