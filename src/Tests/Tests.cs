@@ -85,6 +85,52 @@ public class Tests
     }
 
     [Fact]
+    public Task Disabled_NonEmpty()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled
+        {
+            NotNullable = new("25896344-193c-48b3-ab71-53859d347647"),
+            Nullable = new Guid("25896344-193c-48b3-ab71-53859d347647")
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result)
+            .ModifySerialization(settings => settings.DontScrubGuids());
+    }
+
+    [Fact]
+    public Task Disabled_Defaults()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled();
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    public Task Disabled_Empty()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled
+        {
+            NotNullable = Guid.Empty,
+            Nullable = Guid.Empty
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+//#nullable enable
+    class TargetWithDisabled
+    {
+        public Guid? Nullable { get; set; }
+        public Guid NotNullable { get; set; }
+    }
+//#nullable disable
+    [Fact]
     public Task Guids_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();

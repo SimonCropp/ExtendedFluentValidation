@@ -1,0 +1,31 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: NotNullable,
+      ErrorMessage: 'Not Nullable' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
+        PropertyName: Not Nullable,
+        PropertyValue: Guid_Empty
+      }
+    },
+    {
+      PropertyName: Nullable,
+      ErrorMessage: 'Nullable' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
+        PropertyName: Nullable,
+        PropertyValue: Guid_Empty
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}
