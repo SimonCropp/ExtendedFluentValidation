@@ -9,7 +9,7 @@ public class Tests
     [Fact]
     public Task Nulls_NoValues()
     {
-        var validator = new TargetWithNullsValidator();
+        var validator = new ExtendedValidator<TargetWithNulls>();
 
         var result = validator.Validate(new TargetWithNulls());
         return Verifier.Verify(result);
@@ -18,7 +18,7 @@ public class Tests
     [Fact]
     public Task Nulls_WithValues()
     {
-        var validator = new TargetWithNullsValidator();
+        var validator = new ExtendedValidator<TargetWithNulls>();
 
         var target = new TargetWithNulls
         {
@@ -26,11 +26,6 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
-    }
-
-    class TargetWithNullsValidator :
-        ExtendedValidator<TargetWithNulls>
-    {
     }
 
     class TargetWithNulls
@@ -48,7 +43,7 @@ public class Tests
     [Fact]
     public Task NoNulls_NoValues()
     {
-        var validator = new TargetWithNoNullsValidator();
+        var validator = new ExtendedValidator<TargetWithNoNulls>();
 
         var result = validator.Validate(new TargetWithNoNulls());
         return Verifier.Verify(result);
@@ -57,7 +52,7 @@ public class Tests
     [Fact]
     public Task NoNulls_WithValues()
     {
-        var validator = new TargetWithNoNullsValidator();
+        var validator = new ExtendedValidator<TargetWithNoNulls>();
 
         var target = new TargetWithNoNulls
         {
@@ -66,11 +61,6 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
-    }
-
-    class TargetWithNoNullsValidator :
-        ExtendedValidator<TargetWithNoNulls>
-    {
     }
 
     class TargetWithNoNulls
@@ -88,16 +78,62 @@ public class Tests
     [Fact]
     public Task ValueTypes_NoValues()
     {
-        var validator = new TargetValueTypesValidator();
+        var validator = new ExtendedValidator<TargetValueTypes>();
 
         var result = validator.Validate(new TargetValueTypes());
         return Verifier.Verify(result);
     }
 
     [Fact]
+    public Task Disabled_NonEmpty()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled
+        {
+            NotNullable = new("25896344-193c-48b3-ab71-53859d347647"),
+            Nullable = new Guid("25896344-193c-48b3-ab71-53859d347647")
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result)
+            .ModifySerialization(settings => settings.DontScrubGuids());
+    }
+
+    [Fact]
+    public Task Disabled_Defaults()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled();
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    public Task Disabled_Empty()
+    {
+        var validator = new ExtendedValidator<TargetWithDisabled>();
+
+        var target = new TargetWithDisabled
+        {
+            NotNullable = Guid.Empty,
+            Nullable = Guid.Empty
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+#nullable disable
+    class TargetWithDisabled
+    {
+        public Guid? Nullable { get; set; }
+        public Guid NotNullable { get; set; }
+    }
+#nullable enable
+    [Fact]
     public Task Guids_NonEmpty()
     {
-        var validator = new TargetWithGuidsValidator();
+        var validator = new ExtendedValidator<TargetWithGuids>();
 
         var target = new TargetWithGuids
         {
@@ -112,7 +148,7 @@ public class Tests
     [Fact]
     public Task Guids_Defaults()
     {
-        var validator = new TargetWithGuidsValidator();
+        var validator = new ExtendedValidator<TargetWithGuids>();
 
         var target = new TargetWithGuids();
         var result = validator.Validate(target);
@@ -122,7 +158,7 @@ public class Tests
     [Fact]
     public Task Guids_Empty()
     {
-        var validator = new TargetWithGuidsValidator();
+        var validator = new ExtendedValidator<TargetWithGuids>();
 
         var target = new TargetWithGuids
         {
@@ -131,11 +167,6 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
-    }
-
-    class TargetWithGuidsValidator :
-        ExtendedValidator<TargetWithGuids>
-    {
     }
 
     class TargetWithGuids
@@ -147,7 +178,7 @@ public class Tests
     [Fact]
     public Task List_NonEmpty()
     {
-        var validator = new TargetWithListsValidator();
+        var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
 
         var target = new TargetWithLists
         {
@@ -161,7 +192,7 @@ public class Tests
     [Fact]
     public Task List_Defaults()
     {
-        var validator = new TargetWithListsValidator();
+        var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
 
         var target = new TargetWithLists();
         var result = validator.Validate(target);
@@ -171,7 +202,7 @@ public class Tests
     [Fact]
     public Task List_Empty()
     {
-        var validator = new TargetWithListsValidator();
+        var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
 
         var target = new TargetWithLists
         {
@@ -182,26 +213,16 @@ public class Tests
         return Verifier.Verify(result);
     }
 
-    class TargetWithListsValidator :
-        ExtendedValidator<TargetWithLists>
-    {
-        public TargetWithListsValidator() :
-            base(validateEmptyLists: true)
-        {
-
-        }
-    }
-
     class TargetWithLists
     {
         public List<string>? Nullable { get; set; }
         public List<string> NotNullable { get; set; }
     }
-    
+
     [Fact]
     public Task Strings_NonEmpty()
     {
-        var validator = new TargetWithStringsValidator();
+        var validator = new ExtendedValidator<TargetWithStrings>();
 
         var target = new TargetWithStrings
         {
@@ -215,7 +236,7 @@ public class Tests
     [Fact]
     public Task Strings_Defaults()
     {
-        var validator = new TargetWithStringsValidator();
+        var validator = new ExtendedValidator<TargetWithStrings>();
 
         var target = new TargetWithStrings();
         var result = validator.Validate(target);
@@ -225,7 +246,7 @@ public class Tests
     [Fact]
     public Task Strings_Empty()
     {
-        var validator = new TargetWithStringsValidator();
+        var validator = new ExtendedValidator<TargetWithStrings>();
 
         var target = new TargetWithStrings
         {
@@ -234,11 +255,6 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
-    }
-
-    class TargetWithStringsValidator :
-        ExtendedValidator<TargetWithStrings>
-    {
     }
 
     class TargetWithStrings
@@ -280,7 +296,7 @@ public class Tests
     [Fact]
     public Task ValueTypes_WithValues()
     {
-        var validator = new TargetValueTypesValidator();
+        var validator = new ExtendedValidator<TargetValueTypes>();
 
         var target = new TargetValueTypes
         {
@@ -289,11 +305,6 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
-    }
-
-    class TargetValueTypesValidator :
-        ExtendedValidator<TargetValueTypes>
-    {
     }
 
     class TargetValueTypes
