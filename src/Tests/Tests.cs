@@ -123,13 +123,13 @@ public class Tests
         return Verifier.Verify(result);
     }
 
-//#nullable enable
+#nullable disable
     class TargetWithDisabled
     {
         public Guid? Nullable { get; set; }
         public Guid NotNullable { get; set; }
     }
-//#nullable disable
+#nullable enable
     [Fact]
     public Task Guids_NonEmpty()
     {
