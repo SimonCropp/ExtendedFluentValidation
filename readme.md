@@ -13,8 +13,6 @@ https://nuget.org/packages/ExtendedFluentValidation/
 
 ## Extra Rules
 
-Note: These are a first iteration. Toggling these defaults will be available in a future version.
-
 
 ### Nullability
 
