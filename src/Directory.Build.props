@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Version>0.6.4</Version>
+    <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <LanVersion>10.0</LanVersion>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Description>Extends FluentValidation with some more opinionated rules and extensions.</Description>
     <NoWarn>CS8600;CS8602;CS8604;IDE0049;IDE0007;CS1591</NoWarn>
