@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
+﻿using ExtendedFluentValidation;
+using FluentValidation;
 using VerifyXunit;
 using Xunit;
 
@@ -138,7 +138,9 @@ public class Tests
         var target = new TargetWithGuids
         {
             NotNullable = new("25896344-193c-48b3-ab71-53859d347647"),
-            Nullable = new Guid("25896344-193c-48b3-ab71-53859d347647")
+            Nullable = new Guid("25896344-193c-48b3-ab71-53859d347647"),
+            NotNullableAllowEmpty = new("25896344-193c-48b3-ab71-53859d347647"),
+            NullableAllowEmpty = new Guid("25896344-193c-48b3-ab71-53859d347647")
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result)
@@ -163,7 +165,9 @@ public class Tests
         var target = new TargetWithGuids
         {
             NotNullable = Guid.Empty,
-            Nullable = Guid.Empty
+            Nullable = Guid.Empty,
+            NotNullableAllowEmpty = Guid.Empty,
+            NullableAllowEmpty = Guid.Empty
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
@@ -173,6 +177,10 @@ public class Tests
     {
         public Guid? Nullable { get; set; }
         public Guid NotNullable { get; set; }
+        [AllowEmpty]
+        public Guid? NullableAllowEmpty { get; set; }
+        [AllowEmpty]
+        public Guid NotNullableAllowEmpty { get; set; }
     }
 
     [Fact]
@@ -227,7 +235,9 @@ public class Tests
         var target = new TargetWithStrings
         {
             NotNullable = "a",
-            Nullable = "a"
+            Nullable = "a",
+            NotNullableAllowEmpty = "a",
+            NullableAllowEmpty = "a"
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
@@ -250,8 +260,10 @@ public class Tests
 
         var target = new TargetWithStrings
         {
+            NullableAllowEmpty = "",
+            NotNullableAllowEmpty = "",
             NotNullable = "",
-            Nullable = ""
+            Nullable = "",
         };
         var result = validator.Validate(target);
         return Verifier.Verify(result);
@@ -261,6 +273,10 @@ public class Tests
     {
         public string? Nullable { get; set; }
         public string NotNullable { get; set; }
+        [AllowEmpty]
+        public string? NullableAllowEmpty { get; set; }
+        [AllowEmpty]
+        public string NotNullableAllowEmpty { get; set; }
     }
 
     [Fact]

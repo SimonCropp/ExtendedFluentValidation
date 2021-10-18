@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using FluentValidation.Validators;
+using ExtendedFluentValidation;
 
 namespace FluentValidation;
 
@@ -58,7 +58,15 @@ public static class ValidatorExtensions
         {
             if (property.IsString())
             {
-                validator.RuleFor<T, string>(property).NotEmpty();
+                var ruleFor = validator.RuleFor<T, string>(property);
+                if (property.AllowsEmpty())
+                {
+                    ruleFor.SetValidator(new NotNullValidator<T,string>());
+                }
+                else
+                {
+                    ruleFor.NotEmpty();
+                }
             }
             else if (validateEmptyLists && property.IsCollection())
             {
@@ -84,14 +92,22 @@ public static class ValidatorExtensions
         AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
     }
 
+    static bool AllowsEmpty(this MemberInfo property)
+    {
+        return property.GetCustomAttribute<AllowEmptyAttribute>() != null;
+    }
+
     static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
         var stringProperties = otherProperties
             .Where(_ => _.IsString());
         foreach (var property in stringProperties)
         {
-            var ruleFor = validator.RuleFor<T, string?>(property);
-            ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+            if (!property.AllowsEmpty())
+            {
+                var ruleFor = validator.RuleFor<T, string?>(property);
+                ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+            }
         }
     }
 

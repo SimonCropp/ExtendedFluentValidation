@@ -8,6 +8,15 @@
         PropertyName: Not Nullable,
         PropertyValue: null
       }
+    },
+    {
+      PropertyName: NotNullableAllowEmpty,
+      ErrorMessage: 'Not Nullable Allow Empty' must not be null.,
+      ErrorCode: NotNullValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Not Nullable Allow Empty,
+        PropertyValue: null
+      }
     }
   ],
   RuleSetsExecuted: [
