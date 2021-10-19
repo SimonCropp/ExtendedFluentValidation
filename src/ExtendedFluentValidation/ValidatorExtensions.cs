@@ -87,9 +87,9 @@ public static class ValidatorExtensions
         {
             NotEmptyCollections(validator, otherProperties);
         }
-        AddNotEquals<T, Guid>(validator, otherProperties);
-        AddNotEquals<T, DateTime>(validator, otherProperties);
-        AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
+        AddNotEmptyGuid(validator, otherProperties);
+        AddNotDefault<T, DateTime>(validator, otherProperties);
+        AddNotDefault<T, DateTimeOffset>(validator, otherProperties);
     }
 
     static bool AllowsEmpty(this MemberInfo property)
@@ -134,7 +134,30 @@ public static class ValidatorExtensions
         return innerContext;
     }
 
-    static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    static void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    {
+        properties = properties
+            .Where(x => !x.AllowsEmpty())
+            .ToList();
+
+        var typedProperties = properties
+            .Where(_ => _.PropertyType == typeof(Guid));
+        foreach (var property in typedProperties)
+        {
+            var ruleFor = validator.RuleFor<TTarget, Guid>(property);
+            ruleFor.NotEqual(default(Guid));
+        }
+
+        var typedNullableProperties = properties
+            .Where(_ => _.PropertyType == typeof(Guid?));
+        foreach (var property in typedNullableProperties)
+        {
+            var ruleFor = validator.RuleFor<TTarget, Guid?>(property);
+            ruleFor.NotEqual(default(Guid));
+        }
+    }
+
+    static void AddNotDefault<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
         where TProperty : struct
     {
         var typedProperties = properties
