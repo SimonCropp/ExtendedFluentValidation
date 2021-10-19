@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using FluentValidation.Validators;
+using ExtendedFluentValidation;
 
 namespace FluentValidation;
 
@@ -58,7 +58,15 @@ public static class ValidatorExtensions
         {
             if (property.IsString())
             {
-                validator.RuleFor<T, string>(property).NotEmpty();
+                var ruleFor = validator.RuleFor<T, string>(property);
+                if (property.AllowsEmpty())
+                {
+                    ruleFor.SetValidator(new NotNullValidator<T,string>());
+                }
+                else
+                {
+                    ruleFor.NotEmpty();
+                }
             }
             else if (validateEmptyLists && property.IsCollection())
             {
@@ -79,9 +87,14 @@ public static class ValidatorExtensions
         {
             NotEmptyCollections(validator, otherProperties);
         }
-        AddNotEquals<T, Guid>(validator, otherProperties);
-        AddNotEquals<T, DateTime>(validator, otherProperties);
-        AddNotEquals<T, DateTimeOffset>(validator, otherProperties);
+        AddNotEmptyGuid(validator, otherProperties);
+        AddNotDefault<T, DateTime>(validator, otherProperties);
+        AddNotDefault<T, DateTimeOffset>(validator, otherProperties);
+    }
+
+    static bool AllowsEmpty(this MemberInfo property)
+    {
+        return property.GetCustomAttribute<AllowEmptyAttribute>() != null;
     }
 
     static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
@@ -90,8 +103,11 @@ public static class ValidatorExtensions
             .Where(_ => _.IsString());
         foreach (var property in stringProperties)
         {
-            var ruleFor = validator.RuleFor<T, string?>(property);
-            ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+            if (!property.AllowsEmpty())
+            {
+                var ruleFor = validator.RuleFor<T, string?>(property);
+                ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
+            }
         }
     }
 
@@ -118,7 +134,30 @@ public static class ValidatorExtensions
         return innerContext;
     }
 
-    static void AddNotEquals<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    static void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    {
+        properties = properties
+            .Where(x => !x.AllowsEmpty())
+            .ToList();
+
+        var typedProperties = properties
+            .Where(_ => _.PropertyType == typeof(Guid));
+        foreach (var property in typedProperties)
+        {
+            var ruleFor = validator.RuleFor<TTarget, Guid>(property);
+            ruleFor.NotEqual(default(Guid));
+        }
+
+        var typedNullableProperties = properties
+            .Where(_ => _.PropertyType == typeof(Guid?));
+        foreach (var property in typedNullableProperties)
+        {
+            var ruleFor = validator.RuleFor<TTarget, Guid?>(property);
+            ruleFor.NotEqual(default(Guid));
+        }
+    }
+
+    static void AddNotDefault<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
         where TProperty : struct
     {
         var typedProperties = properties

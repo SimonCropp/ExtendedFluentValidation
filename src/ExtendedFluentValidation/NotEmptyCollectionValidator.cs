@@ -1,4 +1,7 @@
-﻿namespace FluentValidation.Validators;
+﻿using FluentValidation;
+using FluentValidation.Validators;
+
+namespace ExtendedFluentValidation;
 
 public class NotEmptyCollectionValidator<T> :
     PropertyValidator<T, IEnumerable?>,
