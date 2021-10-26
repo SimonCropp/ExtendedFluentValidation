@@ -4,8 +4,8 @@
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.3" />
-    <PackageReference Include="Verify.Xunit" Version="13.1.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.4" />
+    <PackageReference Include="Verify.Xunit" Version="13.3.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
