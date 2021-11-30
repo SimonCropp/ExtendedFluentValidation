@@ -88,10 +88,10 @@ public static class ValidatorExtensions
             NotEmptyCollections(validator, otherProperties);
         }
         AddNotEmptyGuid(validator, otherProperties);
-        AddNotDefault<T, DateTime>(validator, otherProperties);
-        AddNotDefault<T, DateTimeOffset>(validator, otherProperties);
+        AddNotDefaultDate<T, DateTime>(validator, otherProperties);
+        AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
 #if(NET6_0_OR_GREATER)
-        AddNotDefault<T, DateOnly>(validator, otherProperties);
+        AddNotDefaultDate<T, DateOnly>(validator, otherProperties);
 #endif
     }
 
@@ -148,7 +148,7 @@ public static class ValidatorExtensions
         foreach (var property in typedProperties)
         {
             var ruleFor = validator.RuleFor<TTarget, Guid>(property);
-            ruleFor.NotEqual(default(Guid));
+            ruleFor.NotEqual(default(Guid)).WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
 
         var typedNullableProperties = properties
@@ -156,19 +156,20 @@ public static class ValidatorExtensions
         foreach (var property in typedNullableProperties)
         {
             var ruleFor = validator.RuleFor<TTarget, Guid?>(property);
-            ruleFor.NotEqual(default(Guid));
+            ruleFor.NotEqual(default(Guid)).WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
     }
 
-    static void AddNotDefault<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    static void AddNotDefaultDate<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
         where TProperty : struct
     {
+        var type = typeof(TProperty);
         var typedProperties = properties
-            .Where(_ => _.PropertyType == typeof(TProperty));
+            .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
             var ruleFor = validator.RuleFor<TTarget, TProperty>(property);
-            ruleFor.NotEqual(default(TProperty));
+            ruleFor.NotEqual(default(TProperty)).WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
 
         var typedNullableProperties = properties
@@ -176,7 +177,7 @@ public static class ValidatorExtensions
         foreach (var property in typedNullableProperties)
         {
             var ruleFor = validator.RuleFor<TTarget, TProperty?>(property);
-            ruleFor.NotEqual(default(TProperty));
+            ruleFor.NotEqual(default(TProperty)).WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
 

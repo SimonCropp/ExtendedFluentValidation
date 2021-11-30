@@ -2,7 +2,7 @@
   Errors: [
     {
       PropertyName: NotNullableDateTime,
-      ErrorMessage: 'Not Nullable Date Time' must not be equal to '1/01/0001 12:00:00 AM'.,
+      ErrorMessage: NotNullableDateTime must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -14,7 +14,7 @@
     },
     {
       PropertyName: NotNullableAllowEmptyDateTime,
-      ErrorMessage: 'Not Nullable Allow Empty Date Time' must not be equal to '1/01/0001 12:00:00 AM'.,
+      ErrorMessage: NotNullableAllowEmptyDateTime must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -26,7 +26,7 @@
     },
     {
       PropertyName: NullableDateTime,
-      ErrorMessage: 'Nullable Date Time' must not be equal to '1/01/0001 12:00:00 AM'.,
+      ErrorMessage: NullableDateTime must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -38,7 +38,7 @@
     },
     {
       PropertyName: NullableAllowEmptyDateTime,
-      ErrorMessage: 'Nullable Allow Empty Date Time' must not be equal to '1/01/0001 12:00:00 AM'.,
+      ErrorMessage: NullableAllowEmptyDateTime must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -50,7 +50,7 @@
     },
     {
       PropertyName: NotNullableDateTimeOffset,
-      ErrorMessage: 'Not Nullable Date Time Offset' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: NotNullableDateTimeOffset must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -62,7 +62,7 @@
     },
     {
       PropertyName: NotNullableAllowEmptyDateTimeOffset,
-      ErrorMessage: 'Not Nullable Allow Empty Date Time Offset' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: NotNullableAllowEmptyDateTimeOffset must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -74,7 +74,7 @@
     },
     {
       PropertyName: NullableDateTimeOffset,
-      ErrorMessage: 'Nullable Date Time Offset' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: NullableDateTimeOffset must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -86,7 +86,7 @@
     },
     {
       PropertyName: NullableAllowEmptyDateTimeOffset,
-      ErrorMessage: 'Nullable Allow Empty Date Time Offset' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: NullableAllowEmptyDateTimeOffset must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -98,7 +98,7 @@
     },
     {
       PropertyName: NotNullableDateOnly,
-      ErrorMessage: 'Not Nullable Date Only' must not be equal to '1/01/0001'.,
+      ErrorMessage: NotNullableDateOnly must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -110,7 +110,7 @@
     },
     {
       PropertyName: NotNullableAllowEmptyDateOnly,
-      ErrorMessage: 'Not Nullable Allow Empty Date Only' must not be equal to '1/01/0001'.,
+      ErrorMessage: NotNullableAllowEmptyDateOnly must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -122,7 +122,7 @@
     },
     {
       PropertyName: NullableDateOnly,
-      ErrorMessage: 'Nullable Date Only' must not be equal to '1/01/0001'.,
+      ErrorMessage: NullableDateOnly must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -134,7 +134,7 @@
     },
     {
       PropertyName: NullableAllowEmptyDateOnly,
-      ErrorMessage: 'Nullable Allow Empty Date Only' must not be equal to '1/01/0001'.,
+      ErrorMessage: NullableAllowEmptyDateOnly must not be `MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
