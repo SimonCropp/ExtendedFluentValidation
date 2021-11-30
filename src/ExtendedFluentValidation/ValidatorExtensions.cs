@@ -90,6 +90,9 @@ public static class ValidatorExtensions
         AddNotEmptyGuid(validator, otherProperties);
         AddNotDefault<T, DateTime>(validator, otherProperties);
         AddNotDefault<T, DateTimeOffset>(validator, otherProperties);
+#if(NET6_0_OR_GREATER)
+        AddNotDefault<T, DateOnly>(validator, otherProperties);
+#endif
     }
 
     static bool AllowsEmpty(this MemberInfo property)

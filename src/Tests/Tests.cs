@@ -131,6 +131,87 @@ public class Tests
     }
 #nullable enable
     [Fact]
+    public Task Dates_NonEmpty()
+    {
+        var validator = new ExtendedValidator<TargetWithDates>();
+
+        var target = new TargetWithDates
+        {
+            NotNullableDateTime = new(2000, 1, 1),
+            NotNullableDateTimeOffset = new DateTime(2000, 1, 1),
+            NotNullableDateOnly = new(2000, 1, 1),
+            NullableDateTime = new DateTime(2000, 1, 1),
+            NullableDateTimeOffset = new DateTime(2000, 1, 1),
+            NullableDateOnly = new DateOnly(2000, 1, 1),
+            NotNullableAllowEmptyDateTime = new(2000, 1, 1),
+            NotNullableAllowEmptyDateTimeOffset = new DateTime(2000, 1, 1),
+            NotNullableAllowEmptyDateOnly = new(2000, 1, 1),
+            NullableAllowEmptyDateTime = new DateTime(2000, 1, 1),
+            NullableAllowEmptyDateTimeOffset = new DateTime(2000, 1, 1),
+            NullableAllowEmptyDateOnly = new DateOnly(2000,1,1)
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result)
+            .ModifySerialization(settings => settings.DontScrubGuids());
+    }
+
+    [Fact]
+    public Task Dates_Defaults()
+    {
+        var validator = new ExtendedValidator<TargetWithDates>();
+
+        var target = new TargetWithDates();
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    public Task Dates_Min()
+    {
+        var validator = new ExtendedValidator<TargetWithDates>();
+
+        var target = new TargetWithDates
+        {
+            NotNullableDateTime = DateTime.MinValue,
+            NotNullableDateTimeOffset = DateTimeOffset.MinValue,
+            NotNullableDateOnly = DateOnly.MinValue,
+            NullableDateTime = DateTime.MinValue,
+            NullableDateTimeOffset = DateTimeOffset.MinValue,
+            NullableDateOnly = DateOnly.MinValue,
+            NotNullableAllowEmptyDateTime = DateTime.MinValue,
+            NotNullableAllowEmptyDateTimeOffset = DateTimeOffset.MinValue,
+            NotNullableAllowEmptyDateOnly = DateOnly.MinValue,
+            NullableAllowEmptyDateTime = DateTime.MinValue,
+            NullableAllowEmptyDateTimeOffset = DateTimeOffset.MinValue,
+            NullableAllowEmptyDateOnly = DateOnly.MinValue
+        };
+        var result = validator.Validate(target);
+        return Verifier.Verify(result);
+    }
+
+    class TargetWithDates
+    {
+        public DateTime? NullableDateTime { get; set; }
+        public DateTimeOffset? NullableDateTimeOffset { get; set; }
+        public DateOnly? NullableDateOnly { get; set; }
+        public DateTime NotNullableDateTime { get; set; }
+        public DateTimeOffset NotNullableDateTimeOffset { get; set; }
+        public DateOnly NotNullableDateOnly { get; set; }
+        [AllowEmpty]
+        public DateTime? NullableAllowEmptyDateTime { get; set; }
+        [AllowEmpty]
+        public DateTimeOffset? NullableAllowEmptyDateTimeOffset { get; set; }
+        [AllowEmpty]
+        public DateOnly? NullableAllowEmptyDateOnly { get; set; }
+        [AllowEmpty]
+        public DateTime NotNullableAllowEmptyDateTime { get; set; }
+        [AllowEmpty]
+        public DateTimeOffset NotNullableAllowEmptyDateTimeOffset { get; set; }
+        [AllowEmpty]
+        public DateOnly NotNullableAllowEmptyDateOnly { get; set; }
+    }
+
+    [Fact]
     public Task Guids_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
