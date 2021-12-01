@@ -2,7 +2,7 @@
   Errors: [
     {
       PropertyName: NotNullable,
-      ErrorMessage: 'Not Nullable' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      ErrorMessage: NotNullable must not be `Guid.Empty`.,
       AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -14,7 +14,7 @@
     },
     {
       PropertyName: Nullable,
-      ErrorMessage: 'Nullable' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      ErrorMessage: Nullable must not be `Guid.Empty`.,
       AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {

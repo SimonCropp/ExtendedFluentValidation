@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5;net6</TargetFrameworks>
+    <TargetFrameworks>net6</TargetFrameworks>
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.4" />
-    <PackageReference Include="Verify.Xunit" Version="14.4.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.5" />
+    <PackageReference Include="Verify.Xunit" Version="14.6.6" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.2.1" PrivateAssets="all" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.2.2" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
   </ItemGroup>

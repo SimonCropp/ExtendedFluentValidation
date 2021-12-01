@@ -11,7 +11,7 @@
     },
     {
       PropertyName: Id,
-      ErrorMessage: 'Id' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      ErrorMessage: Id must not be `Guid.Empty`.,
       AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {

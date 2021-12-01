@@ -1,0 +1,151 @@
+﻿{
+  Errors: [
+    {
+      PropertyName: NotNullableDateTime,
+      ErrorMessage: NotNullableDateTime must not be `DateTime.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Date Time,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NotNullableAllowEmptyDateTime,
+      ErrorMessage: NotNullableAllowEmptyDateTime must not be `DateTime.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Allow Empty Date Time,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableDateTime,
+      ErrorMessage: NullableDateTime must not be `DateTime.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Date Time,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableAllowEmptyDateTime,
+      ErrorMessage: NullableAllowEmptyDateTime must not be `DateTime.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Allow Empty Date Time,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NotNullableDateTimeOffset,
+      ErrorMessage: NotNullableDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Date Time Offset,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NotNullableAllowEmptyDateTimeOffset,
+      ErrorMessage: NotNullableAllowEmptyDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Allow Empty Date Time Offset,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableDateTimeOffset,
+      ErrorMessage: NullableDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Date Time Offset,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableAllowEmptyDateTimeOffset,
+      ErrorMessage: NullableAllowEmptyDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Allow Empty Date Time Offset,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NotNullableDateOnly,
+      ErrorMessage: NotNullableDateOnly must not be `DateOnly.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Date Only,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NotNullableAllowEmptyDateOnly,
+      ErrorMessage: NotNullableAllowEmptyDateOnly must not be `DateOnly.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Not Nullable Allow Empty Date Only,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableDateOnly,
+      ErrorMessage: NullableDateOnly must not be `DateOnly.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Date Only,
+        PropertyValue: Date_MinValue
+      }
+    },
+    {
+      PropertyName: NullableAllowEmptyDateOnly,
+      ErrorMessage: NullableAllowEmptyDateOnly must not be `DateOnly.MinValue`.,
+      AttemptedValue: Date_MinValue,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Date_MinValue,
+        PropertyName: Nullable Allow Empty Date Only,
+        PropertyValue: Date_MinValue
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}
