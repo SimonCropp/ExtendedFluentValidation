@@ -11,7 +11,7 @@
     },
     {
       PropertyName: Id,
-      ErrorMessage: 'Id' must not be equal to '00000000-0000-0000-0000-000000000000'.,
+      ErrorMessage: Id must not be `Guid.Empty`.,
       AttemptedValue: Guid_Empty,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
@@ -23,7 +23,7 @@
     },
     {
       PropertyName: Dob,
-      ErrorMessage: 'Dob' must not be equal to '1/01/0001 12:00:00 AM +00:00'.,
+      ErrorMessage: Dob must not be `DateTimeOffset.MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
