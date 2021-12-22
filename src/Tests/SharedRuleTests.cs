@@ -28,7 +28,7 @@ public class SharedRuleTests
             Name = "Joe"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     #region SharedRulesModels

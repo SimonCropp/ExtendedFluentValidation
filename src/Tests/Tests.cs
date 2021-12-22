@@ -12,7 +12,7 @@ public class Tests
         var validator = new ExtendedValidator<TargetWithNulls>();
 
         var result = validator.Validate(new TargetWithNulls());
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class Tests
             ReadWrite = "a", Write = "a"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithNulls
@@ -46,7 +46,7 @@ public class Tests
         var validator = new ExtendedValidator<TargetWithNoNulls>();
 
         var result = validator.Validate(new TargetWithNoNulls());
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class Tests
             Write = "a"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithNoNulls
@@ -81,7 +81,7 @@ public class Tests
         var validator = new ExtendedValidator<TargetValueTypes>();
 
         var result = validator.Validate(new TargetValueTypes());
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -95,7 +95,7 @@ public class Tests
             Nullable = new Guid("25896344-193c-48b3-ab71-53859d347647")
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result)
+        return Verify(result)
             .ModifySerialization(settings => settings.DontScrubGuids());
     }
 
@@ -106,7 +106,7 @@ public class Tests
 
         var target = new TargetWithDisabled();
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class Tests
             Nullable = Guid.Empty
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
 #nullable disable
@@ -151,7 +151,7 @@ public class Tests
             NullableAllowEmptyDateOnly = new DateOnly(2000,1,1)
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result)
+        return Verify(result)
             .ModifySerialization(settings => settings.DontScrubGuids());
     }
 
@@ -162,7 +162,7 @@ public class Tests
 
         var target = new TargetWithDates();
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -186,7 +186,7 @@ public class Tests
             NullableAllowEmptyDateOnly = DateOnly.MinValue
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithDates
@@ -224,7 +224,7 @@ public class Tests
             NullableAllowEmpty = new Guid("25896344-193c-48b3-ab71-53859d347647")
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result)
+        return Verify(result)
             .ModifySerialization(settings => settings.DontScrubGuids());
     }
 
@@ -235,7 +235,7 @@ public class Tests
 
         var target = new TargetWithGuids();
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -251,7 +251,7 @@ public class Tests
             NullableAllowEmpty = Guid.Empty
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithGuids
@@ -275,7 +275,7 @@ public class Tests
             Nullable = new() {"a"}
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -285,7 +285,7 @@ public class Tests
 
         var target = new TargetWithLists();
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -299,7 +299,7 @@ public class Tests
             Nullable = new()
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithLists
@@ -321,7 +321,7 @@ public class Tests
             NullableAllowEmpty = "a"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -331,7 +331,7 @@ public class Tests
 
         var target = new TargetWithStrings();
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     [Fact]
@@ -347,7 +347,7 @@ public class Tests
             Nullable = "",
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetWithStrings
@@ -371,7 +371,7 @@ public class Tests
             Property2 = "123"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetCompoundedValidator :
@@ -401,7 +401,7 @@ public class Tests
             Nullable = true,
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result);
+        return Verify(result);
     }
 
     class TargetValueTypes
@@ -421,7 +421,7 @@ public class Tests
             FirstName = "Joe"
         };
         var result = validator.Validate(target);
-        return Verifier.Verify(result)
+        return Verify(result)
             .AddScrubber(builder => builder.Replace("1/1/0001", "1/01/0001"));
     }
 
