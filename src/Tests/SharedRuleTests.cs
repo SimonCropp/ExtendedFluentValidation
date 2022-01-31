@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class SharedRuleTests

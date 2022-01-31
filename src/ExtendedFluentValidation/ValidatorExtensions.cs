@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using ExtendedFluentValidation;
+using Nullability;
 
 namespace FluentValidation;
 
@@ -51,7 +52,7 @@ public static class ValidatorExtensions
                 }
 
                 var nullability = _.GetNullability();
-                return nullability == NullabilityState.NotNull;
+                return nullability == NullabilityStateEx.NotNull;
             })
             .ToList();
         foreach (var property in notNullProperties)

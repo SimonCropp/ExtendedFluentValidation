@@ -20,7 +20,7 @@ public class ExtendedValidator<T> :
     {
         sharedValidators = ValidatorExtensions.GetSharedValidatorsFor<T>().ToList();
     }
-        
+
     public ExtendedValidator()
     {
         this.AddExtendedRules();

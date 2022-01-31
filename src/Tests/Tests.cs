@@ -1,7 +1,5 @@
 ﻿using ExtendedFluentValidation;
 using FluentValidation;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class Tests
@@ -22,7 +20,8 @@ public class Tests
 
         var target = new TargetWithNulls
         {
-            ReadWrite = "a", Write = "a"
+            ReadWrite = "a",
+            Write = "a"
         };
         var result = validator.Validate(target);
         return Verify(result);
