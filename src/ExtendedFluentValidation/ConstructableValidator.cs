@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-class ConstructableValidator<T> :
+﻿class ConstructableValidator<T> :
     AbstractValidator<T>
 {
 

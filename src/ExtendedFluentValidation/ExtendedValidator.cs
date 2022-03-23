@@ -16,25 +16,17 @@ public class ExtendedValidator<T> :
 {
     static List<IValidator> sharedValidators;
 
-    static ExtendedValidator()
-    {
+    static ExtendedValidator() =>
         sharedValidators = ValidatorExtensions.GetSharedValidatorsFor<T>().ToList();
-    }
 
-    public ExtendedValidator()
-    {
+    public ExtendedValidator() =>
         this.AddExtendedRules();
-    }
 
-    public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false)
-    {
+    public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false) =>
         this.AddExtendedRules(exclusions, validateEmptyLists);
-    }
 
-    public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property)
-    {
-        return this.RuleFor<T, TProperty>(property);
-    }
+    public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property) =>
+        this.RuleFor<T, TProperty>(property);
 
     public override ValidationResult Validate(ValidationContext<T> context)
     {

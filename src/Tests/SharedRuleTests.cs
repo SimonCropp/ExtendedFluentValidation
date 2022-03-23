@@ -1,18 +1,14 @@
-﻿using FluentValidation;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class SharedRuleTests
 {
     #region SharedRulesInit
 
     [ModuleInitializer]
-    public static void Init()
-    {
+    public static void Init() =>
         ValidatorExtensions.SharedValidatorFor<IDbRecord>()
             .RuleFor(record => record.RowVersion)
             .Must(rowVersion => rowVersion?.Length == 8)
             .WithMessage("RowVersion must be 8 bytes");
-    }
 
     #endregion
 

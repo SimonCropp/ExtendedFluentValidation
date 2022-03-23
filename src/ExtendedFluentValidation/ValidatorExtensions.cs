@@ -1,8 +1,4 @@
-﻿using System.Linq.Expressions;
-using ExtendedFluentValidation;
-using Nullability;
-
-namespace FluentValidation;
+﻿namespace FluentValidation;
 
 public static class ValidatorExtensions
 {
@@ -62,7 +58,7 @@ public static class ValidatorExtensions
                 var ruleFor = validator.RuleFor<T, string>(property);
                 if (property.AllowsEmpty())
                 {
-                    ruleFor.SetValidator(new NotNullValidator<T,string>());
+                    ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T,string>());
                 }
                 else
                 {
@@ -96,10 +92,8 @@ public static class ValidatorExtensions
 #endif
     }
 
-    static bool AllowsEmpty(this MemberInfo property)
-    {
-        return property.GetCustomAttribute<AllowEmptyAttribute>() != null;
-    }
+    static bool AllowsEmpty(this MemberInfo property) =>
+        property.GetCustomAttribute<AllowEmptyAttribute>() != null;
 
     static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {

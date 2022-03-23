@@ -10,10 +10,8 @@
             .ToList();
     }
 
-    public static bool IsString(this PropertyInfo property)
-    {
-        return property.PropertyType == typeof(string);
-    }
+    public static bool IsString(this PropertyInfo property) =>
+        property.PropertyType == typeof(string);
 
     public static bool IsCollection(this PropertyInfo property)
     {

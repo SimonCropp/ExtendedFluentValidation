@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
-
-namespace ExtendedFluentValidation;
+﻿namespace ExtendedFluentValidation;
 
 public class NotWhiteSpaceValidator<T> :
     PropertyValidator<T, string?>,
@@ -19,8 +16,6 @@ public class NotWhiteSpaceValidator<T> :
         return !string.IsNullOrWhiteSpace(value);
     }
 
-    protected override string GetDefaultMessageTemplate(string errorCode)
-    {
-        return Localized(errorCode, Name);
-    }
+    protected override string GetDefaultMessageTemplate(string errorCode) =>
+        Localized(errorCode, Name);
 }

@@ -7,4 +7,11 @@
     <Description>Extends FluentValidation with some more opinionated rules and extensions.</Description>
     <NoWarn>CS8600;CS8602;CS8604;IDE0049;IDE0007;CS1591</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Nullability" />
+    <Using Include="System.Linq.Expressions" />
+    <Using Include="FluentValidation" />
+    <Using Include="FluentValidation.Validators" />    
+    <Using Include="ExtendedFluentValidation" />
+  </ItemGroup>
 </Project>

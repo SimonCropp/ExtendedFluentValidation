@@ -1,7 +1,4 @@
-﻿using ExtendedFluentValidation;
-using FluentValidation;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class Tests
 {
     [Fact]
@@ -455,11 +452,9 @@ public class Tests
     class PersonValidatorNonBase :
         AbstractValidator<Person>
     {
-        public PersonValidatorNonBase()
-        {
+        public PersonValidatorNonBase() =>
             this.AddExtendedRules();
-            //TODO: add any extra rules
-        }
+        //TODO: add any extra rules
     }
 
     #endregion

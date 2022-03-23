@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
-
-namespace ExtendedFluentValidation;
+﻿namespace ExtendedFluentValidation;
 
 public class NotEmptyCollectionValidator<T> :
     PropertyValidator<T, IEnumerable?>,
@@ -24,8 +21,6 @@ public class NotEmptyCollectionValidator<T> :
         return value.GetEnumerator().MoveNext();
     }
 
-    protected override string GetDefaultMessageTemplate(string errorCode)
-    {
-        return Localized(errorCode, Name);
-    }
+    protected override string GetDefaultMessageTemplate(string errorCode) =>
+        Localized(errorCode, Name);
 }
