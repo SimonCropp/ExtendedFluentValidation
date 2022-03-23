@@ -17,5 +17,5 @@ public class NotWhiteSpaceValidator<T> :
     }
 
     protected override string GetDefaultMessageTemplate(string errorCode) =>
-        Localized(errorCode, Name);
+        "'{PropertyName}' must not be whitespace.";
 }

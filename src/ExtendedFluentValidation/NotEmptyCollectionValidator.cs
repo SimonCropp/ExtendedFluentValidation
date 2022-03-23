@@ -22,5 +22,5 @@ public class NotEmptyCollectionValidator<T> :
     }
 
     protected override string GetDefaultMessageTemplate(string errorCode) =>
-        Localized(errorCode, Name);
+        "'{PropertyName}' must not be empty.";
 }

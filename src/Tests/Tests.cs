@@ -144,7 +144,7 @@ public class Tests
             NotNullableAllowEmptyDateOnly = new(2000, 1, 1),
             NullableAllowEmptyDateTime = new DateTime(2000, 1, 1),
             NullableAllowEmptyDateTimeOffset = new DateTime(2000, 1, 1),
-            NullableAllowEmptyDateOnly = new DateOnly(2000,1,1)
+            NullableAllowEmptyDateOnly = new DateOnly(2000, 1, 1)
         };
         var result = validator.Validate(target);
         return Verify(result)
@@ -193,16 +193,22 @@ public class Tests
         public DateTime NotNullableDateTime { get; set; }
         public DateTimeOffset NotNullableDateTimeOffset { get; set; }
         public DateOnly NotNullableDateOnly { get; set; }
+
         [AllowEmpty]
         public DateTime? NullableAllowEmptyDateTime { get; set; }
+
         [AllowEmpty]
         public DateTimeOffset? NullableAllowEmptyDateTimeOffset { get; set; }
+
         [AllowEmpty]
         public DateOnly? NullableAllowEmptyDateOnly { get; set; }
+
         [AllowEmpty]
         public DateTime NotNullableAllowEmptyDateTime { get; set; }
+
         [AllowEmpty]
         public DateTimeOffset NotNullableAllowEmptyDateTimeOffset { get; set; }
+
         [AllowEmpty]
         public DateOnly NotNullableAllowEmptyDateOnly { get; set; }
     }
@@ -254,8 +260,10 @@ public class Tests
     {
         public Guid? Nullable { get; set; }
         public Guid NotNullable { get; set; }
+
         [AllowEmpty]
         public Guid? NullableAllowEmpty { get; set; }
+
         [AllowEmpty]
         public Guid NotNullableAllowEmpty { get; set; }
     }
@@ -267,8 +275,14 @@ public class Tests
 
         var target = new TargetWithLists
         {
-            NotNullable = new() {"a"},
-            Nullable = new() {"a"}
+            NotNullable = new()
+            {
+                "a"
+            },
+            Nullable = new()
+            {
+                "a"
+            }
         };
         var result = validator.Validate(target);
         return Verify(result);
@@ -346,12 +360,30 @@ public class Tests
         return Verify(result);
     }
 
+    [Fact]
+    public Task Strings_Whitespace()
+    {
+        var validator = new ExtendedValidator<TargetWithStrings>();
+
+        var target = new TargetWithStrings
+        {
+            NullableAllowEmpty = " ",
+            NotNullableAllowEmpty = " ",
+            NotNullable = " ",
+            Nullable = " ",
+        };
+        var result = validator.Validate(target);
+        return Verify(result);
+    }
+
     class TargetWithStrings
     {
         public string? Nullable { get; set; }
         public string NotNullable { get; set; }
+
         [AllowEmpty]
         public string? NullableAllowEmpty { get; set; }
+
         [AllowEmpty]
         public string NotNullableAllowEmpty { get; set; }
     }
@@ -405,7 +437,6 @@ public class Tests
         public bool? Nullable { get; set; }
         public bool NotNullable { get; set; }
     }
-
 
     [Fact]
     public Task Usage()

@@ -3,21 +3,21 @@
     {
       PropertyName: NotNullable,
       ErrorMessage: 'Not Nullable' must not be empty.,
-      AttemptedValue: ,
+      AttemptedValue:  ,
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Not Nullable,
-        PropertyValue: 
+        PropertyValue:  
       }
     },
     {
       PropertyName: Nullable,
       ErrorMessage: 'Nullable' must not be whitespace.,
-      AttemptedValue: ,
+      AttemptedValue:  ,
       ErrorCode: NotWhiteSpaceValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Nullable,
-        PropertyValue: 
+        PropertyValue:  
       }
     }
   ],
