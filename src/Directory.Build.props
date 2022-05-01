@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Description>Extends FluentValidation with some more opinionated rules and extensions.</Description>
@@ -11,7 +11,7 @@
     <Using Include="Nullability" />
     <Using Include="System.Linq.Expressions" />
     <Using Include="FluentValidation" />
-    <Using Include="FluentValidation.Validators" />    
+    <Using Include="FluentValidation.Validators" />
     <Using Include="ExtendedFluentValidation" />
   </ItemGroup>
 </Project>
