@@ -92,7 +92,7 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .ModifySerialization(settings => settings.DontScrubGuids());
+            .DontScrubGuids();
     }
 
     [Fact]
@@ -148,7 +148,7 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .ModifySerialization(settings => settings.DontScrubGuids());
+            .DontScrubGuids();
     }
 
     [Fact]
@@ -227,7 +227,7 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .ModifySerialization(settings => settings.DontScrubGuids());
+            .DontScrubGuids();
     }
 
     [Fact]
