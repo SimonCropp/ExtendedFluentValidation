@@ -1,4 +1,5 @@
 ﻿{
+  IsValid: false,
   Errors: [
     {
       PropertyName: RowVersion,

@@ -4,6 +4,7 @@
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Verify.DiffPlex" Version="1.3.0" />
     <PackageReference Include="FluentValidation" Version="11.0.2" />
     <PackageReference Include="Verify.Xunit" Version="17.1.4" />
     <PackageReference Include="Xunit" Version="2.4.1" />
