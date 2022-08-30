@@ -6,8 +6,7 @@
       ErrorMessage: 'Not Nullable' must not be empty.,
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
-        PropertyName: Not Nullable,
-        PropertyValue: []
+        PropertyName: Not Nullable
       }
     },
     {
@@ -15,8 +14,7 @@
       ErrorMessage: 'Nullable' must not be empty.,
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
-        PropertyName: Nullable,
-        PropertyValue: []
+        PropertyName: Nullable
       }
     }
   ],
