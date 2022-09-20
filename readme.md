@@ -31,7 +31,7 @@ String cannot be `String.Empty` or only white-space.
 
 ### Guids
 
-Guids cannot be `Guids.Empty`.
+Guids cannot be `Guid.Empty`.
 
 
 ### Lists/Collections
