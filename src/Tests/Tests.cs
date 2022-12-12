@@ -135,16 +135,16 @@ public class Tests
         {
             NotNullableDateTime = new(2000, 1, 1),
             NotNullableDateTimeOffset = new DateTime(2000, 1, 1),
-            NotNullableDateOnly = new(2000, 1, 1),
+            NotNullableDate = new(2000, 1, 1),
             NullableDateTime = new DateTime(2000, 1, 1),
             NullableDateTimeOffset = new DateTime(2000, 1, 1),
-            NullableDateOnly = new DateOnly(2000, 1, 1),
+            NullableDate = new Date(2000, 1, 1),
             NotNullableAllowEmptyDateTime = new(2000, 1, 1),
             NotNullableAllowEmptyDateTimeOffset = new DateTime(2000, 1, 1),
-            NotNullableAllowEmptyDateOnly = new(2000, 1, 1),
+            NotNullableAllowEmptyDate = new(2000, 1, 1),
             NullableAllowEmptyDateTime = new DateTime(2000, 1, 1),
             NullableAllowEmptyDateTimeOffset = new DateTime(2000, 1, 1),
-            NullableAllowEmptyDateOnly = new DateOnly(2000, 1, 1)
+            NullableAllowEmptyDate = new Date(2000, 1, 1)
         };
         var result = validator.Validate(target);
         return Verify(result)
@@ -170,16 +170,16 @@ public class Tests
         {
             NotNullableDateTime = DateTime.MinValue,
             NotNullableDateTimeOffset = DateTimeOffset.MinValue,
-            NotNullableDateOnly = DateOnly.MinValue,
+            NotNullableDate = Date.MinValue,
             NullableDateTime = DateTime.MinValue,
             NullableDateTimeOffset = DateTimeOffset.MinValue,
-            NullableDateOnly = DateOnly.MinValue,
+            NullableDate = Date.MinValue,
             NotNullableAllowEmptyDateTime = DateTime.MinValue,
             NotNullableAllowEmptyDateTimeOffset = DateTimeOffset.MinValue,
-            NotNullableAllowEmptyDateOnly = DateOnly.MinValue,
+            NotNullableAllowEmptyDate = Date.MinValue,
             NullableAllowEmptyDateTime = DateTime.MinValue,
             NullableAllowEmptyDateTimeOffset = DateTimeOffset.MinValue,
-            NullableAllowEmptyDateOnly = DateOnly.MinValue
+            NullableAllowEmptyDate = Date.MinValue
         };
         var result = validator.Validate(target);
         return Verify(result);
@@ -189,10 +189,10 @@ public class Tests
     {
         public DateTime? NullableDateTime { get; set; }
         public DateTimeOffset? NullableDateTimeOffset { get; set; }
-        public DateOnly? NullableDateOnly { get; set; }
+        public Date? NullableDate { get; set; }
         public DateTime NotNullableDateTime { get; set; }
         public DateTimeOffset NotNullableDateTimeOffset { get; set; }
-        public DateOnly NotNullableDateOnly { get; set; }
+        public Date NotNullableDate { get; set; }
 
         [AllowEmpty]
         public DateTime? NullableAllowEmptyDateTime { get; set; }
@@ -201,7 +201,7 @@ public class Tests
         public DateTimeOffset? NullableAllowEmptyDateTimeOffset { get; set; }
 
         [AllowEmpty]
-        public DateOnly? NullableAllowEmptyDateOnly { get; set; }
+        public Date? NullableAllowEmptyDate { get; set; }
 
         [AllowEmpty]
         public DateTime NotNullableAllowEmptyDateTime { get; set; }
@@ -210,7 +210,7 @@ public class Tests
         public DateTimeOffset NotNullableAllowEmptyDateTimeOffset { get; set; }
 
         [AllowEmpty]
-        public DateOnly NotNullableAllowEmptyDateOnly { get; set; }
+        public Date NotNullableAllowEmptyDate { get; set; }
     }
 
     [Fact]

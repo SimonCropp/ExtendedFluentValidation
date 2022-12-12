@@ -98,50 +98,50 @@
       }
     },
     {
-      PropertyName: NotNullableDateOnly,
-      ErrorMessage: NotNullableDateOnly must not be `DateOnly.MinValue`.,
+      PropertyName: NotNullableDate,
+      ErrorMessage: NotNullableDate must not be `DateOnly.MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
-        PropertyName: Not Nullable Date Only,
+        PropertyName: Not Nullable Date,
         PropertyValue: Date_MinValue
       }
     },
     {
-      PropertyName: NotNullableAllowEmptyDateOnly,
-      ErrorMessage: NotNullableAllowEmptyDateOnly must not be `DateOnly.MinValue`.,
+      PropertyName: NotNullableAllowEmptyDate,
+      ErrorMessage: NotNullableAllowEmptyDate must not be `DateOnly.MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
-        PropertyName: Not Nullable Allow Empty Date Only,
+        PropertyName: Not Nullable Allow Empty Date,
         PropertyValue: Date_MinValue
       }
     },
     {
-      PropertyName: NullableDateOnly,
-      ErrorMessage: NullableDateOnly must not be `DateOnly.MinValue`.,
+      PropertyName: NullableDate,
+      ErrorMessage: NullableDate must not be `DateOnly.MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
-        PropertyName: Nullable Date Only,
+        PropertyName: Nullable Date,
         PropertyValue: Date_MinValue
       }
     },
     {
-      PropertyName: NullableAllowEmptyDateOnly,
-      ErrorMessage: NullableAllowEmptyDateOnly must not be `DateOnly.MinValue`.,
+      PropertyName: NullableAllowEmptyDate,
+      ErrorMessage: NullableAllowEmptyDate must not be `DateOnly.MinValue`.,
       AttemptedValue: Date_MinValue,
       ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
-        PropertyName: Nullable Allow Empty Date Only,
+        PropertyName: Nullable Allow Empty Date,
         PropertyValue: Date_MinValue
       }
     }
