@@ -88,7 +88,7 @@ public static class ValidatorExtensions
         AddNotDefaultDate<T, DateTime>(validator, otherProperties);
         AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
 #if(NET6_0_OR_GREATER)
-        AddNotDefaultDate<T, DateOnly>(validator, otherProperties);
+        AddNotDefaultDate<T, Date>(validator, otherProperties);
 #endif
     }
 
