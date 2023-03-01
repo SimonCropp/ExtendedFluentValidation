@@ -22,6 +22,9 @@ public class ExtendedValidator<T> :
     public ExtendedValidator() =>
         this.AddExtendedRules();
 
+    public ExtendedValidator(params string[] exclusions) =>
+        this.AddExtendedRules(exclusions);
+
     public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false) =>
         this.AddExtendedRules(exclusions, validateEmptyLists);
 
