@@ -43,7 +43,7 @@ public class ExtendedValidator<T> :
         return MergeErrors(inner, result.Errors);
     }
 
-    public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, CancellationToken cancellation = default)
+    public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, Cancellation cancellation = default)
     {
         var result = await base.ValidateAsync(context, cancellation);
         if (!sharedValidators.Any())
