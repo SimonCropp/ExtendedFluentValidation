@@ -135,7 +135,7 @@ public static class ValidatorExtensions
     static void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
     {
         properties = properties
-            .Where(x => !x.AllowsEmpty())
+            .Where(_ => !_.AllowsEmpty())
             .ToList();
 
         var typedProperties = properties
