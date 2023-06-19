@@ -43,9 +43,9 @@ public class ExtendedValidator<T> :
         return MergeErrors(inner, result.Errors);
     }
 
-    public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, Cancellation cancellation = default)
+    public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, Cancel cancel = default)
     {
-        var result = await base.ValidateAsync(context, cancellation);
+        var result = await base.ValidateAsync(context, cancel);
         if (!sharedValidators.Any())
         {
             return result;
@@ -54,7 +54,7 @@ public class ExtendedValidator<T> :
         var inner = new List<ValidationFailure>();
         foreach (var innerValidator in sharedValidators)
         {
-            var validationResult = await innerValidator.ValidateAsync(context.Clone(), cancellation);
+            var validationResult = await innerValidator.ValidateAsync(context.Clone(), cancel);
             inner.AddRange(validationResult.Errors);
         }
 
