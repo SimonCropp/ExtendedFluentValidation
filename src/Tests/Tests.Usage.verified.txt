@@ -7,6 +7,7 @@
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Family Name,
+        PropertyPath: FamilyName,
         PropertyValue: null
       }
     },
@@ -19,6 +20,7 @@
         ComparisonProperty: ,
         ComparisonValue: Guid_Empty,
         PropertyName: Id,
+        PropertyPath: Id,
         PropertyValue: Guid_Empty
       }
     },
@@ -31,6 +33,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Dob,
+        PropertyPath: Dob,
         PropertyValue: Date_MinValue
       }
     }

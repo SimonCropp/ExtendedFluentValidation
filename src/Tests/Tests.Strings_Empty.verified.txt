@@ -8,6 +8,7 @@
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Not Nullable,
+        PropertyPath: NotNullable,
         PropertyValue: 
       }
     },
@@ -18,6 +19,7 @@
       ErrorCode: NotWhiteSpaceValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Nullable,
+        PropertyPath: Nullable,
         PropertyValue: 
       }
     }

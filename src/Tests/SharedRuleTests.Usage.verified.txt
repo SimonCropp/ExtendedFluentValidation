@@ -7,6 +7,7 @@
       ErrorCode: NotNullValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Row Version,
+        PropertyPath: RowVersion,
         PropertyValue: null
       }
     },
@@ -19,6 +20,7 @@
         ComparisonProperty: ,
         ComparisonValue: Guid_Empty,
         PropertyName: Id,
+        PropertyPath: Id,
         PropertyValue: Guid_Empty
       }
     },
@@ -28,6 +30,7 @@
       ErrorCode: PredicateValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Row Version,
+        PropertyPath: RowVersion,
         PropertyValue: null
       }
     }

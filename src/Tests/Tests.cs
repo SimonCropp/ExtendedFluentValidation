@@ -26,6 +26,7 @@ public class Tests
 
     class TargetWithNulls
     {
+        // ReSharper disable once NotAccessedField.Local
         string? write;
         public string? ReadWrite { get; set; }
         public string? Read { get; }
@@ -61,6 +62,7 @@ public class Tests
 
     class TargetWithNoNulls
     {
+        // ReSharper disable once NotAccessedField.Local
         string write;
         public string ReadWrite { get; set; }
         public string Read { get; }
@@ -465,6 +467,7 @@ public class Tests
 
     #endregion
 
+    // ReSharper disable once EmptyConstructor
     #region ExtendedValidatorUsage
 
     class PersonValidatorFromBase :

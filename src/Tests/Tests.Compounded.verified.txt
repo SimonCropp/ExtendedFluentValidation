@@ -7,6 +7,7 @@
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Property1,
+        PropertyPath: Property1,
         PropertyValue: null
       }
     },
@@ -19,6 +20,7 @@
         MaxLength: 2,
         MinLength: 0,
         PropertyName: Property2,
+        PropertyPath: Property2,
         PropertyValue: 123,
         TotalLength: 3
       }

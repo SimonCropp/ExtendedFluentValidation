@@ -7,6 +7,7 @@
       ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Read,
+        PropertyPath: Read,
         PropertyValue: null
       }
     }

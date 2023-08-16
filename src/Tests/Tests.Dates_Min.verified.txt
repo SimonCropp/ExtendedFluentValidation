@@ -10,6 +10,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Date Time,
+        PropertyPath: NotNullableDateTime,
         PropertyValue: Date_MinValue
       }
     },
@@ -22,6 +23,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Allow Empty Date Time,
+        PropertyPath: NotNullableAllowEmptyDateTime,
         PropertyValue: Date_MinValue
       }
     },
@@ -34,6 +36,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Date Time,
+        PropertyPath: NullableDateTime,
         PropertyValue: Date_MinValue
       }
     },
@@ -46,6 +49,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Allow Empty Date Time,
+        PropertyPath: NullableAllowEmptyDateTime,
         PropertyValue: Date_MinValue
       }
     },
@@ -58,6 +62,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Date Time Offset,
+        PropertyPath: NotNullableDateTimeOffset,
         PropertyValue: Date_MinValue
       }
     },
@@ -70,6 +75,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Allow Empty Date Time Offset,
+        PropertyPath: NotNullableAllowEmptyDateTimeOffset,
         PropertyValue: Date_MinValue
       }
     },
@@ -82,6 +88,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Date Time Offset,
+        PropertyPath: NullableDateTimeOffset,
         PropertyValue: Date_MinValue
       }
     },
@@ -94,6 +101,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Allow Empty Date Time Offset,
+        PropertyPath: NullableAllowEmptyDateTimeOffset,
         PropertyValue: Date_MinValue
       }
     },
@@ -106,6 +114,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Date,
+        PropertyPath: NotNullableDate,
         PropertyValue: Date_MinValue
       }
     },
@@ -118,6 +127,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Not Nullable Allow Empty Date,
+        PropertyPath: NotNullableAllowEmptyDate,
         PropertyValue: Date_MinValue
       }
     },
@@ -130,6 +140,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Date,
+        PropertyPath: NullableDate,
         PropertyValue: Date_MinValue
       }
     },
@@ -142,6 +153,7 @@
         ComparisonProperty: ,
         ComparisonValue: Date_MinValue,
         PropertyName: Nullable Allow Empty Date,
+        PropertyPath: NullableAllowEmptyDate,
         PropertyValue: Date_MinValue
       }
     }

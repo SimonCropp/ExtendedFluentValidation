@@ -10,6 +10,7 @@
         ComparisonProperty: ,
         ComparisonValue: Guid_Empty,
         PropertyName: Not Nullable,
+        PropertyPath: NotNullable,
         PropertyValue: Guid_Empty
       }
     },
@@ -22,6 +23,7 @@
         ComparisonProperty: ,
         ComparisonValue: Guid_Empty,
         PropertyName: Nullable,
+        PropertyPath: Nullable,
         PropertyValue: Guid_Empty
       }
     }
