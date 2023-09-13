@@ -2,6 +2,4 @@
 
 [AttributeUsage(AttributeTargets.Property)]
 public class AllowEmptyAttribute :
-    Attribute
-{
-}
+    Attribute;

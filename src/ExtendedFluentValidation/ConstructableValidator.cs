@@ -1,5 +1,2 @@
 ﻿class ConstructableValidator<T> :
-    AbstractValidator<T>
-{
-
-}
+    AbstractValidator<T>;

@@ -46,9 +46,7 @@ public class SharedRuleTests
     #region SharedRulesUsage
 
     class PersonValidator :
-        ExtendedValidator<Person>
-    {
-    }
+        ExtendedValidator<Person>;
 
     #endregion
 
