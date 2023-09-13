@@ -174,11 +174,9 @@ The `PersonValidator` used only the standard rules, so needs no constructor.
 <a id='snippet-sharedrulesusage'></a>
 ```cs
 class PersonValidator :
-    ExtendedValidator<Person>
-{
-}
+    ExtendedValidator<Person>;
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L46-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L46-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The above is equivalent to:
@@ -202,7 +200,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L55-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L53-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
