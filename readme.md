@@ -5,6 +5,8 @@
 
 Extends [FluentValidation](https://fluentvalidation.net/) with some more opinionated rules and extensions.
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 
 ## Nuget
 
