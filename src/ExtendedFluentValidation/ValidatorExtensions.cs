@@ -36,7 +36,7 @@ public static class ValidatorExtensions
 
         if (exclusions != null)
         {
-            properties = properties.Where(x => !exclusions.Contains(x.Name)).ToList();
+            properties = properties.Where(_ => !exclusions.Contains(_.Name)).ToList();
         }
 
         var notNullProperties = properties
