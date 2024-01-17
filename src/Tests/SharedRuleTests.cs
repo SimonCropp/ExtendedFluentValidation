@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class SharedRuleTests
+﻿public class SharedRuleTests
 {
     #region SharedRulesInit
 
