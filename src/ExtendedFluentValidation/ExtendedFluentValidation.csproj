@@ -7,6 +7,5 @@
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="Nullability" Version="2.3.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
   </ItemGroup>
 </Project>
