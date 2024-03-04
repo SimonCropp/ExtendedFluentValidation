@@ -30,7 +30,10 @@ public static class ValidatorExtensions
             .Select(_ => _.Value);
     }
 
-    public static void AddExtendedRules<T>(this AbstractValidator<T> validator, IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false)
+    public static void AddExtendedRules<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(
+        this AbstractValidator<T> validator,
+        IReadOnlyList<string>? exclusions = null,
+        bool validateEmptyLists = false)
     {
         var properties = Extensions.GettableProperties<T>();
 

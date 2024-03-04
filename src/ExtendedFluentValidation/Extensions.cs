@@ -2,7 +2,7 @@
 {
     const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
-    public static List<PropertyInfo> GettableProperties<T>()
+    public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>()
     {
         var type = typeof(T);
         return type.GetProperties(flags)

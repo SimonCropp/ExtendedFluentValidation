@@ -4,14 +4,14 @@ namespace FluentValidation;
 
 public static class ExtendedValidator
 {
-    public static IValidator GetInstance(Type type)
+    public static IValidator GetInstance([DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] Type type)
     {
         var genericType = typeof(ExtendedValidator<>).MakeGenericType(type);
         return (IValidator)Activator.CreateInstance(genericType)!;
     }
 }
 
-public class ExtendedValidator<T> :
+public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T> :
     AbstractValidator<T>
 {
     static List<IValidator> sharedValidators;
