@@ -97,9 +97,6 @@ dotnet_diagnostic.CA1846.severity = error
 # Use string.Contains(char) instead of string.Contains(string) with single characters
 dotnet_diagnostic.CA1847.severity = error
 
-# Use the LoggerMessage delegates
-dotnet_diagnostic.CA1848.severity = error
-
 # Prefer static HashData method over ComputeHash
 dotnet_diagnostic.CA1850.severity = error
 
@@ -132,9 +129,6 @@ dotnet_diagnostic.CA1861.severity = error
 
 # Use the StringComparison method overloads to perform case-insensitive string comparisons
 dotnet_diagnostic.CA1862.severity = error
-
-# Use CompositeFormat
-dotnet_diagnostic.CA1863.severity = error
 
 # Prefer the IDictionary.TryAdd(TKey, TValue) method
 dotnet_diagnostic.CA1864.severity = error
