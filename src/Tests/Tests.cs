@@ -276,14 +276,8 @@
 
         var target = new TargetWithLists
         {
-            NotNullable = new()
-            {
-                "a"
-            },
-            Nullable = new()
-            {
-                "a"
-            }
+            NotNullable = ["a"],
+            Nullable = ["a"]
         };
         var result = validator.Validate(target);
         return Verify(result);

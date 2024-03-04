@@ -1,5 +1,5 @@
 ﻿namespace FluentValidation;
 
 [AttributeUsage(AttributeTargets.Property)]
-public class AllowEmptyAttribute :
+public sealed class AllowEmptyAttribute :
     Attribute;

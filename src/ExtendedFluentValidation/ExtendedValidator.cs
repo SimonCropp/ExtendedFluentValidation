@@ -34,7 +34,7 @@ public class ExtendedValidator<T> :
     public override ValidationResult Validate(ValidationContext<T> context)
     {
         var result = base.Validate(context);
-        if (!sharedValidators.Any())
+        if (sharedValidators.Count == 0)
         {
             return result;
         }
@@ -46,7 +46,7 @@ public class ExtendedValidator<T> :
     public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, Cancel cancel = default)
     {
         var result = await base.ValidateAsync(context, cancel);
-        if (!sharedValidators.Any())
+        if (sharedValidators.Count == 0)
         {
             return result;
         }

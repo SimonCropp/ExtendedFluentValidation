@@ -48,7 +48,7 @@ public static class ValidatorExtensions
                 }
 
                 var nullability = _.GetNullability();
-                return nullability == NullabilityStateEx.NotNull;
+                return nullability == NullabilityState.NotNull;
             })
             .ToList();
         foreach (var property in notNullProperties)

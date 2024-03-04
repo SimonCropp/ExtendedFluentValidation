@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -11,7 +11,7 @@
     <PackageReference Include="Xunit" Version="2.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="26.0.1" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.120" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.123" PrivateAssets="all" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
   </ItemGroup>
 </Project>
