@@ -18,7 +18,9 @@ public class NotEmptyCollectionValidator<T> :
             return collection.Count > 0;
         }
 
-        return value.GetEnumerator().MoveNext();
+        var enumerator = value.GetEnumerator();
+        using var enumerator1 = enumerator as IDisposable;
+        return enumerator.MoveNext();
     }
 
     protected override string GetDefaultMessageTemplate(string errorCode) =>
