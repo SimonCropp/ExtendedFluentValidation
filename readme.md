@@ -51,7 +51,7 @@ There are two ways of applying the extended rules.
 Using a base class `ExtendedValidator`:
 
 <!-- snippet: ExtendedValidatorUsage -->
-<a id='snippet-extendedvalidatorusage'></a>
+<a id='snippet-ExtendedValidatorUsage'></a>
 ```cs
 class PersonValidatorFromBase :
     ExtendedValidator<Person>
@@ -62,7 +62,7 @@ class PersonValidatorFromBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L464-L475' title='Snippet source file'>snippet source</a> | <a href='#snippet-extendedvalidatorusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L464-L475' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -71,7 +71,7 @@ class PersonValidatorFromBase :
 Using an extension method `AddExtendedRules`:
 
 <!-- snippet: AddExtendedRulesUsage -->
-<a id='snippet-addextendedrulesusage'></a>
+<a id='snippet-AddExtendedRulesUsage'></a>
 ```cs
 class PersonValidatorNonBase :
     AbstractValidator<Person>
@@ -81,7 +81,7 @@ class PersonValidatorNonBase :
     //TODO: add any extra rules
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L477-L487' title='Snippet source file'>snippet source</a> | <a href='#snippet-addextendedrulesusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L477-L487' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -90,7 +90,7 @@ class PersonValidatorNonBase :
 The above are equivalent to:
 
 <!-- snippet: Person -->
-<a id='snippet-person'></a>
+<a id='snippet-Person'></a>
 ```cs
 public class Person
 {
@@ -101,11 +101,11 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L450-L461' title='Snippet source file'>snippet source</a> | <a href='#snippet-person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L450-L461' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
-<a id='snippet-equivalent'></a>
+<a id='snippet-Equivalent'></a>
 ```cs
 class PersonValidatorEquivalent :
     AbstractValidator<Person>
@@ -125,7 +125,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L489-L509' title='Snippet source file'>snippet source</a> | <a href='#snippet-equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L489-L509' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -134,7 +134,7 @@ class PersonValidatorEquivalent :
 Given the following models:
 
 <!-- snippet: SharedRulesModels -->
-<a id='snippet-sharedrulesmodels'></a>
+<a id='snippet-SharedRulesModels'></a>
 ```cs
 public interface IDbRecord
 {
@@ -150,7 +150,7 @@ public class Person :
     public byte[] RowVersion { get; set; }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L27-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesmodels' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L27-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesModels' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 It is desirable to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using shares rules.
@@ -158,7 +158,7 @@ It is desirable to have the rules for `IDbRecord` defined separately, and not ne
 Configure any shared rules at startup:
 
 <!-- snippet: SharedRulesInit -->
-<a id='snippet-sharedrulesinit'></a>
+<a id='snippet-SharedRulesInit'></a>
 ```cs
 [ModuleInitializer]
 public static void Init() =>
@@ -167,24 +167,24 @@ public static void Init() =>
         .Must(rowVersion => rowVersion?.Length == 8)
         .WithMessage("RowVersion must be 8 bytes");
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesinit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesInit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `PersonValidator` used only the standard rules, so needs no constructor.
 
 <!-- snippet: SharedRulesUsage -->
-<a id='snippet-sharedrulesusage'></a>
+<a id='snippet-SharedRulesUsage'></a>
 ```cs
 class PersonValidator :
     ExtendedValidator<Person>;
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The above is equivalent to:
 
 <!-- snippet: SharedRulesEquivalent -->
-<a id='snippet-sharedrulesequivalent'></a>
+<a id='snippet-SharedRulesEquivalent'></a>
 ```cs
 class PersonValidatorEquivalent :
     AbstractValidator<Person>
@@ -202,7 +202,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L52-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-sharedrulesequivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L52-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesEquivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
