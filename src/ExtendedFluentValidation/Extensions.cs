@@ -17,7 +17,7 @@
     {
         var type = property.PropertyType;
 
-        if (typeof(ICollection).IsAssignableFrom(type))
+        if (type.IsAssignableTo<ICollection>())
         {
             return true;
         }
