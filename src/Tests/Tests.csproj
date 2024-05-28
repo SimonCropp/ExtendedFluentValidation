@@ -4,14 +4,14 @@
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Verify.DiffPlex" Version="3.0.0" />
-    <PackageReference Include="FluentValidation" Version="11.9.1" />
-    <PackageReference Include="Verify.Xunit" Version="24.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" PrivateAssets="all" />
-    <PackageReference Include="Xunit" Version="2.8.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="Verify.DiffPlex" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Verify.Xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
   </ItemGroup>
 </Project>
