@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Verify.DiffPlex" />
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Verify.Xunit" />
+    <PackageReference Include="Verify.XunitV3" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
-    <PackageReference Include="Xunit" />
+    <PackageReference Include="xunit.v3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MarkdownSnippets.MsBuild" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
