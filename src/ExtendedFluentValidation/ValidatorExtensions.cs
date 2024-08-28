@@ -2,7 +2,7 @@
 
 public static class ValidatorExtensions
 {
-    static Dictionary<Type, IValidator> conventions = new();
+    static Dictionary<Type, IValidator> conventions = [];
 
     public static AbstractValidator<T> SharedValidatorFor<T>()
     {
@@ -145,16 +145,18 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(Guid));
         foreach (var property in typedProperties)
         {
-            var ruleFor = validator.RuleFor<TTarget, Guid>(property);
-            ruleFor.NotEqual(default(Guid)).WithMessage($"{property.Name} must not be `Guid.Empty`.");
+            var rule = validator.RuleFor<TTarget, Guid>(property);
+            rule.NotEqual(default(Guid))
+                .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
 
         var typedNullableProperties = properties
             .Where(_ => _.PropertyType == typeof(Guid?));
         foreach (var property in typedNullableProperties)
         {
-            var ruleFor = validator.RuleFor<TTarget, Guid?>(property);
-            ruleFor.NotEqual(default(Guid)).WithMessage($"{property.Name} must not be `Guid.Empty`.");
+            var rule = validator.RuleFor<TTarget, Guid?>(property);
+            rule.NotEqual(default(Guid))
+                .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
     }
 
@@ -166,16 +168,18 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
-            var ruleFor = validator.RuleFor<TTarget, TProperty>(property);
-            ruleFor.NotEqual(default(TProperty)).WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
+            var rule = validator.RuleFor<TTarget, TProperty>(property);
+            rule.NotEqual(default(TProperty))
+                .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
 
         var typedNullableProperties = properties
             .Where(_ => _.PropertyType == typeof(TProperty?));
         foreach (var property in typedNullableProperties)
         {
-            var ruleFor = validator.RuleFor<TTarget, TProperty?>(property);
-            ruleFor.NotEqual(default(TProperty)).WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
+            var rule = validator.RuleFor<TTarget, TProperty?>(property);
+            rule.NotEqual(default(TProperty))
+                .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
 

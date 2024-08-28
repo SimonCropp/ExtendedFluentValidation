@@ -300,8 +300,8 @@
 
         var target = new TargetWithLists
         {
-            NotNullable = new(),
-            Nullable = new()
+            NotNullable = [],
+            Nullable = []
         };
         var result = validator.Validate(target);
         return Verify(result);
