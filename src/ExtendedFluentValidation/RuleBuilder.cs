@@ -4,7 +4,7 @@ namespace FluentValidation;
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>
 {
-    public void AddExtendedRules(
+    public RuleBuilder(
         AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions,
         bool validateEmptyLists)

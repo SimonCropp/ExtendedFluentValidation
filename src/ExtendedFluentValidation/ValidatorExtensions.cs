@@ -6,7 +6,7 @@ public static class ValidatorExtensions
         this AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions = null,
         bool validateEmptyLists = false) =>
-        new RuleBuilder<T>().AddExtendedRules(validator, exclusions,validateEmptyLists);
+        new RuleBuilder<T>(validator, exclusions,validateEmptyLists);
 
     public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
     {
