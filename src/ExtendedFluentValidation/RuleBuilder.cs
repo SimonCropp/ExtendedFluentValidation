@@ -1,8 +1,10 @@
-﻿namespace FluentValidation;
+﻿// ReSharper disable MemberCanBeMadeStatic.Local
+namespace FluentValidation;
 
-public static class RuleBuilder
+[SuppressMessage("Performance", "CA1822:Mark members as static")]
+public class RuleBuilder
 {
-    public static void AddExtendedRules<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(
+    public void AddExtendedRules<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(
         AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions,
         bool validateEmptyLists)
@@ -29,7 +31,7 @@ public static class RuleBuilder
 #endif
     }
 
-    static void NotNull<T>(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
+    void NotNull<T>(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
     {
         foreach (var property in notNullProperties)
         {
@@ -58,7 +60,7 @@ public static class RuleBuilder
         }
     }
 
-    static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
         var stringProperties = otherProperties
             .Where(_ => _.IsString());
@@ -72,7 +74,7 @@ public static class RuleBuilder
         }
     }
 
-    static void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
         var collectionProperties = otherProperties
             .Where(_ => !_.IsString() &&
@@ -84,7 +86,7 @@ public static class RuleBuilder
         }
     }
 
-    static void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
     {
         properties = properties
             .Where(_ => !_.AllowsEmpty())
@@ -109,7 +111,7 @@ public static class RuleBuilder
         }
     }
 
-    static void AddNotDefaultDate<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    void AddNotDefaultDate<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
         where TProperty : struct
     {
         var type = typeof(TProperty);
@@ -132,7 +134,7 @@ public static class RuleBuilder
         }
     }
 
-    static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(AbstractValidator<TTarget> validator, PropertyInfo property)
+    IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(AbstractValidator<TTarget> validator, PropertyInfo property)
     {
         var param = Expression.Parameter(typeof(TTarget));
         var body = Expression.Property(param, property);
@@ -141,7 +143,7 @@ public static class RuleBuilder
         return validator.RuleFor(expression);
     }
 
-    public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(AbstractValidator<TTarget> validator, PropertyInfo property)
+    IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(AbstractValidator<TTarget> validator, PropertyInfo property)
     {
         var param = Expression.Parameter(typeof(TTarget));
         var body = Expression.Property(param, property);
