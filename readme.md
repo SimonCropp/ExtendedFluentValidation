@@ -162,7 +162,7 @@ Configure any shared rules at startup:
 ```cs
 [ModuleInitializer]
 public static void Init() =>
-    ValidatorExtensions.SharedValidatorFor<IDbRecord>()
+    ValidatorConventions.ValidatorFor<IDbRecord>()
         .RuleFor(record => record.RowVersion)
         .Must(rowVersion => rowVersion?.Length == 8)
         .WithMessage("RowVersion must be 8 bytes");
