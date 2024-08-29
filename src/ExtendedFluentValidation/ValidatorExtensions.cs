@@ -35,7 +35,7 @@ public static class ValidatorExtensions
         {
             if (property.IsString())
             {
-                var ruleFor = validator.RuleFor<T, string>(property);
+                var ruleFor = RuleFor<T, string>(validator, property);
                 if (property.AllowsEmpty())
                 {
                     ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T,string>());
@@ -47,13 +47,13 @@ public static class ValidatorExtensions
             }
             else if (validateEmptyLists && property.IsCollection())
             {
-                validator.RuleFor(property).NotNull();
-                var ruleFor = validator.RuleFor<T, IEnumerable>(property);
+                RuleFor(validator, property).NotNull();
+                var ruleFor = RuleFor<T, IEnumerable>(validator, property);
                 ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
             }
             else
             {
-                validator.RuleFor(property).NotNull();
+                RuleFor(validator, property).NotNull();
             }
         }
     }
@@ -66,7 +66,7 @@ public static class ValidatorExtensions
         {
             if (!property.AllowsEmpty())
             {
-                var ruleFor = validator.RuleFor<T, string?>(property);
+                var ruleFor = RuleFor<T, string?>(validator, property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
             }
         }
@@ -79,7 +79,7 @@ public static class ValidatorExtensions
                         _.IsCollection());
         foreach (var property in collectionProperties)
         {
-            var ruleFor = validator.RuleFor<T, IEnumerable>(property);
+            var ruleFor = RuleFor<T, IEnumerable>(validator, property);
             ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
         }
     }
@@ -105,7 +105,7 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(Guid));
         foreach (var property in typedProperties)
         {
-            validator.RuleFor<TTarget, Guid>(property)
+            RuleFor<TTarget, Guid>(validator, property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
@@ -114,7 +114,7 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(Guid?));
         foreach (var property in typedNullableProperties)
         {
-            validator.RuleFor<TTarget, Guid?>(property)
+            RuleFor<TTarget, Guid?>(validator, property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
@@ -128,7 +128,7 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
-            validator.RuleFor<TTarget, TProperty>(property)
+            RuleFor<TTarget, TProperty>(validator, property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
@@ -137,13 +137,13 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(TProperty?));
         foreach (var property in typedNullableProperties)
         {
-            validator.RuleFor<TTarget, TProperty?>(property)
+            RuleFor<TTarget, TProperty?>(validator, property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
 
-    static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+    static IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(AbstractValidator<TTarget> validator, PropertyInfo property)
     {
         var param = Expression.Parameter(typeof(TTarget));
         var body = Expression.Property(param, property);
@@ -152,7 +152,7 @@ public static class ValidatorExtensions
         return validator.RuleFor(expression);
     }
 
-    public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(this AbstractValidator<TTarget> validator, PropertyInfo property)
+    public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(AbstractValidator<TTarget> validator, PropertyInfo property)
     {
         var param = Expression.Parameter(typeof(TTarget));
         var body = Expression.Property(param, property);

@@ -29,7 +29,7 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
         this.AddExtendedRules(exclusions, validateEmptyLists);
 
     public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property) =>
-        this.RuleFor<T, TProperty>(property);
+        ValidatorExtensions.RuleFor<T, TProperty>(this, property);
 
     public override ValidationResult Validate(ValidationContext<T> context)
     {
