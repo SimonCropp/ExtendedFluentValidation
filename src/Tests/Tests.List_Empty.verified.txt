@@ -4,7 +4,7 @@
     {
       PropertyName: NotNullable,
       ErrorMessage: 'Not Nullable' must not be empty.,
-      ErrorCode: NotEmptyCollectionValidator,
+      ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Not Nullable,
         PropertyPath: NotNullable

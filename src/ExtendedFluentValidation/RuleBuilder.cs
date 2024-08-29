@@ -53,8 +53,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             else if (validateEmptyLists && property.IsCollection())
             {
                 RuleFor<IEnumerable>(property)
-                    .NotNull()
-                    .SetValidator(new NotEmptyCollectionValidator<T>());
+                    .NotEmpty();
             }
             else
             {
