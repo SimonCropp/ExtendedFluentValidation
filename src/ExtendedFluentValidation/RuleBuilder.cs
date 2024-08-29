@@ -4,6 +4,7 @@
 public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>
 {
     AbstractValidator<T> validator;
+    bool validateEmptyLists;
 
     public RuleBuilder(
         AbstractValidator<T> validator,
@@ -11,12 +12,13 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         bool validateEmptyLists)
     {
         this.validator = validator;
+        this.validateEmptyLists = validateEmptyLists;
         var properties = Extensions.GettableProperties<T>(exclusions);
 
         var notNullProperties = properties
             .Where(_ => _.NotNullable())
             .ToList();
-        NotNull(validateEmptyLists, notNullProperties);
+        NotNull(notNullProperties);
 
         var otherProperties = properties.Except(notNullProperties).ToList();
 
@@ -33,13 +35,13 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
 #endif
     }
 
-    void NotNull(bool validateEmptyLists, List<PropertyInfo> notNullProperties)
+    void NotNull(List<PropertyInfo> notNullProperties)
     {
         foreach (var property in notNullProperties)
         {
             if (property.IsString())
             {
-                var ruleFor = RuleFor<string>(validator, property);
+                var ruleFor = RuleFor<string>(property);
                 if (property.AllowsEmpty())
                 {
                     ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T,string>());
@@ -51,13 +53,13 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             }
             else if (validateEmptyLists && property.IsCollection())
             {
-                RuleFor(property).NotNull();
-                var ruleFor = RuleFor<IEnumerable>(validator, property);
-                ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
+                RuleFor<IEnumerable>(property)
+                    .NotNull()
+                    .SetValidator(new NotEmptyCollectionValidator<T>());
             }
             else
             {
-                RuleFor(property).NotNull();
+                RuleFor<object>(property).NotNull();
             }
         }
     }
@@ -70,7 +72,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         {
             if (!property.AllowsEmpty())
             {
-                var ruleFor = RuleFor<string?>(validator, property);
+                var ruleFor = RuleFor<string?>(property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
             }
         }
@@ -83,8 +85,8 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                         _.IsCollection());
         foreach (var property in collectionProperties)
         {
-            var ruleFor = RuleFor<IEnumerable>(validator, property);
-            ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
+            RuleFor<IEnumerable>(property)
+                .SetValidator(new NotEmptyCollectionValidator<T>());
         }
     }
 
@@ -98,7 +100,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(Guid));
         foreach (var property in typedProperties)
         {
-            RuleFor<Guid>(validator, property)
+            RuleFor<Guid>(property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
@@ -107,7 +109,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(Guid?));
         foreach (var property in typedNullableProperties)
         {
-            RuleFor<Guid?>(validator, property)
+            RuleFor<Guid?>(property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
@@ -121,7 +123,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
-            RuleFor<TProperty>(validator, property)
+            RuleFor<TProperty>(property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
@@ -130,24 +132,16 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(TProperty?));
         foreach (var property in typedNullableProperties)
         {
-            RuleFor<TProperty?>(validator, property)
+            RuleFor<TProperty?>(property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
 
-    IRuleBuilderInitial<T, object> RuleFor(PropertyInfo property)
-    {
-        var param = Expression.Parameter(typeof(T));
-        var body = Expression.Property(param, property);
-        var converted = Expression.Convert(body, typeof(object));
-        var expression = Expression.Lambda<Func<T, object>>(converted, param);
-        return validator.RuleFor(expression);
-    }
+    static ParameterExpression param = Expression.Parameter(typeof(T));
 
-    IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(AbstractValidator<T> validator, PropertyInfo property)
+    IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property)
     {
-        var param = Expression.Parameter(typeof(T));
         var body = Expression.Property(param, property);
         var expression = Expression.Lambda<Func<T, TProperty>>(body, param);
         return validator.RuleFor(expression);
