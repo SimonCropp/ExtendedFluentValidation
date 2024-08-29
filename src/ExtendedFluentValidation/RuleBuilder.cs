@@ -2,9 +2,9 @@
 namespace FluentValidation;
 
 [SuppressMessage("Performance", "CA1822:Mark members as static")]
-public class RuleBuilder
+public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>
 {
-    public void AddExtendedRules<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(
+    public void AddExtendedRules(
         AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions,
         bool validateEmptyLists)
@@ -31,7 +31,7 @@ public class RuleBuilder
 #endif
     }
 
-    void NotNull<T>(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
+    void NotNull(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
     {
         foreach (var property in notNullProperties)
         {
@@ -60,7 +60,7 @@ public class RuleBuilder
         }
     }
 
-    void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    void NotWhiteSpace(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
         var stringProperties = otherProperties
             .Where(_ => _.IsString());
@@ -74,7 +74,7 @@ public class RuleBuilder
         }
     }
 
-    void NotEmptyCollections<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
+    void NotEmptyCollections(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
         var collectionProperties = otherProperties
             .Where(_ => !_.IsString() &&
