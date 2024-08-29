@@ -2,6 +2,20 @@
 {
     const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
+    public static bool NotNullable(this PropertyInfo property)
+    {
+        if (!property.PropertyType.IsClass)
+        {
+            return false;
+        }
+
+        var nullability = property.GetNullability();
+        return nullability == NullabilityState.NotNull;
+    }
+
+    public static bool AllowsEmpty(this MemberInfo property) =>
+        property.GetCustomAttribute<AllowEmptyAttribute>() != null;
+
     public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(IReadOnlyList<string>? exclusions)
     {
         var type = typeof(T);

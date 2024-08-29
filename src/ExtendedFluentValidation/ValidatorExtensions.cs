@@ -38,17 +38,27 @@ public static class ValidatorExtensions
         var properties = Extensions.GettableProperties<T>(exclusions);
 
         var notNullProperties = properties
-            .Where(_ =>
-            {
-                if (!_.PropertyType.IsClass)
-                {
-                    return false;
-                }
-
-                var nullability = _.GetNullability();
-                return nullability == NullabilityState.NotNull;
-            })
+            .Where(_ => _.NotNullable())
             .ToList();
+        NotNull(validator, validateEmptyLists, notNullProperties);
+
+        var otherProperties = properties.Except(notNullProperties).ToList();
+
+        NotWhiteSpace(validator, otherProperties);
+        if (validateEmptyLists)
+        {
+            NotEmptyCollections(validator, otherProperties);
+        }
+        AddNotEmptyGuid(validator, otherProperties);
+        AddNotDefaultDate<T, DateTime>(validator, otherProperties);
+        AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
+#if(NET6_0_OR_GREATER)
+        AddNotDefaultDate<T, Date>(validator, otherProperties);
+#endif
+    }
+
+    static void NotNull<T>(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
+    {
         foreach (var property in notNullProperties)
         {
             if (property.IsString())
@@ -74,24 +84,7 @@ public static class ValidatorExtensions
                 validator.RuleFor(property).NotNull();
             }
         }
-
-        var otherProperties = properties.Except(notNullProperties).ToList();
-
-        NotWhiteSpace(validator, otherProperties);
-        if (validateEmptyLists)
-        {
-            NotEmptyCollections(validator, otherProperties);
-        }
-        AddNotEmptyGuid(validator, otherProperties);
-        AddNotDefaultDate<T, DateTime>(validator, otherProperties);
-        AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
-#if(NET6_0_OR_GREATER)
-        AddNotDefaultDate<T, Date>(validator, otherProperties);
-#endif
     }
-
-    static bool AllowsEmpty(this MemberInfo property) =>
-        property.GetCustomAttribute<AllowEmptyAttribute>() != null;
 
     static void NotWhiteSpace<T>(AbstractValidator<T> validator, List<PropertyInfo> otherProperties)
     {
@@ -140,8 +133,8 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(Guid));
         foreach (var property in typedProperties)
         {
-            var rule = validator.RuleFor<TTarget, Guid>(property);
-            rule.NotEqual(default(Guid))
+            validator.RuleFor<TTarget, Guid>(property)
+                .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
 
@@ -149,8 +142,8 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(Guid?));
         foreach (var property in typedNullableProperties)
         {
-            var rule = validator.RuleFor<TTarget, Guid?>(property);
-            rule.NotEqual(default(Guid))
+            validator.RuleFor<TTarget, Guid?>(property)
+                .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
     }
@@ -163,8 +156,8 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
-            var rule = validator.RuleFor<TTarget, TProperty>(property);
-            rule.NotEqual(default(TProperty))
+            validator.RuleFor<TTarget, TProperty>(property)
+                .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
 
@@ -172,8 +165,8 @@ public static class ValidatorExtensions
             .Where(_ => _.PropertyType == typeof(TProperty?));
         foreach (var property in typedNullableProperties)
         {
-            var rule = validator.RuleFor<TTarget, TProperty?>(property);
-            rule.NotEqual(default(TProperty))
+            validator.RuleFor<TTarget, TProperty?>(property)
+                .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
