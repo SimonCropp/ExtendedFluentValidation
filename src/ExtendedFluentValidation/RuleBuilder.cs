@@ -64,15 +64,12 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
 
     void NotWhiteSpace(List<PropertyInfo> otherProperties)
     {
-        var stringProperties = otherProperties
-            .Where(_ => _.IsString());
-        foreach (var property in stringProperties)
+        foreach (var property in otherProperties
+                     .Where(_ => _.IsString() &&
+                                 !_.AllowsEmpty()))
         {
-            if (!property.AllowsEmpty())
-            {
-                var ruleFor = RuleFor<string?>(property);
-                ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
-            }
+            RuleFor<string?>(property)
+                .SetValidator(new NotWhiteSpaceValidator<T>());
         }
     }
 
