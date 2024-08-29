@@ -4,7 +4,7 @@ public class NotEmptyCollectionValidator<T> :
     PropertyValidator<T, IEnumerable?>,
     INotEmptyValidator
 {
-    public override string Name => "NotEmptyValidator";
+    public override string Name => "NotEmptyCollectionValidator";
 
     public override bool IsValid(ValidationContext<T> context, IEnumerable? value)
     {
@@ -19,7 +19,7 @@ public class NotEmptyCollectionValidator<T> :
         }
 
         var enumerator = value.GetEnumerator();
-        using var enumerator1 = enumerator as IDisposable;
+        using var disposable = enumerator as IDisposable;
         return enumerator.MoveNext();
     }
 

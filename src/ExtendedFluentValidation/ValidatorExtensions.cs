@@ -35,12 +35,7 @@ public static class ValidatorExtensions
         IReadOnlyList<string>? exclusions = null,
         bool validateEmptyLists = false)
     {
-        var properties = Extensions.GettableProperties<T>();
-
-        if (exclusions != null)
-        {
-            properties = properties.Where(_ => !exclusions.Contains(_.Name)).ToList();
-        }
+        var properties = Extensions.GettableProperties<T>(exclusions);
 
         var notNullProperties = properties
             .Where(_ =>

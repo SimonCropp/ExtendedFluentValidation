@@ -4,7 +4,7 @@
     {
       PropertyName: NotNullable,
       ErrorMessage: 'Not Nullable' must not be empty.,
-      ErrorCode: NotEmptyValidator,
+      ErrorCode: NotEmptyCollectionValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Not Nullable,
         PropertyPath: NotNullable
@@ -13,7 +13,7 @@
     {
       PropertyName: Nullable,
       ErrorMessage: 'Nullable' must not be empty.,
-      ErrorCode: NotEmptyValidator,
+      ErrorCode: NotEmptyCollectionValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Nullable,
         PropertyPath: Nullable

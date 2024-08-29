@@ -75,5 +75,4 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
 
         return new(errors);
     }
-
 }

@@ -2,11 +2,18 @@
 {
     const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
-    public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>()
+    public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(IReadOnlyList<string>? exclusions)
     {
         var type = typeof(T);
+        if (exclusions == null)
+        {
+            return type.GetProperties(flags)
+                .Where(_ => _.GetMethod != null)
+                .ToList();
+        }
+
         return type.GetProperties(flags)
-            .Where(_ => _.GetMethod != null)
+            .Where(_ => _.GetMethod != null && !exclusions.Contains(_.Name))
             .ToList();
     }
 
