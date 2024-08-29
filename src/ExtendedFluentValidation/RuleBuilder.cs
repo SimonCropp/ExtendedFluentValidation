@@ -1,12 +1,33 @@
 ﻿namespace FluentValidation;
 
-public static class ValidatorExtensions
+public static class RuleBuilder
 {
     public static void AddExtendedRules<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(
-        this AbstractValidator<T> validator,
-        IReadOnlyList<string>? exclusions = null,
-        bool validateEmptyLists = false) =>
-        RuleBuilder.AddExtendedRules(validator, exclusions,validateEmptyLists);
+        AbstractValidator<T> validator,
+        IReadOnlyList<string>? exclusions,
+        bool validateEmptyLists)
+    {
+        var properties = Extensions.GettableProperties<T>(exclusions);
+
+        var notNullProperties = properties
+            .Where(_ => _.NotNullable())
+            .ToList();
+        NotNull(validator, validateEmptyLists, notNullProperties);
+
+        var otherProperties = properties.Except(notNullProperties).ToList();
+
+        NotWhiteSpace(validator, otherProperties);
+        if (validateEmptyLists)
+        {
+            NotEmptyCollections(validator, otherProperties);
+        }
+        AddNotEmptyGuid(validator, otherProperties);
+        AddNotDefaultDate<T, DateTime>(validator, otherProperties);
+        AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
+#if(NET6_0_OR_GREATER)
+        AddNotDefaultDate<T, Date>(validator, otherProperties);
+#endif
+    }
 
     static void NotNull<T>(AbstractValidator<T> validator, bool validateEmptyLists, List<PropertyInfo> notNullProperties)
     {
@@ -61,17 +82,6 @@ public static class ValidatorExtensions
             var ruleFor = RuleFor<T, IEnumerable>(validator, property);
             ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
         }
-    }
-
-    public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
-    {
-        var innerContext = new ValidationContext<T>(context.InstanceToValidate);
-        foreach (var contextItem in context.RootContextData)
-        {
-            innerContext.RootContextData.Add(contextItem);
-        }
-
-        return innerContext;
     }
 
     static void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
