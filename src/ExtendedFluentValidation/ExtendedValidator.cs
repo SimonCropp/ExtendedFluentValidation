@@ -17,7 +17,7 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
     static List<IValidator> sharedValidators;
 
     static ExtendedValidator() =>
-        sharedValidators = ValidatorExtensions.GetSharedValidatorsFor<T>().ToList();
+        sharedValidators = ValidatorConventions.GetValidatorsFor<T>().ToList();
 
     public ExtendedValidator() =>
         this.AddExtendedRules();
