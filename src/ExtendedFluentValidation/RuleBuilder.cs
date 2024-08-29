@@ -24,10 +24,10 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             NotEmptyCollections(validator, otherProperties);
         }
         AddNotEmptyGuid(validator, otherProperties);
-        AddNotDefaultDate<T, DateTime>(validator, otherProperties);
-        AddNotDefaultDate<T, DateTimeOffset>(validator, otherProperties);
+        AddNotDefaultDate<DateTime>(validator, otherProperties);
+        AddNotDefaultDate<DateTimeOffset>(validator, otherProperties);
 #if(NET6_0_OR_GREATER)
-        AddNotDefaultDate<T, Date>(validator, otherProperties);
+        AddNotDefaultDate<Date>(validator, otherProperties);
 #endif
     }
 
@@ -37,7 +37,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         {
             if (property.IsString())
             {
-                var ruleFor = RuleFor<T, string>(validator, property);
+                var ruleFor = RuleFor<string>(validator, property);
                 if (property.AllowsEmpty())
                 {
                     ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T,string>());
@@ -50,7 +50,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             else if (validateEmptyLists && property.IsCollection())
             {
                 RuleFor(validator, property).NotNull();
-                var ruleFor = RuleFor<T, IEnumerable>(validator, property);
+                var ruleFor = RuleFor<IEnumerable>(validator, property);
                 ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
             }
             else
@@ -68,7 +68,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         {
             if (!property.AllowsEmpty())
             {
-                var ruleFor = RuleFor<T, string?>(validator, property);
+                var ruleFor = RuleFor<string?>(validator, property);
                 ruleFor.SetValidator(new NotWhiteSpaceValidator<T>());
             }
         }
@@ -81,12 +81,12 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                         _.IsCollection());
         foreach (var property in collectionProperties)
         {
-            var ruleFor = RuleFor<T, IEnumerable>(validator, property);
+            var ruleFor = RuleFor<IEnumerable>(validator, property);
             ruleFor.SetValidator(new NotEmptyCollectionValidator<T>());
         }
     }
 
-    void AddNotEmptyGuid<TTarget>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    void AddNotEmptyGuid(AbstractValidator<T> validator, List<PropertyInfo> properties)
     {
         properties = properties
             .Where(_ => !_.AllowsEmpty())
@@ -96,7 +96,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(Guid));
         foreach (var property in typedProperties)
         {
-            RuleFor<TTarget, Guid>(validator, property)
+            RuleFor<Guid>(validator, property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
@@ -105,13 +105,13 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(Guid?));
         foreach (var property in typedNullableProperties)
         {
-            RuleFor<TTarget, Guid?>(validator, property)
+            RuleFor<Guid?>(validator, property)
                 .NotEqual(default(Guid))
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
     }
 
-    void AddNotDefaultDate<TTarget, TProperty>(AbstractValidator<TTarget> validator, List<PropertyInfo> properties)
+    void AddNotDefaultDate<TProperty>(AbstractValidator<T> validator, List<PropertyInfo> properties)
         where TProperty : struct
     {
         var type = typeof(TProperty);
@@ -119,7 +119,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == type);
         foreach (var property in typedProperties)
         {
-            RuleFor<TTarget, TProperty>(validator, property)
+            RuleFor<TProperty>(validator, property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
@@ -128,26 +128,26 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
             .Where(_ => _.PropertyType == typeof(TProperty?));
         foreach (var property in typedNullableProperties)
         {
-            RuleFor<TTarget, TProperty?>(validator, property)
+            RuleFor<TProperty?>(validator, property)
                 .NotEqual(default(TProperty))
                 .WithMessage($"{property.Name} must not be `{type.Name}.MinValue`.");
         }
     }
 
-    IRuleBuilderInitial<TTarget, object> RuleFor<TTarget>(AbstractValidator<TTarget> validator, PropertyInfo property)
+    IRuleBuilderInitial<T, object> RuleFor(AbstractValidator<T> validator, PropertyInfo property)
     {
-        var param = Expression.Parameter(typeof(TTarget));
+        var param = Expression.Parameter(typeof(T));
         var body = Expression.Property(param, property);
         var converted = Expression.Convert(body, typeof(object));
-        var expression = Expression.Lambda<Func<TTarget, object>>(converted, param);
+        var expression = Expression.Lambda<Func<T, object>>(converted, param);
         return validator.RuleFor(expression);
     }
 
-    IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(AbstractValidator<TTarget> validator, PropertyInfo property)
+    IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(AbstractValidator<T> validator, PropertyInfo property)
     {
-        var param = Expression.Parameter(typeof(TTarget));
+        var param = Expression.Parameter(typeof(T));
         var body = Expression.Property(param, property);
-        var expression = Expression.Lambda<Func<TTarget, TProperty>>(body, param);
+        var expression = Expression.Lambda<Func<T, TProperty>>(body, param);
         return validator.RuleFor(expression);
     }
 }
