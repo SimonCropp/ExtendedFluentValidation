@@ -140,7 +140,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
 
     static ParameterExpression param = Expression.Parameter(typeof(T));
 
-    IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property)
+    internal IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property)
     {
         var body = Expression.Property(param, property);
         var expression = Expression.Lambda<Func<T, TProperty>>(body, param);

@@ -6,7 +6,7 @@ public static class ValidatorExtensions
         this AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions = null,
         bool validateEmptyLists = false) =>
-        new RuleBuilder<T>(validator, exclusions,validateEmptyLists);
+        new RuleBuilder<T>(validator, exclusions, validateEmptyLists);
 
     public static ValidationContext<T> Clone<T>(this ValidationContext<T> context)
     {
@@ -17,12 +17,5 @@ public static class ValidatorExtensions
         }
 
         return innerContext;
-    }
-    public static IRuleBuilderInitial<TTarget, TProperty> RuleFor<TTarget, TProperty>(AbstractValidator<TTarget> validator, PropertyInfo property)
-    {
-        var param = Expression.Parameter(typeof(TTarget));
-        var body = Expression.Property(param, property);
-        var expression = Expression.Lambda<Func<TTarget, TProperty>>(body, param);
-        return validator.RuleFor(expression);
     }
 }
