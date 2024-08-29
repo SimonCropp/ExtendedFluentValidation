@@ -16,20 +16,25 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
 {
     static List<IValidator> sharedValidators;
 
+    RuleBuilder<T> ruleBuilder;
     static ExtendedValidator() =>
-        sharedValidators = ValidatorExtensions.GetSharedValidatorsFor<T>().ToList();
+        sharedValidators = ValidatorConventions.GetValidatorsFor<T>().ToList();
 
-    public ExtendedValidator() =>
-        this.AddExtendedRules();
+    public ExtendedValidator() :
+        this(null, false)
+    {
+    }
 
-    public ExtendedValidator(params string[] exclusions) =>
-        this.AddExtendedRules(exclusions);
+    public ExtendedValidator(params string[] exclusions) :
+        this((IReadOnlyList<string>)exclusions)
+    {
+    }
 
     public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false) =>
-        this.AddExtendedRules(exclusions, validateEmptyLists);
+        ruleBuilder = new(this, exclusions, validateEmptyLists);
 
     public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property) =>
-        this.RuleFor<T, TProperty>(property);
+        ruleBuilder.RuleFor<TProperty>(property);
 
     public override ValidationResult Validate(ValidationContext<T> context)
     {

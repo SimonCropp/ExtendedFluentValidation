@@ -1,8 +1,7 @@
 ﻿namespace ExtendedFluentValidation;
 
 public class NotWhiteSpaceValidator<T> :
-    PropertyValidator<T, string?>,
-    INotEmptyValidator
+    PropertyValidator<T, string?>
 {
     public override string Name => "NotWhiteSpaceValidator";
 

@@ -1,8 +1,7 @@
 ﻿namespace ExtendedFluentValidation;
 
 public class NotEmptyCollectionValidator<T> :
-    PropertyValidator<T, IEnumerable?>,
-    INotEmptyValidator
+    PropertyValidator<T, IEnumerable?>
 {
     public override string Name => "NotEmptyCollectionValidator";
 
