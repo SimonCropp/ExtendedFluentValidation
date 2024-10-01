@@ -19,17 +19,21 @@
     public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(IReadOnlyList<string>? exclusions)
     {
         var type = typeof(T);
-        if (exclusions == null)
+
+        var properties = type.GetProperties(flags)
+            .Where(_ => _.GetMethod != null &&
+                        !_.IsCompilerGenerated());
+
+        if (exclusions != null)
         {
-            return type.GetProperties(flags)
-                .Where(_ => _.GetMethod != null)
-                .ToList();
+            properties = properties.Where(_ => !exclusions.Contains(_.Name));
         }
 
-        return type.GetProperties(flags)
-            .Where(_ => _.GetMethod != null && !exclusions.Contains(_.Name))
-            .ToList();
+        return properties.ToList();
     }
+
+    static bool IsCompilerGenerated(this PropertyInfo info) =>
+        info.GetCustomAttribute<CompilerGeneratedAttribute>() != null;
 
     public static bool IsString(this PropertyInfo property) =>
         property.PropertyType == typeof(string);
