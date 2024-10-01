@@ -37,6 +37,20 @@
     }
 
     [Fact]
+    public Task WithRecord()
+    {
+        var validator = new ExtendedValidator<TargetRecord>();
+
+        var target = new TargetRecord("Value");
+        var result = validator.Validate(target);
+        var rules = validator.ToList();
+        Assert.Single(rules);
+        return Verify(result);
+    }
+
+    record  TargetRecord(string Member);
+
+    [Fact]
     public Task NoNulls_NoValues()
     {
         var validator = new ExtendedValidator<TargetWithNoNulls>();

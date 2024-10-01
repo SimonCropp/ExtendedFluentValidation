@@ -26,6 +26,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         {
             NotEmptyCollections(otherProperties);
         }
+
         AddNotEmptyGuid(otherProperties);
         AddNotDefaultDate<DateTime>(otherProperties);
         AddNotDefaultDate<DateTimeOffset>(otherProperties);
@@ -43,7 +44,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                 var ruleFor = RuleFor<string>(property);
                 if (property.AllowsEmpty())
                 {
-                    ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T,string>());
+                    ruleFor.SetValidator(new ExtendedFluentValidation.NotNullValidator<T, string>());
                 }
                 else
                 {
