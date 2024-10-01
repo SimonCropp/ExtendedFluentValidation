@@ -414,6 +414,32 @@
     }
 
     [Fact]
+    public Task WithRedundantRule()
+    {
+        var validator = new TargetWithRedundantRuleValidator();
+
+        var target = new TargetWithRedundantRule
+        {
+            Property = ""
+        };
+        var result = validator.Validate(target);
+        return Verify(result);
+    }
+
+    class TargetWithRedundantRuleValidator :
+        ExtendedValidator<TargetWithRedundantRule>
+    {
+        public TargetWithRedundantRuleValidator() =>
+            RuleFor(_ => _.Property)
+                .NotEmpty();
+    }
+
+    class TargetWithRedundantRule
+    {
+        public string Property { get; set; }
+    }
+
+    [Fact]
     public Task ValueTypes_WithValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
