@@ -594,57 +594,60 @@ public class Tests
             writer.Indent++;
             foreach (var validator in item.Value)
             {
-                writer.WriteLine(validator.GetType().FullName);
-                var descriptor = validator.CreateDescriptor();
-                writer.Indent++;
-                var rules = descriptor.Rules;
-                foreach (var condition in rules
-                             .GroupBy(GetCondition)
-                             .OrderBy(_ => _.Key != null))
-                {
-                    if (condition.Key != null)
-                    {
-                        writer.WriteLine(condition.Key);
-                        writer.Indent++;
-                    }
-
-                    WriteConditions();
-
-                    if (condition.Key != null)
-                    {
-                        writer.Indent--;
-                    }
-
-                    continue;
-
-                    void WriteConditions()
-                    {
-                        foreach (var rulesForProperty in condition
-                                     .GroupBy(_ => _.PropertyName)
-                                     .OrderBy(_ => _.Key))
-                        {
-                            writer.WriteLine(rulesForProperty.Key);
-                            writer.Indent++;
-                            foreach (var rule in rulesForProperty)
-                            {
-                                foreach (var component in rule.Components)
-                                {
-                                    writer.WriteLine(component.GetUnformattedErrorMessage());
-                                }
-                            }
-
-                            writer.Indent--;
-                        }
-                    }
-                }
-
-                writer.Indent--;
+                WriteValidator(writer, validator);
             }
 
             writer.Indent--;
         }
 
         return Verify(builder);
+    }
+
+    static void WriteValidator(IndentedTextWriter writer, IValidator validator)
+    {
+        writer.WriteLine(validator.GetType().FullName);
+        var descriptor = validator.CreateDescriptor();
+        writer.Indent++;
+        var rules = descriptor.Rules;
+        foreach (var condition in rules
+                     .GroupBy(GetCondition)
+                     .OrderBy(_ => _.Key != null))
+        {
+            if (condition.Key != null)
+            {
+                writer.WriteLine(condition.Key);
+                writer.Indent++;
+            }
+
+            WriteConditions(condition, writer);
+
+            if (condition.Key != null)
+            {
+                writer.Indent--;
+            }
+        }
+
+        writer.Indent--;
+    }
+
+    static void WriteConditions(IEnumerable<IValidationRule> condition, IndentedTextWriter writer)
+    {
+        foreach (var rulesForProperty in condition
+                     .GroupBy(_ => _.PropertyName)
+                     .OrderBy(_ => _.Key))
+        {
+            writer.WriteLine(rulesForProperty.Key);
+            writer.Indent++;
+            foreach (var rule in rulesForProperty)
+            {
+                foreach (var component in rule.Components)
+                {
+                    writer.WriteLine(component.GetUnformattedErrorMessage());
+                }
+            }
+
+            writer.Indent--;
+        }
     }
 
     static object? GetCondition(IValidationRule rule) =>
