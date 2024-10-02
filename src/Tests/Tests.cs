@@ -598,7 +598,9 @@ public class Tests
                 var descriptor = validator.CreateDescriptor();
                 writer.Indent++;
                 var rules = descriptor.Rules;
-                foreach (var condition in rules.GroupBy(GetCondition).OrderBy(_ => _.Key != null))
+                foreach (var condition in rules
+                             .GroupBy(GetCondition)
+                             .OrderBy(_ => _.Key != null))
                 {
                     if (condition.Key != null)
                     {
@@ -640,20 +642,6 @@ public class Tests
             }
 
             writer.Indent--;
-            // foreach (var validator in item.Value)
-            // {
-            //     var descriptor = validator.CreateDescriptor();
-            //
-            //     builder.AppendLine("    " + descriptor);
-            //     foreach (var rule in descriptor.Rules)
-            //     {
-            //         builder.AppendLine("    " + rule.PropertyName);
-            //         foreach (var component in rule.Components)
-            //         {
-            //             builder.AppendLine("        " + component.GetUnformattedErrorMessage());
-            //         }
-            //     }
-            // }
         }
 
         return Verify(builder);
