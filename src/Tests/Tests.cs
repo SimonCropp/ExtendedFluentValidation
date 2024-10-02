@@ -413,7 +413,7 @@ public class Tests
         return Verify(result);
     }
 
-    public class TargetCompoundedValidator :
+    class TargetCompoundedValidator :
         ExtendedValidator<TargetCompounded>
     {
         public TargetCompoundedValidator()
@@ -507,7 +507,7 @@ public class Tests
 
     #region ExtendedValidatorUsage
 
-    public class PersonValidatorFromBase :
+    class PersonValidatorFromBase :
         ExtendedValidator<Person>
     {
         public PersonValidatorFromBase()
@@ -520,7 +520,7 @@ public class Tests
 
     #region AddExtendedRulesUsage
 
-    public class PersonValidatorNonBase :
+    class PersonValidatorNonBase :
         AbstractValidator<Person>
     {
         public PersonValidatorNonBase() =>
@@ -532,7 +532,7 @@ public class Tests
 
     #region Equivalent
 
-    public class PersonValidatorEquivalent :
+    class PersonValidatorEquivalent :
         AbstractValidator<Person>
     {
         public PersonValidatorEquivalent()
@@ -597,7 +597,8 @@ public class Tests
                 writer.WriteLine(validator.GetType().FullName);
                 var descriptor = validator.CreateDescriptor();
                 writer.Indent++;
-                foreach (var condition in descriptor.Rules.GroupBy(GetCondition).OrderBy(_ => _.Key != null))
+                var rules = descriptor.Rules;
+                foreach (var condition in rules.GroupBy(GetCondition).OrderBy(_ => _.Key != null))
                 {
                     if (condition.Key != null)
                     {
@@ -616,14 +617,28 @@ public class Tests
 
                     void WriteConditions()
                     {
-                        foreach (var rule in condition)
+                        foreach (var rulesForProperty in condition
+                                     .GroupBy(_ => _.PropertyName)
+                                     .OrderBy(_ => _.Key))
                         {
-                            writer.WriteLine(rule.PropertyName);
+                            writer.WriteLine(rulesForProperty.Key);
+                            writer.Indent++;
+                            foreach (var rule in rulesForProperty)
+                            {
+                                foreach (var component in rule.Components)
+                                {
+                                    writer.WriteLine(component.GetUnformattedErrorMessage());
+                                }
+                            }
+
+                            writer.Indent--;
                         }
                     }
                 }
+
                 writer.Indent--;
             }
+
             writer.Indent--;
             // foreach (var validator in item.Value)
             // {
