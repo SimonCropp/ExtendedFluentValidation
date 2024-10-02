@@ -53,7 +53,7 @@ Using a base class `ExtendedValidator`:
 <!-- snippet: ExtendedValidatorUsage -->
 <a id='snippet-ExtendedValidatorUsage'></a>
 ```cs
-public class PersonValidatorFromBase :
+class PersonValidatorFromBase :
     ExtendedValidator<Person>
 {
     public PersonValidatorFromBase()
@@ -73,7 +73,7 @@ Using an extension method `AddExtendedRules`:
 <!-- snippet: AddExtendedRulesUsage -->
 <a id='snippet-AddExtendedRulesUsage'></a>
 ```cs
-public class PersonValidatorNonBase :
+class PersonValidatorNonBase :
     AbstractValidator<Person>
 {
     public PersonValidatorNonBase() =>
@@ -107,7 +107,7 @@ public class Person
 <!-- snippet: Equivalent -->
 <a id='snippet-Equivalent'></a>
 ```cs
-public class PersonValidatorEquivalent :
+class PersonValidatorEquivalent :
     AbstractValidator<Person>
 {
     public PersonValidatorEquivalent()
