@@ -1,0 +1,30 @@
+﻿Tests+Person
+  Tests+PersonValidatorFromBase
+    FirstName
+    FamilyName
+    MiddleName
+    Id
+    Dob
+  Tests+PersonValidatorNonBase
+    FirstName
+    FamilyName
+    MiddleName
+    Id
+    Dob
+  Tests+PersonValidatorEquivalent
+    Id
+    FirstName
+    MiddleName
+    FamilyName
+    Dob
+Tests+TargetCompounded
+  Tests+TargetCompoundedValidator
+    Property1
+    Property2
+    Property1
+    Property2
+Tests+UsingWhenTarget
+  Tests+UsingWhenValidator
+    Property2
+    System.Func`2[FluentValidation.ValidationContext`1[Tests+UsingWhenTarget],System.Boolean]
+      Property2

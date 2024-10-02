@@ -25,6 +25,9 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
     {
     }
 
+    public IConditionBuilder When(Expression<Func<T, bool>> predicate, Action action)
+        => When((target, _) => predicate.Compile().Invoke(target), action);
+
     public ExtendedValidator(params string[] exclusions) :
         this((IReadOnlyList<string>)exclusions)
     {

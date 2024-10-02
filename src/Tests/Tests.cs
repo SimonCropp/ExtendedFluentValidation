@@ -1,4 +1,6 @@
-﻿public class Tests
+﻿using System.CodeDom.Compiler;
+
+public class Tests
 {
     [Fact]
     public Task Nulls_NoValues()
@@ -48,7 +50,7 @@
         return Verify(result);
     }
 
-    record  TargetRecord(string Member);
+    record TargetRecord(string Member);
 
     [Fact]
     public Task NoNulls_NoValues()
@@ -411,7 +413,7 @@
         return Verify(result);
     }
 
-    class TargetCompoundedValidator :
+    public class TargetCompoundedValidator :
         ExtendedValidator<TargetCompounded>
     {
         public TargetCompoundedValidator()
@@ -421,9 +423,36 @@
         }
     }
 
-    class TargetCompounded
+    public class TargetCompounded
     {
         public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+
+    [Fact]
+    public Task UsingWhen()
+    {
+        var validator = new UsingWhenValidator();
+
+        var target = new UsingWhenTarget
+        {
+            Property1 = true,
+            Property2 = "123"
+        };
+        var result = validator.Validate(target);
+        return Verify(result);
+    }
+
+    public class UsingWhenValidator :
+        ExtendedValidator<UsingWhenTarget>
+    {
+        public UsingWhenValidator() =>
+            When(_ => _.Property1, () => RuleFor(_ => _.Property2).MaximumLength(5));
+    }
+
+    public class UsingWhenTarget
+    {
+        public bool Property1 { get; set; }
         public string Property2 { get; set; }
     }
 
@@ -475,9 +504,10 @@
     #endregion
 
     // ReSharper disable once EmptyConstructor
+
     #region ExtendedValidatorUsage
 
-    class PersonValidatorFromBase :
+    public class PersonValidatorFromBase :
         ExtendedValidator<Person>
     {
         public PersonValidatorFromBase()
@@ -490,7 +520,7 @@
 
     #region AddExtendedRulesUsage
 
-    class PersonValidatorNonBase :
+    public class PersonValidatorNonBase :
         AbstractValidator<Person>
     {
         public PersonValidatorNonBase() =>
@@ -502,7 +532,7 @@
 
     #region Equivalent
 
-    class PersonValidatorEquivalent :
+    public class PersonValidatorEquivalent :
         AbstractValidator<Person>
     {
         public PersonValidatorEquivalent()
@@ -521,4 +551,99 @@
     }
 
     #endregion
+
+    class TypeComparer :
+        IComparer<Type>
+    {
+        public int Compare(Type? x, Type? y) =>
+            x?.FullName?.CompareTo(y?.FullName) ?? 0;
+    }
+
+    [Fact]
+    public Task VerifyValidators()
+    {
+        var validators = AssemblyScanner.FindValidatorsInAssembly(GetType().Assembly);
+        var dictionary = new SortedDictionary<Type, List<IValidator>>(new TypeComparer());
+        foreach (var item in validators)
+        {
+            var validatorType = item.ValidatorType;
+            if (validatorType.IsAbstract)
+            {
+                continue;
+            }
+
+            if (validatorType.GetConstructor([]) == null)
+            {
+                throw new($"{validatorType.FullName} does not have a public parameterless constructor.");
+            }
+
+            var single = item.InterfaceType.GenericTypeArguments.Single();
+            if (!dictionary.TryGetValue(single, out var list))
+            {
+                dictionary[single] = list = [];
+            }
+
+            list.Add((IValidator)Activator.CreateInstance(validatorType, true)!);
+        }
+
+        var builder = new StringBuilder();
+        var writer = new IndentedTextWriter(new StringWriter(builder), "  ");
+        foreach (var item in dictionary)
+        {
+            writer.WriteLine(item.Key.FullName);
+            writer.Indent++;
+            foreach (var validator in item.Value)
+            {
+                writer.WriteLine(validator.GetType().FullName);
+                var descriptor = validator.CreateDescriptor();
+                writer.Indent++;
+                foreach (var condition in descriptor.Rules.GroupBy(GetCondition).OrderBy(_ => _.Key != null))
+                {
+                    if (condition.Key != null)
+                    {
+                        writer.WriteLine(condition.Key);
+                        writer.Indent++;
+                    }
+
+                    WriteConditions();
+
+                    if (condition.Key != null)
+                    {
+                        writer.Indent--;
+                    }
+
+                    continue;
+
+                    void WriteConditions()
+                    {
+                        foreach (var rule in condition)
+                        {
+                            writer.WriteLine(rule.PropertyName);
+                        }
+                    }
+                }
+                writer.Indent--;
+            }
+            writer.Indent--;
+            // foreach (var validator in item.Value)
+            // {
+            //     var descriptor = validator.CreateDescriptor();
+            //
+            //     builder.AppendLine("    " + descriptor);
+            //     foreach (var rule in descriptor.Rules)
+            //     {
+            //         builder.AppendLine("    " + rule.PropertyName);
+            //         foreach (var component in rule.Components)
+            //         {
+            //             builder.AppendLine("        " + component.GetUnformattedErrorMessage());
+            //         }
+            //     }
+            // }
+        }
+
+        return Verify(builder);
+    }
+
+    static object? GetCondition(IValidationRule rule) =>
+        rule.GetType().GetProperty("Condition", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(rule);
 }

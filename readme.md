@@ -53,7 +53,7 @@ Using a base class `ExtendedValidator`:
 <!-- snippet: ExtendedValidatorUsage -->
 <a id='snippet-ExtendedValidatorUsage'></a>
 ```cs
-class PersonValidatorFromBase :
+public class PersonValidatorFromBase :
     ExtendedValidator<Person>
 {
     public PersonValidatorFromBase()
@@ -62,7 +62,7 @@ class PersonValidatorFromBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L478-L489' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L508-L519' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -73,7 +73,7 @@ Using an extension method `AddExtendedRules`:
 <!-- snippet: AddExtendedRulesUsage -->
 <a id='snippet-AddExtendedRulesUsage'></a>
 ```cs
-class PersonValidatorNonBase :
+public class PersonValidatorNonBase :
     AbstractValidator<Person>
 {
     public PersonValidatorNonBase() =>
@@ -81,7 +81,7 @@ class PersonValidatorNonBase :
     //TODO: add any extra rules
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L491-L501' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L521-L531' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,13 +101,13 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L464-L475' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L493-L504' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
 <a id='snippet-Equivalent'></a>
 ```cs
-class PersonValidatorEquivalent :
+public class PersonValidatorEquivalent :
     AbstractValidator<Person>
 {
     public PersonValidatorEquivalent()
@@ -125,7 +125,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L503-L523' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L533-L553' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
