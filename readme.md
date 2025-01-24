@@ -38,7 +38,7 @@ Guids cannot be `Guid.Empty`.
 
 ### Lists/Collections
 
-Lists and Collection cannot be empty. The logic being: if the absence of any values is valid, then make the member nullable. This helps since nullable is a first class strong type feature, where "list contains no values" is a runtime check.
+Lists and Collection cannot be empty if `ValidatorConventions.ValidateEmptyLists()` is called in a module initializer. The logic being: if the absence of any values is valid, then make the member nullable. This helps since nullable is a first class strong type feature, where "list contains no values" is a runtime check.
 
 
 ## Usage
