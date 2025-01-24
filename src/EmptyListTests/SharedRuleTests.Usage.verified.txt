@@ -1,0 +1,38 @@
+﻿{
+  IsValid: false,
+  Errors: [
+    {
+      PropertyName: RowVersion,
+      ErrorMessage: 'Row Version' must not be empty.,
+      ErrorCode: NotNullValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Row Version,
+        PropertyPath: RowVersion,
+        PropertyValue: null
+      }
+    },
+    {
+      PropertyName: Id,
+      ErrorMessage: Id must not be `Guid.Empty`.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
+        PropertyName: Id,
+        PropertyPath: Id,
+        PropertyValue: Guid_Empty
+      }
+    },
+    {
+      PropertyName: RowVersion,
+      ErrorMessage: RowVersion must be 8 bytes,
+      ErrorCode: PredicateValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Row Version,
+        PropertyPath: RowVersion,
+        PropertyValue: null
+      }
+    }
+  ]
+}

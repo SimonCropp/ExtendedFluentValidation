@@ -8,10 +8,10 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
     public RuleBuilder(
         AbstractValidator<T> validator,
         IReadOnlyList<string>? exclusions,
-        bool validateEmptyLists)
+        bool? validateEmptyLists)
     {
         this.validator = validator;
-        this.validateEmptyLists = validateEmptyLists;
+        this.validateEmptyLists = ValidatorConventions.ShouldValidateEmptyLists(validateEmptyLists);
         var properties = Extensions.GettableProperties<T>(exclusions);
 
         var notNullProperties = properties
@@ -22,7 +22,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         var otherProperties = properties.Except(notNullProperties).ToList();
 
         NotWhiteSpace(otherProperties);
-        if (validateEmptyLists)
+        if (this.validateEmptyLists)
         {
             NotEmptyCollections(otherProperties);
         }
@@ -50,16 +50,24 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                 {
                     ruleFor.NotEmpty();
                 }
+                continue;
             }
-            else if (validateEmptyLists && property.IsCollection())
+
+            if (property.IsCollection())
             {
-                RuleFor<IEnumerable>(property)
-                    .NotEmpty();
+                if (validateEmptyLists)
+                {
+                    RuleFor<IEnumerable>(property)
+                        .NotEmpty();
+                }
+                else
+                {
+                    RuleFor<IEnumerable>(property).NotNull();
+                }
+                continue;
             }
-            else
-            {
-                RuleFor<object>(property).NotNull();
-            }
+
+            RuleFor<object>(property).NotNull();
         }
     }
 
@@ -97,7 +105,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         foreach (var property in typedProperties)
         {
             RuleFor<Guid>(property)
-                .NotEqual(default(Guid))
+                .NotEqual(Guid.Empty)
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
 
@@ -106,7 +114,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         foreach (var property in typedNullableProperties)
         {
             RuleFor<Guid?>(property)
-                .NotEqual(default(Guid))
+                .NotEqual(Guid.Empty)
                 .WithMessage($"{property.Name} must not be `Guid.Empty`.");
         }
     }

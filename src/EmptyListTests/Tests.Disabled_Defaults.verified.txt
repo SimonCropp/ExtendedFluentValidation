@@ -3,12 +3,15 @@
   Errors: [
     {
       PropertyName: NotNullable,
-      ErrorMessage: 'Not Nullable' must not be empty.,
-      ErrorCode: NotNullValidator,
+      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
       FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
         PropertyName: Not Nullable,
         PropertyPath: NotNullable,
-        PropertyValue: null
+        PropertyValue: Guid_Empty
       }
     }
   ],

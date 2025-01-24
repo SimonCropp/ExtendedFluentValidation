@@ -29,4 +29,19 @@ public static class ValidatorConventions
             .Where(convention => convention.Key.IsAssignableFrom(type))
             .Select(_ => _.Value);
     }
+
+    static bool sharedValidateEmptyLists;
+
+    public static void ValidateEmptyLists() =>
+        sharedValidateEmptyLists = true;
+
+    internal static bool ShouldValidateEmptyLists(bool? validateEmptyLists)
+    {
+        if(validateEmptyLists.HasValue)
+        {
+            return validateEmptyLists.Value;
+        }
+
+        return sharedValidateEmptyLists;
+    }
 }
