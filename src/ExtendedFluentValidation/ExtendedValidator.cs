@@ -21,7 +21,7 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
         sharedValidators = ValidatorConventions.GetValidatorsFor<T>().ToList();
 
     public ExtendedValidator() :
-        this(null, false)
+        this(null, (bool?)null)
     {
     }
 

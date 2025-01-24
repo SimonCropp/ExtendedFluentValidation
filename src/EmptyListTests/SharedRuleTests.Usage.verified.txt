@@ -4,7 +4,7 @@
     {
       PropertyName: RowVersion,
       ErrorMessage: 'Row Version' must not be empty.,
-      ErrorCode: NotNullValidator,
+      ErrorCode: NotEmptyValidator,
       FormattedMessagePlaceholderValues: {
         PropertyName: Row Version,
         PropertyPath: RowVersion,
