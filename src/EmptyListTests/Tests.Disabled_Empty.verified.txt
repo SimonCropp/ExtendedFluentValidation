@@ -1,0 +1,34 @@
+﻿{
+  IsValid: false,
+  Errors: [
+    {
+      PropertyName: NotNullable,
+      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
+        PropertyName: Not Nullable,
+        PropertyPath: NotNullable,
+        PropertyValue: Guid_Empty
+      }
+    },
+    {
+      PropertyName: Nullable,
+      ErrorMessage: Nullable must not be `Guid.Empty`.,
+      AttemptedValue: Guid_Empty,
+      ErrorCode: NotEqualValidator,
+      FormattedMessagePlaceholderValues: {
+        ComparisonProperty: ,
+        ComparisonValue: Guid_Empty,
+        PropertyName: Nullable,
+        PropertyPath: Nullable,
+        PropertyValue: Guid_Empty
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}

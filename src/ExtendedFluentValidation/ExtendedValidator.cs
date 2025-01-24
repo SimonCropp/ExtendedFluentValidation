@@ -30,7 +30,7 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
     {
     }
 
-    public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool validateEmptyLists = false) =>
+    public ExtendedValidator(IReadOnlyList<string>? exclusions = null, bool? validateEmptyLists = null) =>
         ruleBuilder = new(this, exclusions, validateEmptyLists);
 
     public IRuleBuilderInitial<T, TProperty> RuleFor<TProperty>(PropertyInfo property) =>
