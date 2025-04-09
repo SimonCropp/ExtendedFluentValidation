@@ -6,7 +6,7 @@
     <LangVersion>preview</LangVersion>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Description>Extends FluentValidation with some more opinionated rules and extensions.</Description>
-    <NoWarn>CS8600;CS8602;CS8604;IDE0049;IDE0007;CS1591;NETSDK1212</NoWarn>
+    <NoWarn>CS8600;CS8602;CS8604;IDE0049;IDE0007;CS1591;NETSDK1212;NU1608;NU1109</NoWarn>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
