@@ -18,4 +18,7 @@ public static class ValidatorExtensions
 
         return innerContext;
     }
+
+    public static IRuleBuilderOptions<T, string?> NotContainNewlines<T>(this IRuleBuilder<T, string?> ruleBuilder) =>
+        ruleBuilder.SetValidator(new NotContainNewlineValidator<T>());
 }

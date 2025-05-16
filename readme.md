@@ -62,7 +62,7 @@ class PersonValidatorFromBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L517-L528' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L569-L580' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,7 +81,7 @@ class PersonValidatorNonBase :
     //TODO: add any extra rules
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L530-L540' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L582-L592' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L502-L513' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L554-L565' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
@@ -125,7 +125,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L542-L562' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L594-L614' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

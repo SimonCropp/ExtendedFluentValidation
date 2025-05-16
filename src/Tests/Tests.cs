@@ -466,6 +466,58 @@
     }
 
     [Fact]
+    public Task Newlines()
+    {
+        var validator = new TargetWithStringPropertiesValidator();
+
+        var target = new TargetWithStringProperties
+        {
+            EmptyString = "",
+            WhitespaceString = " ",
+            RNString = "\r\n",
+            WrappedRNString = "a\r\nb",
+            NString = "\n",
+            WrappedNString = "a\nb",
+            RString = "\r",
+            WrappedRString = "a\rb",
+            ValidString = "ab"
+        };
+        var result = validator.Validate(target);
+        return Verify(result);
+    }
+
+    public class TargetWithStringProperties
+    {
+        public string? NullString { get; set; }
+        public string WhitespaceString { get; set; } = null!;
+        public string EmptyString { get; set; } = null!;
+        public string RNString { get; set; } = null!;
+        public string WrappedRNString { get; set; } = null!;
+        public string NString { get; set; } = null!;
+        public string WrappedNString { get; set; } = null!;
+        public string RString { get; set; } = null!;
+        public string WrappedRString { get; set; } = null!;
+        public string ValidString { get; set; } = null!;
+    }
+
+    class TargetWithStringPropertiesValidator :
+        AbstractValidator<TargetWithStringProperties>
+    {
+        public TargetWithStringPropertiesValidator()
+        {
+            RuleFor(_ => _.NullString).NotContainNewlines();
+            RuleFor(_ => _.WhitespaceString).NotContainNewlines();
+            RuleFor(_ => _.EmptyString).NotContainNewlines();
+            RuleFor(_ => _.RNString).NotContainNewlines();
+            RuleFor(_ => _.WrappedRNString).NotContainNewlines();
+            RuleFor(_ => _.NString).NotContainNewlines();
+            RuleFor(_ => _.WrappedNString).NotContainNewlines();
+            RuleFor(_ => _.RString).NotContainNewlines();
+            RuleFor(_ => _.WrappedRString).NotContainNewlines();
+            RuleFor(_ => _.ValidString).NotContainNewlines();
+        }
+    }
+    [Fact]
     public Task ValueTypes_WithValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
