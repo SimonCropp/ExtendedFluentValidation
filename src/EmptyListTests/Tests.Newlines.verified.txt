@@ -1,0 +1,92 @@
+﻿{
+  IsValid: false,
+  Errors: [
+    {
+      PropertyName: RNString,
+      ErrorMessage: 'RN String' must not contain new line characters.,
+      AttemptedValue:
+,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: RN String,
+        PropertyPath: RNString,
+        PropertyValue:
+
+      }
+    },
+    {
+      PropertyName: WrappedRNString,
+      ErrorMessage: 'Wrapped RN String' must not contain new line characters.,
+      AttemptedValue:
+a
+b,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Wrapped RN String,
+        PropertyPath: WrappedRNString,
+        PropertyValue:
+a
+b
+      }
+    },
+    {
+      PropertyName: NString,
+      ErrorMessage: 'N String' must not contain new line characters.,
+      AttemptedValue:
+,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: N String,
+        PropertyPath: NString,
+        PropertyValue:
+
+      }
+    },
+    {
+      PropertyName: WrappedNString,
+      ErrorMessage: 'Wrapped N String' must not contain new line characters.,
+      AttemptedValue:
+a
+b,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Wrapped N String,
+        PropertyPath: WrappedNString,
+        PropertyValue:
+a
+b
+      }
+    },
+    {
+      PropertyName: RString,
+      ErrorMessage: 'R String' must not contain new line characters.,
+      AttemptedValue:
+,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: R String,
+        PropertyPath: RString,
+        PropertyValue:
+
+      }
+    },
+    {
+      PropertyName: WrappedRString,
+      ErrorMessage: 'Wrapped R String' must not contain new line characters.,
+      AttemptedValue:
+a
+b,
+      ErrorCode: NotContainNewlineValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Wrapped R String,
+        PropertyPath: WrappedRString,
+        PropertyValue:
+a
+b
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}
