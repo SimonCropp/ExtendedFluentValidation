@@ -1,4 +1,4 @@
-﻿static class Extensions
+static class Extensions
 {
     const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
@@ -14,7 +14,7 @@
     }
 
     public static bool AllowsEmpty(this MemberInfo property) =>
-        property.GetCustomAttribute<AllowEmptyAttribute>() != null;
+        Attribute.IsDefined(property, typeof(AllowEmptyAttribute));
 
     public static List<PropertyInfo> GettableProperties<[DynamicMembers(DynamicTypes.PublicProperties | DynamicTypes.NonPublicProperties)] T>(IReadOnlyList<string>? exclusions)
     {
@@ -33,7 +33,7 @@
     }
 
     static bool IsCompilerGenerated(this PropertyInfo info) =>
-        info.GetCustomAttribute<CompilerGeneratedAttribute>() != null;
+        Attribute.IsDefined(info, typeof(CompilerGeneratedAttribute));
 
     public static bool IsString(this PropertyInfo property) =>
         property.PropertyType == typeof(string);
