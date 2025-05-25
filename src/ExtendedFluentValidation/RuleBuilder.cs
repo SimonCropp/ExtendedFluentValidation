@@ -30,9 +30,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
         AddNotEmptyGuid(otherProperties);
         AddNotDefaultDate<DateTime>(otherProperties);
         AddNotDefaultDate<DateTimeOffset>(otherProperties);
-#if(NET6_0_OR_GREATER)
         AddNotDefaultDate<Date>(otherProperties);
-#endif
     }
 
     void NotNull(List<PropertyInfo> notNullProperties)

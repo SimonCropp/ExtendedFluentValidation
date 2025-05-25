@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace FluentValidation;
+﻿namespace FluentValidation;
 
 public static class ExtendedValidator
 {
