@@ -44,7 +44,9 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
         }
 
         var inner = sharedValidators.SelectMany(_ => _.Validate(context.Clone()).Errors);
-        return MergeErrors(inner, result.Errors);
+        MergeErrors(inner, result.Errors);
+
+        return new(result.Errors);
     }
 
     public override async Task<ValidationResult> ValidateAsync(ValidationContext<T> context, Cancel cancel = default)
@@ -62,10 +64,12 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
             inner.AddRange(validationResult.Errors);
         }
 
-        return MergeErrors(inner, result.Errors);
+        MergeErrors(inner, result.Errors);
+
+        return new(result.Errors);
     }
 
-    static ValidationResult MergeErrors(IEnumerable<ValidationFailure> innerErrors, List<ValidationFailure> errors)
+    static void MergeErrors(IEnumerable<ValidationFailure> innerErrors, List<ValidationFailure> errors)
     {
         foreach (var innerError in innerErrors)
         {
@@ -76,7 +80,5 @@ public class ExtendedValidator<[DynamicMembers(DynamicTypes.PublicProperties | D
 
             errors.Add(innerError);
         }
-
-        return new(errors);
     }
 }
