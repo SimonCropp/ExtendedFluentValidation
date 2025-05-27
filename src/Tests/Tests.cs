@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using NUnit.Framework.Legacy;
-
 public class Tests
 {
     [Test]

@@ -12,10 +12,4 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
-  <ItemGroup>
-    <Using Include="System.Linq.Expressions" />
-    <Using Include="FluentValidation" />
-    <Using Include="FluentValidation.Validators" />
-    <Using Include="ExtendedFluentValidation" />
-  </ItemGroup>
 </Project>
