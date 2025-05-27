@@ -37,14 +37,16 @@ public class Tests
     }
 
     [Test]
-    public Task Test_MemberNotNullWhen_Required()
+    public Task Test_MemberNotNullWhen(
+        [Values] bool required,
+        [Values(null, "", " ", "a")] string property)
     {
         var validator = new ExtendedValidator<TargetWithMemberNotNullWhen>();
 
         var target = new TargetWithMemberNotNullWhen
         {
-            IsPropertyRequired = true,
-            Property = null
+            IsPropertyRequired = required,
+            Property = property
         };
         var result = validator.Validate(target);
         return Verify(result);
