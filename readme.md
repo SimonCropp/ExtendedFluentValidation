@@ -62,7 +62,7 @@ class PersonValidatorFromBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L569-L580' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L573-L584' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,7 +81,7 @@ class PersonValidatorNonBase :
     //TODO: add any extra rules
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L582-L592' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L586-L596' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L554-L565' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L558-L569' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
@@ -125,7 +125,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L594-L614' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L598-L618' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -150,7 +150,7 @@ public class Person :
     public byte[] RowVersion { get; set; }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L27-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesModels' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L28-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesModels' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 It is desirable to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using shares rules.
@@ -167,7 +167,7 @@ public static void Init() =>
         .Must(rowVersion => rowVersion?.Length == 8)
         .WithMessage("RowVersion must be 8 bytes");
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesInit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L4-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesInit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `PersonValidator` used only the standard rules, so needs no constructor.
@@ -178,7 +178,7 @@ The `PersonValidator` used only the standard rules, so needs no constructor.
 class PersonValidator :
     ExtendedValidator<Person>;
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L46-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The above is equivalent to:
@@ -202,7 +202,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L52-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesEquivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L53-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesEquivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

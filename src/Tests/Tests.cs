@@ -1,8 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
 public class Tests
 {
-    [Fact]
+    [Test]
     public Task Nulls_NoValues()
     {
         var validator = new ExtendedValidator<TargetWithNulls>();
@@ -11,7 +9,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Nulls_WithValues()
     {
         var validator = new ExtendedValidator<TargetWithNulls>();
@@ -59,7 +57,7 @@ public class Tests
         public string? Property { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task WithRecord()
     {
         var validator = new ExtendedValidator<TargetRecord>();
@@ -67,13 +65,13 @@ public class Tests
         var target = new TargetRecord("Value");
         var result = validator.Validate(target);
         var rules = validator.ToList();
-        Assert.Single(rules);
+        ClassicAssert.AreEqual(1, rules.Count);
         return Verify(result);
     }
 
     record TargetRecord(string Member);
 
-    [Fact]
+    [Test]
     public Task NoNulls_NoValues()
     {
         var validator = new ExtendedValidator<TargetWithNoNulls>();
@@ -82,7 +80,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task NoNulls_WithValues()
     {
         var validator = new ExtendedValidator<TargetWithNoNulls>();
@@ -109,7 +107,7 @@ public class Tests
         }
     }
 
-    [Fact]
+    [Test]
     public Task ValueTypes_NoValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
@@ -118,7 +116,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -133,7 +131,7 @@ public class Tests
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -143,7 +141,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_Empty()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -164,7 +162,7 @@ public class Tests
         public Guid NotNullable { get; set; }
     }
 #nullable enable
-    [Fact]
+    [Test]
     public Task Dates_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -189,7 +187,7 @@ public class Tests
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Dates_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -199,7 +197,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Dates_Min()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -251,7 +249,7 @@ public class Tests
         public Date NotNullableAllowEmptyDate { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Guids_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -268,7 +266,7 @@ public class Tests
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Guids_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -278,7 +276,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Guids_Empty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -306,7 +304,7 @@ public class Tests
         public Guid NotNullableAllowEmpty { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task List_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -320,7 +318,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_NonEmpty_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -334,7 +332,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -344,7 +342,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Defaults_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -354,7 +352,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Empty_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -368,7 +366,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Empty()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -388,7 +386,7 @@ public class Tests
         public List<string> NotNullable { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Strings_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -404,7 +402,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -414,7 +412,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Empty()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -430,7 +428,7 @@ public class Tests
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Whitespace()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -458,7 +456,7 @@ public class Tests
         public string NotNullableAllowEmpty { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Compounded()
     {
         var validator = new TargetCompoundedValidator();
@@ -488,7 +486,7 @@ public class Tests
         public string Property2 { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Newlines()
     {
         var validator = new TargetWithStringPropertiesValidator();
@@ -540,7 +538,8 @@ public class Tests
             RuleFor(_ => _.ValidString).NotContainNewlines();
         }
     }
-    [Fact]
+
+    [Test]
     public Task ValueTypes_WithValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
@@ -560,7 +559,7 @@ public class Tests
         public bool NotNullable { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Usage()
     {
         var validator = new PersonValidatorFromBase();
