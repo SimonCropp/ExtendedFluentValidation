@@ -48,6 +48,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                 {
                     ruleFor.NotEmpty();
                 }
+
                 continue;
             }
 
@@ -62,6 +63,7 @@ public class RuleBuilder<[DynamicMembers(DynamicTypes.PublicProperties | Dynamic
                 {
                     RuleFor<IEnumerable>(property).NotNull();
                 }
+
                 continue;
             }
 
