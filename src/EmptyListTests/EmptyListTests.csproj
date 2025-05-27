@@ -5,17 +5,14 @@
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013;xUnit1051</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Verify.DiffPlex" />
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Verify.XunitV3" />
-    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
-    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Verify.NUnit" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Tests\SharedRuleTests.cs">
       <Link>SharedRuleTests.cs</Link>
     </Compile>

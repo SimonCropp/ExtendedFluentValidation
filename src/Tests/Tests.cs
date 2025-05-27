@@ -1,6 +1,9 @@
-﻿public class Tests
+﻿using NUnit.Framework.Legacy;
+
+[TestFixture]
+public class Tests
 {
-    [Fact]
+    [Test]
     public Task Nulls_NoValues()
     {
         var validator = new ExtendedValidator<TargetWithNulls>();
@@ -9,7 +12,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Nulls_WithValues()
     {
         var validator = new ExtendedValidator<TargetWithNulls>();
@@ -36,7 +39,7 @@
         }
     }
 
-    [Fact]
+    [Test]
     public Task WithRecord()
     {
         var validator = new ExtendedValidator<TargetRecord>();
@@ -44,13 +47,13 @@
         var target = new TargetRecord("Value");
         var result = validator.Validate(target);
         var rules = validator.ToList();
-        Assert.Single(rules);
+        ClassicAssert.AreEqual(1, rules.Count);
         return Verify(result);
     }
 
     record TargetRecord(string Member);
 
-    [Fact]
+    [Test]
     public Task NoNulls_NoValues()
     {
         var validator = new ExtendedValidator<TargetWithNoNulls>();
@@ -59,7 +62,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task NoNulls_WithValues()
     {
         var validator = new ExtendedValidator<TargetWithNoNulls>();
@@ -86,7 +89,7 @@
         }
     }
 
-    [Fact]
+    [Test]
     public Task ValueTypes_NoValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
@@ -95,7 +98,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -110,7 +113,7 @@
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -120,7 +123,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Disabled_Empty()
     {
         var validator = new ExtendedValidator<TargetWithDisabled>();
@@ -141,7 +144,7 @@
         public Guid NotNullable { get; set; }
     }
 #nullable enable
-    [Fact]
+    [Test]
     public Task Dates_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -166,7 +169,7 @@
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Dates_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -176,7 +179,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Dates_Min()
     {
         var validator = new ExtendedValidator<TargetWithDates>();
@@ -228,7 +231,7 @@
         public Date NotNullableAllowEmptyDate { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Guids_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -245,7 +248,7 @@
             .DontScrubGuids();
     }
 
-    [Fact]
+    [Test]
     public Task Guids_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -255,7 +258,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Guids_Empty()
     {
         var validator = new ExtendedValidator<TargetWithGuids>();
@@ -283,7 +286,7 @@
         public Guid NotNullableAllowEmpty { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task List_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -297,7 +300,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_NonEmpty_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -311,7 +314,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -321,7 +324,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Defaults_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -331,7 +334,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Empty_ValidateEmptyLists()
     {
         var validator = new ExtendedValidator<TargetWithLists>(validateEmptyLists: true);
@@ -345,7 +348,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task List_Empty()
     {
         var validator = new ExtendedValidator<TargetWithLists>();
@@ -365,7 +368,7 @@
         public List<string> NotNullable { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Strings_NonEmpty()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -381,7 +384,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Defaults()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -391,7 +394,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Empty()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -407,7 +410,7 @@
         return Verify(result);
     }
 
-    [Fact]
+    [Test]
     public Task Strings_Whitespace()
     {
         var validator = new ExtendedValidator<TargetWithStrings>();
@@ -435,7 +438,7 @@
         public string NotNullableAllowEmpty { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Compounded()
     {
         var validator = new TargetCompoundedValidator();
@@ -465,7 +468,7 @@
         public string Property2 { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Newlines()
     {
         var validator = new TargetWithStringPropertiesValidator();
@@ -517,7 +520,8 @@
             RuleFor(_ => _.ValidString).NotContainNewlines();
         }
     }
-    [Fact]
+
+    [Test]
     public Task ValueTypes_WithValues()
     {
         var validator = new ExtendedValidator<TargetValueTypes>();
@@ -537,7 +541,7 @@
         public bool NotNullable { get; set; }
     }
 
-    [Fact]
+    [Test]
     public Task Usage()
     {
         var validator = new PersonValidatorFromBase();

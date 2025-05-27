@@ -1,4 +1,5 @@
-﻿public class SharedRuleTests
+﻿[TestFixture]
+public class SharedRuleTests
 {
     #region SharedRulesInit
 
@@ -11,7 +12,7 @@
 
     #endregion
 
-    [Fact]
+    [Test]
     public Task Usage()
     {
         var validator = new PersonValidator();
