@@ -13,11 +13,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
-    <Compile Include="..\Tests\SharedRuleTests.cs">
-      <Link>SharedRuleTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests\Tests.cs">
-      <Link>Tests.cs</Link>
-    </Compile>
+    <Compile Include="..\Tests\SharedRuleTests.cs" />
+    <Compile Include="..\Tests\Tests.cs" />
+    <Compile Include="..\Tests\GlobalUsings.cs" />
   </ItemGroup>
 </Project>

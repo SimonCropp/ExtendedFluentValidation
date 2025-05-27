@@ -1,4 +1,4 @@
-﻿using NUnit.Framework.Legacy;
+﻿
 
 [TestFixture]
 public class Tests
