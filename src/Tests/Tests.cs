@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using NUnit.Framework.Legacy;
+
 public class Tests
 {
     [Test]
@@ -35,7 +38,8 @@ public class Tests
             set => write = value;
         }
     }
-    [Fact]
+
+    [Test]
     public Task Test_MemberNotNullWhen_Required()
     {
         var validator = new ExtendedValidator<TargetWithMemberNotNullWhen>();
