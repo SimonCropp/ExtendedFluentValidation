@@ -1,4 +1,6 @@
-﻿public class Tests
+﻿using System.Diagnostics.CodeAnalysis;
+
+public class Tests
 {
     [Fact]
     public Task Nulls_NoValues()
@@ -34,6 +36,27 @@
         {
             set => write = value;
         }
+    }
+    [Fact]
+    public Task Test_MemberNotNullWhen_Required()
+    {
+        var validator = new ExtendedValidator<TargetWithMemberNotNullWhen>();
+
+        var target = new TargetWithMemberNotNullWhen
+        {
+            IsPropertyRequired = true,
+            Property = null
+        };
+        var result = validator.Validate(target);
+        return Verify(result);
+    }
+
+    class TargetWithMemberNotNullWhen
+    {
+        public bool IsPropertyRequired { get; set; }
+
+        [MemberNotNullWhen(true)]
+        public string? Property { get; set; }
     }
 
     [Fact]
