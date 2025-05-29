@@ -1,6 +1,4 @@
-﻿
-
-[TestFixture]
+﻿[TestFixture]
 public class Tests
 {
     [Test]
