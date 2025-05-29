@@ -1,0 +1,26 @@
+﻿{
+  IsValid: false,
+  Errors: [
+    {
+      PropertyName: NotNullable,
+      ErrorMessage: 'Not Nullable' must not be empty.,
+      ErrorCode: NotEmptyValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Not Nullable,
+        PropertyPath: NotNullable
+      }
+    },
+    {
+      PropertyName: Nullable,
+      ErrorMessage: 'Nullable' must not be empty.,
+      ErrorCode: NotEmptyCollectionValidator,
+      FormattedMessagePlaceholderValues: {
+        PropertyName: Nullable,
+        PropertyPath: Nullable
+      }
+    }
+  ],
+  RuleSetsExecuted: [
+    default
+  ]
+}
