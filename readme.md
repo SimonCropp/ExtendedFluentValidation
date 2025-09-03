@@ -23,12 +23,12 @@ It leverages nullability information to make all non-nullable reference properti
 
 ### Dates
 
-`DateTime`, `DateTimeOffset`, and `DateOnly` cannot be `MinValue`.
+`DateTime`, `DateTimeOffset`, and `DateOnly` cannot be `MinValue`. The logic being: if the absence of a value is valid, then make the member nullable.
 
 
 ### Strings
 
-String cannot be `String.Empty` or only white-space. The logic being: if the absence of text is valid, then make the member nullable. This helps since nullable is a first class strong type feature, where "string is empty or only white-space" is a runtime check.
+String cannot be `String.Empty` or only white-space. The logic being: if the absence of text is valid, then make the member nullable. This helps since nullable is a first class strong typed feature, where "string is empty or only white-space" is a runtime check.
 
 
 ### Guids
@@ -38,7 +38,7 @@ Guids cannot be `Guid.Empty`.
 
 ### Lists/Collections
 
-Lists and Collection cannot be empty if `ValidatorConventions.ValidateEmptyLists()` is called in a module initializer. The logic being: if the absence of any values is valid, then make the member nullable. This helps since nullable is a first class strong type feature, where "list contains no values" is a runtime check.
+Lists and Collection cannot be empty if `ValidatorConventions.ValidateEmptyLists()` is called in a module initializer. The logic being: if the absence of any values is valid, then make the member nullable. This helps since nullable is a first class strong typed feature, where "list contains no values" is a runtime check.
 
 
 ## Usage
