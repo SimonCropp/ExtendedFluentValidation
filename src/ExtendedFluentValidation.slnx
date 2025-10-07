@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.gitignore" />
+    <File Path="../readme.md" />
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="mdsnippets.json" />
+  </Folder>
+  <Project Path="EmptyListTests/EmptyListTests.csproj" />
+  <Project Path="ExtendedFluentValidation/ExtendedFluentValidation.csproj" />
+  <Project Path="Tests/Tests.csproj" />
+</Solution>
