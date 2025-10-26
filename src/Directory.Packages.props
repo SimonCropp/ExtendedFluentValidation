@@ -13,10 +13,6 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.161" />
     <PackageVersion Include="Polyfill" Version="8.9.0" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.1.2" />
-<<<<<<< HEAD
-    <PackageVersion Include="Verify.NUnit" Version="31.0.4" />
-=======
-    <PackageVersion Include="Verify.NUnit" Version="31.0.4" />
->>>>>>> 31bd3f3976f07f00fce48ba5987431be89d163ee
+    <PackageVersion Include="Verify.NUnit" Version="31.0.5" />
   </ItemGroup>
 </Project>
