@@ -4,7 +4,7 @@ public static class ModuleInitializer
     public static void Initialize()
     {
         UseProjectRelativeDirectory("");
-        VerifyDiffPlex.Initialize();
         ValidatorConventions.ValidateEmptyLists();
+        VerifierSettings.InitializePlugins();
     }
 }
