@@ -6,5 +6,6 @@ public static class ModuleInitializer
         UseProjectRelativeDirectory("");
         ValidatorConventions.ValidateEmptyLists();
         VerifierSettings.InitializePlugins();
+        VerifierSettings.Inline();
     }
 }

@@ -62,7 +62,7 @@ class PersonValidatorFromBase :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L571-L582' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L1406-L1417' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtendedValidatorUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,7 +81,7 @@ class PersonValidatorNonBase :
     //TODO: add any extra rules
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L584-L594' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L1419-L1429' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtendedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ public class Person
     public DateTimeOffset Dob { get; set; }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L556-L567' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L1391-L1402' title='Snippet source file'>snippet source</a> | <a href='#snippet-Person' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Equivalent -->
@@ -125,7 +125,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L596-L616' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L1431-L1451' title='Snippet source file'>snippet source</a> | <a href='#snippet-Equivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -150,7 +150,7 @@ public class Person :
     public byte[] RowVersion { get; set; }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L28-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesModels' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L29-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesModels' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 It is desirable to have the rules for `IDbRecord` defined separately, and not need to duplicate them for every implementing class. This can be done using shares rules.
@@ -178,7 +178,7 @@ The `PersonValidator` used only the standard rules, so needs no constructor.
 class PersonValidator :
     ExtendedValidator<Person>;
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L46-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesUsage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L47-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesUsage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The above is equivalent to:
@@ -202,7 +202,7 @@ class PersonValidatorEquivalent :
     }
 }
 ```
-<sup><a href='/src/Tests/SharedRuleTests.cs#L53-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesEquivalent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/SharedRuleTests.cs#L54-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-SharedRulesEquivalent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

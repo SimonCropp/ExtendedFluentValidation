@@ -7,7 +7,16 @@ public class Tests
         var validator = new ExtendedValidator<TargetWithNulls>();
 
         var result = validator.Validate(new TargetWithNulls());
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -21,7 +30,16 @@ public class Tests
             Write = "a"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetWithNulls
@@ -46,7 +64,16 @@ public class Tests
         var result = validator.Validate(target);
         var rules = validator.ToList();
         ClassicAssert.AreEqual(1, rules.Count);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     record TargetRecord(string Member);
@@ -57,7 +84,38 @@ public class Tests
         var validator = new ExtendedValidator<TargetWithNoNulls>();
 
         var result = validator.Validate(new TargetWithNoNulls());
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: ReadWrite,
+                      ErrorMessage: 'Read Write' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Read Write,
+                        PropertyPath: ReadWrite,
+                        PropertyValue: null
+                      }
+                    },
+                    {
+                      PropertyName: Read,
+                      ErrorMessage: 'Read' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Read,
+                        PropertyPath: Read,
+                        PropertyValue: null
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -71,7 +129,28 @@ public class Tests
             Write = "a"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: Read,
+                      ErrorMessage: 'Read' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Read,
+                        PropertyPath: Read,
+                        PropertyValue: null
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetWithNoNulls
@@ -93,7 +172,16 @@ public class Tests
         var validator = new ExtendedValidator<TargetValueTypes>();
 
         var result = validator.Validate(new TargetValueTypes());
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -108,7 +196,16 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .DontScrubGuids();
+            .DontScrubGuids()
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -118,7 +215,31 @@ public class Tests
 
         var target = new TargetWithDisabled();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -132,7 +253,44 @@ public class Tests
             Nullable = Guid.Empty
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    },
+                    {
+                      PropertyName: Nullable,
+                      ErrorMessage: Nullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Nullable,
+                        PropertyPath: Nullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
 #nullable disable
@@ -164,7 +322,16 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .DontScrubGuids();
+            .DontScrubGuids()
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -174,7 +341,96 @@ public class Tests
 
         var target = new TargetWithDates();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullableDateTime,
+                      ErrorMessage: NotNullableDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date Time,
+                        PropertyPath: NotNullableDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDateTime,
+                      ErrorMessage: NotNullableAllowEmptyDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date Time,
+                        PropertyPath: NotNullableAllowEmptyDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableDateTimeOffset,
+                      ErrorMessage: NotNullableDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date Time Offset,
+                        PropertyPath: NotNullableDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDateTimeOffset,
+                      ErrorMessage: NotNullableAllowEmptyDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date Time Offset,
+                        PropertyPath: NotNullableAllowEmptyDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableDate,
+                      ErrorMessage: NotNullableDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date,
+                        PropertyPath: NotNullableDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDate,
+                      ErrorMessage: NotNullableAllowEmptyDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date,
+                        PropertyPath: NotNullableAllowEmptyDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -198,7 +454,174 @@ public class Tests
             NullableAllowEmptyDate = Date.MinValue
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullableDateTime,
+                      ErrorMessage: NotNullableDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date Time,
+                        PropertyPath: NotNullableDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDateTime,
+                      ErrorMessage: NotNullableAllowEmptyDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date Time,
+                        PropertyPath: NotNullableAllowEmptyDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableDateTime,
+                      ErrorMessage: NullableDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Date Time,
+                        PropertyPath: NullableDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableAllowEmptyDateTime,
+                      ErrorMessage: NullableAllowEmptyDateTime must not be `DateTime.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Allow Empty Date Time,
+                        PropertyPath: NullableAllowEmptyDateTime,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableDateTimeOffset,
+                      ErrorMessage: NotNullableDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date Time Offset,
+                        PropertyPath: NotNullableDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDateTimeOffset,
+                      ErrorMessage: NotNullableAllowEmptyDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date Time Offset,
+                        PropertyPath: NotNullableAllowEmptyDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableDateTimeOffset,
+                      ErrorMessage: NullableDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Date Time Offset,
+                        PropertyPath: NullableDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableAllowEmptyDateTimeOffset,
+                      ErrorMessage: NullableAllowEmptyDateTimeOffset must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Allow Empty Date Time Offset,
+                        PropertyPath: NullableAllowEmptyDateTimeOffset,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableDate,
+                      ErrorMessage: NotNullableDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Date,
+                        PropertyPath: NotNullableDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmptyDate,
+                      ErrorMessage: NotNullableAllowEmptyDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Not Nullable Allow Empty Date,
+                        PropertyPath: NotNullableAllowEmptyDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableDate,
+                      ErrorMessage: NullableDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Date,
+                        PropertyPath: NullableDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    },
+                    {
+                      PropertyName: NullableAllowEmptyDate,
+                      ErrorMessage: NullableAllowEmptyDate must not be `DateOnly.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Nullable Allow Empty Date,
+                        PropertyPath: NullableAllowEmptyDate,
+                        PropertyValue: Date_MinValue
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetWithDates
@@ -243,7 +666,16 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .DontScrubGuids();
+            .DontScrubGuids()
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -253,7 +685,31 @@ public class Tests
 
         var target = new TargetWithGuids();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -269,7 +725,44 @@ public class Tests
             NullableAllowEmpty = Guid.Empty
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: NotNullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    },
+                    {
+                      PropertyName: Nullable,
+                      ErrorMessage: Nullable must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Nullable,
+                        PropertyPath: Nullable,
+                        PropertyValue: Guid_Empty
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetWithGuids
@@ -295,7 +788,16 @@ public class Tests
             Nullable = ["a"]
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -309,7 +811,16 @@ public class Tests
             Nullable = ["a"]
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -319,7 +830,8 @@ public class Tests
 
         var target = new TargetWithLists();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+          .NotInline();
     }
 
     [Test]
@@ -329,7 +841,8 @@ public class Tests
 
         var target = new TargetWithLists();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .NotInline();
     }
 
     [Test]
@@ -343,7 +856,36 @@ public class Tests
             Nullable = []
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: 'Not Nullable' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable
+                      }
+                    },
+                    {
+                      PropertyName: Nullable,
+                      ErrorMessage: 'Nullable' must not be empty.,
+                      ErrorCode: NotEmptyCollectionValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Nullable,
+                        PropertyPath: Nullable
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -357,7 +899,8 @@ public class Tests
             Nullable = []
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .NotInline();
     }
 
     class TargetWithLists
@@ -379,7 +922,16 @@ public class Tests
             NullableAllowEmpty = "a"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -389,7 +941,38 @@ public class Tests
 
         var target = new TargetWithStrings();
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: 'Not Nullable' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: null
+                      }
+                    },
+                    {
+                      PropertyName: NotNullableAllowEmpty,
+                      ErrorMessage: 'Not Nullable Allow Empty' must not be null.,
+                      ErrorCode: NotNullValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Not Nullable Allow Empty,
+                        PropertyPath: NotNullableAllowEmpty,
+                        PropertyValue: null
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -405,7 +988,40 @@ public class Tests
             Nullable = "",
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: 'Not Nullable' must not be empty.,
+                      AttemptedValue: ,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue: 
+                      }
+                    },
+                    {
+                      PropertyName: Nullable,
+                      ErrorMessage: 'Nullable' must not be whitespace.,
+                      AttemptedValue: ,
+                      ErrorCode: NotWhiteSpaceValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Nullable,
+                        PropertyPath: Nullable,
+                        PropertyValue: 
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     [Test]
@@ -421,7 +1037,40 @@ public class Tests
             Nullable = " ",
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: NotNullable,
+                      ErrorMessage: 'Not Nullable' must not be empty.,
+                      AttemptedValue:  ,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Not Nullable,
+                        PropertyPath: NotNullable,
+                        PropertyValue:  
+                      }
+                    },
+                    {
+                      PropertyName: Nullable,
+                      ErrorMessage: 'Nullable' must not be whitespace.,
+                      AttemptedValue:  ,
+                      ErrorCode: NotWhiteSpaceValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Nullable,
+                        PropertyPath: Nullable,
+                        PropertyValue:  
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetWithStrings
@@ -447,7 +1096,42 @@ public class Tests
             Property2 = "123"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: Property1,
+                      ErrorMessage: 'Property1' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Property1,
+                        PropertyPath: Property1,
+                        PropertyValue: null
+                      }
+                    },
+                    {
+                      PropertyName: Property2,
+                      ErrorMessage: The length of 'Property2' must be 2 characters or fewer. You entered 3 characters.,
+                      AttemptedValue: 123,
+                      ErrorCode: MaximumLengthValidator,
+                      FormattedMessagePlaceholderValues: {
+                        MaxLength: 2,
+                        MinLength: 0,
+                        PropertyName: Property2,
+                        PropertyPath: Property2,
+                        PropertyValue: 123,
+                        TotalLength: 3
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetCompoundedValidator :
@@ -484,7 +1168,102 @@ public class Tests
             ValidString = "ab"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: RNString,
+                      ErrorMessage: 'RN String' must not contain new line characters.,
+                      AttemptedValue:
+                ,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: RN String,
+                        PropertyPath: RNString,
+                        PropertyValue:
+
+                      }
+                    },
+                    {
+                      PropertyName: WrappedRNString,
+                      ErrorMessage: 'Wrapped RN String' must not contain new line characters.,
+                      AttemptedValue:
+                a
+                b,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Wrapped RN String,
+                        PropertyPath: WrappedRNString,
+                        PropertyValue:
+                a
+                b
+                      }
+                    },
+                    {
+                      PropertyName: NString,
+                      ErrorMessage: 'N String' must not contain new line characters.,
+                      AttemptedValue:
+                ,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: N String,
+                        PropertyPath: NString,
+                        PropertyValue:
+
+                      }
+                    },
+                    {
+                      PropertyName: WrappedNString,
+                      ErrorMessage: 'Wrapped N String' must not contain new line characters.,
+                      AttemptedValue:
+                a
+                b,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Wrapped N String,
+                        PropertyPath: WrappedNString,
+                        PropertyValue:
+                a
+                b
+                      }
+                    },
+                    {
+                      PropertyName: RString,
+                      ErrorMessage: 'R String' must not contain new line characters.,
+                      AttemptedValue:
+                ,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: R String,
+                        PropertyPath: RString,
+                        PropertyValue:
+
+                      }
+                    },
+                    {
+                      PropertyName: WrappedRString,
+                      ErrorMessage: 'Wrapped R String' must not contain new line characters.,
+                      AttemptedValue:
+                a
+                b,
+                      ErrorCode: NotContainNewlineValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Wrapped R String,
+                        PropertyPath: WrappedRString,
+                        PropertyValue:
+                a
+                b
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     public class TargetWithStringProperties
@@ -530,7 +1309,16 @@ public class Tests
             Nullable = true,
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .Snapshot(
+                """
+                {
+                  IsValid: true,
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     class TargetValueTypes
@@ -550,7 +1338,54 @@ public class Tests
         };
         var result = validator.Validate(target);
         return Verify(result)
-            .ScrubReplace("1/1/0001", "1/01/0001");
+            .ScrubReplace("1/1/0001", "1/01/0001")
+            .Snapshot(
+                """
+                {
+                  IsValid: false,
+                  Errors: [
+                    {
+                      PropertyName: FamilyName,
+                      ErrorMessage: 'Family Name' must not be empty.,
+                      ErrorCode: NotEmptyValidator,
+                      FormattedMessagePlaceholderValues: {
+                        PropertyName: Family Name,
+                        PropertyPath: FamilyName,
+                        PropertyValue: null
+                      }
+                    },
+                    {
+                      PropertyName: Id,
+                      ErrorMessage: Id must not be `Guid.Empty`.,
+                      AttemptedValue: Guid_Empty,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Guid_Empty,
+                        PropertyName: Id,
+                        PropertyPath: Id,
+                        PropertyValue: Guid_Empty
+                      }
+                    },
+                    {
+                      PropertyName: Dob,
+                      ErrorMessage: Dob must not be `DateTimeOffset.MinValue`.,
+                      AttemptedValue: Date_MinValue,
+                      ErrorCode: NotEqualValidator,
+                      FormattedMessagePlaceholderValues: {
+                        ComparisonProperty: ,
+                        ComparisonValue: Date_MinValue,
+                        PropertyName: Dob,
+                        PropertyPath: Dob,
+                        PropertyValue: Date_MinValue
+                      }
+                    }
+                  ],
+                  RuleSetsExecuted: [
+                    default
+                  ]
+                }
+                """);
     }
 
     #region Person

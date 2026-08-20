@@ -22,7 +22,8 @@ public class SharedRuleTests
             Name = "Joe"
         };
         var result = validator.Validate(target);
-        return Verify(result);
+        return Verify(result)
+            .NotInline();
     }
 
     #region SharedRulesModels
