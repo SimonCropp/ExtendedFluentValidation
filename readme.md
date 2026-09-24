@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> ExtendedFluentValidation
 
-[![Build status](https://img.shields.io/appveyor/build/SimonCropp/ExtendedFluentValidation)](https://ci.appveyor.com/project/SimonCropp/ExtendedFluentValidation)
+[![Build status](https://github.com/SimonCropp/ExtendedFluentValidation/actions/workflows/build.yml/badge.svg)](https://github.com/SimonCropp/ExtendedFluentValidation/actions/workflows/build.yml)
 [![NuGet Status](https://img.shields.io/nuget/v/ExtendedFluentValidation.svg)](https://www.nuget.org/packages/ExtendedFluentValidation/)
 
 Extends [FluentValidation](https://fluentvalidation.net/) with some more opinionated rules and extensions.
