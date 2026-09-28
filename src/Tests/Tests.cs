@@ -1,4 +1,5 @@
-﻿[TestFixture]
+﻿namespace ExtendedFluentValidationTests;
+
 public class Tests
 {
     [Test]
@@ -56,15 +57,15 @@ public class Tests
     }
 
     [Test]
-    public Task WithRecord()
+    public async Task WithRecord()
     {
         var validator = new ExtendedValidator<TargetRecord>();
 
         var target = new TargetRecord("Value");
         var result = validator.Validate(target);
         var rules = validator.ToList();
-        ClassicAssert.AreEqual(1, rules.Count);
-        return Verify(result)
+        await Assert.That(rules.Count).IsEqualTo(1);
+        await Verify(result)
             .Snapshot(
                 """
                 {

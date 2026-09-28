@@ -5,17 +5,15 @@
     <NoWarn>$(NoWarn);CS0649;CS8618;CS0105;xUnit1013;xUnit1051</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" />
-    <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Verify.DiffPlex" />
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Verify.NUnit" />
+    <PackageReference Include="Verify.TUnit" />
+    <PackageReference Include="TUnit" />
     <PackageReference Include="Argon" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="EmptyFiles" />
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Verify" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\ExtendedFluentValidation\ExtendedFluentValidation.csproj" />
     <Compile Include="..\Tests\SharedRuleTests.cs" />
