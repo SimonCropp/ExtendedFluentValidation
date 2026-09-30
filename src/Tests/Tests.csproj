@@ -6,7 +6,6 @@
     <RootNamespace>testing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Verify.DiffPlex" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="Verify.TUnit" />
     <PackageReference Include="TUnit" />
