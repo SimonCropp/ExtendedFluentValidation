@@ -4,7 +4,7 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="FluentValidation" Version="12.2.0" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.184" />
     <PackageVersion Include="TUnit" Version="1.73.19" />
